@@ -4,6 +4,7 @@ class MyDrawer extends StatelessWidget {
   final String userName = 'Mikiyas';
   final String countryCode = '+251';
   final String phoneNumber = '941135730';
+  final String profilePictureURL = "assets/avatar_1.png";
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +14,7 @@ class MyDrawer extends StatelessWidget {
         UserAccountsDrawerHeader(
           accountName: Text('$userName'),
           accountEmail: Text('$countryCode $phoneNumber'),
+          currentAccountPicture: Image.asset(profilePictureURL),
         ),
         ListTile(
           leading: Icon(Icons.people),
@@ -29,6 +31,7 @@ class MyDrawer extends StatelessWidget {
           title: Text('New Channel'),
           onTap: () {},
         ),
+        Divider(thickness: 2,),
         ListTile(
           leading: Icon(Icons.contacts),
           title: Text('Contacts'),

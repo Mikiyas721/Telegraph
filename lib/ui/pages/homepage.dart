@@ -17,13 +17,9 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        drawer: MyDrawer(),
         appBar: AppBar(
-          leading: FlatButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyDrawer()));
-              },
-              child: Icon(Icons.dehaze)),
+          /*leading: FlatButton(onPressed: () {}, child: Icon(Icons.dehaze)),*/
           title: Text("$title"),
           actions: <Widget>[
             FlatButton(
@@ -31,7 +27,10 @@ class HomePageState extends State<HomePage> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SearchPage()));
                 },
-                child: Icon(Icons.search))
+                child: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ))
           ],
         ),
         body: ListView(),
@@ -39,7 +38,6 @@ class HomePageState extends State<HomePage> {
           onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ContactsPage()));
-
           },
           child: Icon(Icons.create),
         ),

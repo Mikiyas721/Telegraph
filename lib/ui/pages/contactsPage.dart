@@ -19,11 +19,24 @@ class ContactsPageState extends State<ContactsPage> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Icon(Icons.arrow_back)),
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              )),
           title: Text("$title"),
           actions: <Widget>[
-            FlatButton(onPressed: () {}, child: Icon(Icons.search)),
-            FlatButton(onPressed: () {}, child: Icon(Icons.add))
+            FlatButton(
+                onPressed: () {},
+                child: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                )),
+            FlatButton(
+                onPressed: () {},
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ))
           ],
         ),
         body: ListView(

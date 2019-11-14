@@ -17,12 +17,20 @@ class SearchPageState extends State<SearchPage> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Icon(Icons.arrow_back)),
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              )),
           title: TextField(
             onChanged: (newValue) {},
           ),
           actions: <Widget>[
-            FlatButton(onPressed: () {}, child: Icon(Icons.clear))
+            FlatButton(
+                onPressed: () {},
+                child: Icon(
+                  Icons.clear,
+                  color: Colors.white,
+                ))
           ],
         ),
         body: ListView(),
