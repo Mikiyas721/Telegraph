@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:telegraph/ui/customWidgets/chatListItem.dart';
+import 'package:telegraph/ui/pages/chatWindow.dart';
 import '../pages/searchPage.dart';
 import '../customWidgets/MyDrawer.dart';
 import 'contactsPage.dart';
@@ -37,7 +38,10 @@ class HomePageState extends State<HomePage> {
         body: ListView(
           children: <Widget>[
             ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
+                "Hi,How are you", () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ChatWindow()));
+            }, () {}),
             ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
                 "Hi,How are you", () {}, () {}),
             ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",

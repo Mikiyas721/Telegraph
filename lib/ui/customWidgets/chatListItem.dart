@@ -26,7 +26,7 @@ class ChatListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset('$imageURL'),
+      leading: Image.asset(imageURL),
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
