@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../customWidgets/chatListItem.dart';
 
 class ContactsPage extends StatefulWidget {
   @override
@@ -56,6 +57,44 @@ class ContactsPageState extends State<ContactsPage> {
               title: Text('New Channel'),
               onTap: () {},
             ),
+            Card(
+              margin: EdgeInsets.all(0),
+              child: Padding(
+                child: Text(
+                  "Contacts",
+                ),
+                padding: EdgeInsets.only(left: 10, top: 7, bottom: 7),
+              ),
+              color: Color.fromRGBO(100, 0, 5, 200),
+            ),
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+                "Hi,How are you", () {}, () {}),
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+                "Hi,How are you", () {}, () {}),
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+                "Hi,How are you", () {}, () {}),
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+                "Hi,How are you", () {}, () {}),
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+                "Hi,How are you", () {}, () {}),
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+                "Hi,How are you", () {}, () {}),
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+                "Hi,How are you", () {}, () {}),
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+                "Hi,How are you", () {}, () {}),
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+                "Hi,How are you", () {}, () {}),
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+                "Hi,How are you", () {}, () {}),
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+                "Hi,How are you", () {}, () {}),
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+                "Hi,How are you", () {}, () {}),
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+                "Hi,How are you", () {}, () {}),
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+                "Hi,How are you", () {}, () {}),
           ],
         ),
       ),
