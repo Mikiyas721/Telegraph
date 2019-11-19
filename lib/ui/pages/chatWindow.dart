@@ -1,14 +1,65 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../models/chatType.dart';
 
 class ChatWindow extends StatefulWidget {
+  ChatWindowState chatWindowState;
+
+  ChatWindow(String chatTitle, String imageURL, ChatType chatType,
+      {List<String> menus}) {
+    chatWindowState = ChatWindowState(chatTitle, imageURL, chatType, menus);
+  }
+
   @override
   State<StatefulWidget> createState() {
-    return ChatWindowState();
+    return chatWindowState;
   }
 }
 
 class ChatWindowState extends State<ChatWindow> {
+  final String chatTitle;
+  final String imageURL;
+  final List<String> menuListString;
+  final ChatType chatType;
+
+  ChatWindowState(
+      this.chatTitle, this.imageURL, this.chatType, this.menuListString);
+
+  List<PopupMenuEntry> getMenu() {
+    if (menuListString != null) {
+      List<PopupMenuEntry> menuList = [];
+      for (String menu in menuListString) {
+        menuList.add(new PopupMenuItem(child: Text(menu)));
+      }
+      return menuList;
+    } else if (chatType == ChatType.GROUP) {
+      List<String> menuListString = [
+        'Search',
+        'Clear history',
+        'Delete and leave Group',
+        'Mute Notification'
+      ];
+      List<PopupMenuEntry> menuList = [];
+      for (String menu in menuListString) {
+        menuList.add(new PopupMenuItem(child: Text(menu)));
+      }
+      return menuList;
+    } else if (chatType == ChatType.SINGLE) {
+      List<String> menuListString = [
+        'Call',
+        'Search',
+        'Clear history',
+        'Delete chat',
+        'Mute Notification'
+      ];
+      List<PopupMenuEntry> menuList = [];
+      for (String menu in menuListString) {
+        menuList.add(new PopupMenuItem(child: Text(menu)));
+      }
+      return menuList;
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,13 +74,15 @@ class ChatWindowState extends State<ChatWindow> {
                 color: Colors.white,
               )),
           title: Row(
-            children: <Widget>[Image.asset(''), Text('RAC Solyana Min...')],
+            children: <Widget>[Image.asset(imageURL), Text(chatTitle)],
           ),
           actions: <Widget>[
-            PopupMenuButton(itemBuilder: (context){
-              List<PopupMenuEntry> x = [new PopupMenuItem(child: Text('Search')),new PopupMenuItem(child: Text('Mute Notification'),)];
-              return x;
-                },)
+            PopupMenuButton(
+              onSelected: (selectedValue) {},
+              itemBuilder: (context) {
+                return getMenu();
+              },
+            )
           ],
         ),
         body: Image.asset(''),
