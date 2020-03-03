@@ -23,6 +23,9 @@ class SearchPageState extends State<SearchPage> {
               )),
           title: TextField(
             onChanged: (newValue) {},
+            cursorColor: Colors.white,
+            decoration: InputDecoration.collapsed(
+                hintText: 'Search', hintStyle: TextStyle(color: Color.fromRGBO(255, 255, 255, 1),fontSize: 18,)),
           ),
           actions: <Widget>[
             FlatButton(

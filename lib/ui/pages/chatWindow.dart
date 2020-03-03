@@ -85,7 +85,7 @@ class ChatWindowState extends State<ChatWindow> {
             )
           ],
         ),
-        body: Image.asset(''),
+        body: Card(color: Colors.black12,),
         bottomSheet: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
