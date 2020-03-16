@@ -1,30 +1,33 @@
 class User {
-  String firstName;
+  String _firstName;
   String lastName;
-  String phone;
+  String _phone;
   String profilePictureURL;
+  bool _online;
+  DateTime _lastSeen;
 
-  User({this.firstName, this.lastName, this.phone, this.profilePictureURL});
+  User(this._firstName, this._phone, this._online, this._lastSeen,
+      {this.lastName, this.profilePictureURL});
 
   @override
   String toString() {
     return '''
          User{
-             firstName: $firstName,
+             firstName: $_firstName,
              lastName: $lastName,
-             phone: $phone,
-             profilePictureURL: $profilePictureURL
+             phone: $_phone,
+             profilePictureURL: $profilePictureURL,
+             online: $_online,
+             lastSeen: ${getDateTimeString(_lastSeen)}
          }
     ''';
   }
 
-  String get getUserName => '$firstName $lastName';
+  String get getUserName => '$_firstName $lastName';
 
-  String get getPhoneNumber => '$phone';
+  String get getPhoneNumber => '$_phone';
 
-/* @override
-  int get hashCode {}
-
-  @override
-  bool operator ==(other) {}*/
+  static String getDateTimeString(DateTime dateTime) {
+    return '${dateTime.day} ${dateTime.month} ${dateTime.year}';
+  }
 }
