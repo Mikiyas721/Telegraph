@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:telegraph/ui/pages/settings/settingWindow.dart';
 
 class MyDrawer extends StatelessWidget {
   final String userName = 'Mikiyas';
@@ -31,7 +32,9 @@ class MyDrawer extends StatelessWidget {
           title: Text('New Channel'),
           onTap: () {},
         ),
-        Divider(thickness: 2,),
+        Divider(
+          thickness: 2,
+        ),
         ListTile(
           leading: Icon(Icons.contacts),
           title: Text('Contacts'),
@@ -50,7 +53,10 @@ class MyDrawer extends StatelessWidget {
         ListTile(
           leading: Icon(Icons.settings),
           title: Text('Settings'),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SettingWindow()));
+          },
         ),
         ListTile(
           leading: Icon(Icons.help),

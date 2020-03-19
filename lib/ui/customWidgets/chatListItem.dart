@@ -47,7 +47,7 @@ class ChatListItem extends StatelessWidget {
         children: <Widget>[
           Text("$lastChatString"),
           Divider(
-            thickness: 3,
+            thickness: 2,
           )
         ],
       ),
@@ -55,4 +55,5 @@ class ChatListItem extends StatelessWidget {
       onLongPress: onLongPress,
     );
   }
+  //TODO Widget to give the divider a position at the bottom
 }
