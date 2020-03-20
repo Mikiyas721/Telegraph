@@ -14,46 +14,51 @@ class ChatListItem extends StatelessWidget {
 
   ChatListItem(this.imageURL, this.title, this.hour, this.minute, this.meridian,
       this.lastChatString, this.onTap, this.onLongPress /*,{chatType: type}*/);
-      /*chatType = type;*/
+
+  /*chatType = type;*/
 
   IconData getIcon() {
-    if(chatType == ChatType.BOT) return Icons.border_top;
-    else if(chatType == ChatType.CHANNEL) return Icons.people;
-    else if(chatType == ChatType.GROUP) return Icons.people;
-    else return Icons.person;
+    if (chatType == ChatType.BOT)
+      return Icons.border_top;
+    else if (chatType == ChatType.CHANNEL)
+      return Icons.people;
+    else if (chatType == ChatType.GROUP)
+      return Icons.people;
+    else
+      return Icons.person;
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Image.asset(imageURL),
-      title: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Icon(getIcon()),
-          Text(
-            "$title",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+    return Column(
+      children: <Widget>[
+        ListTile(
+          leading: Image.asset(imageURL),
+          title: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Icon(getIcon()),
+              Text(
+                "$title",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              Spacer(),
+              Text(
+                '$hour :$minute $meridian',
+                style: TextStyle(color: Colors.grey),
+              )
+            ],
           ),
-          Spacer(),
-          Text(
-            '$hour :$minute $meridian',
-            style: TextStyle(color: Colors.grey),
-          )
-        ],
-      ),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text("$lastChatString"),
-          Divider(
-            thickness: 2,
-          )
-        ],
-      ),
-      onTap: onTap,
-      onLongPress: onLongPress,
+          subtitle: Text("$lastChatString"),
+          onTap: onTap,
+          onLongPress: onLongPress,
+        ),
+        Divider(
+          thickness: 2,
+          indent: 70,
+        )
+      ],
     );
   }
-  //TODO Widget to give the divider a position at the bottom
+//TODO Widget to give the divider a position at the bottom
 }
