@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:telegraph/ui/customWidgets/infoDisplay.dart';
 import 'package:telegraph/ui/customWidgets/settingGroupTitle.dart';
+import 'package:telegraph/ui/pages/settings/changePhoneNumber.dart';
+import 'package:telegraph/ui/pages/settings/changeUsername.dart';
 
 class SettingWindow extends StatefulWidget {
   final SettingWindowState settingWindow;
@@ -82,12 +84,18 @@ class SettingWindowState extends State<SettingWindow> {
         InfoDisplay(
           phoneNumber,
           "Phone",
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ChangePhoneNumber()));
+          },
         ),
         Divider(
           thickness: 1,
         ),
-        InfoDisplay(userString, "Username", onTap: () {}),
+        InfoDisplay(userString, "Username", onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ChangeUserName()));
+        }),
         getSettings(),
         getMessages(),
         getSupports()
@@ -121,7 +129,11 @@ class SettingWindowState extends State<SettingWindow> {
 
   Widget getMessages() {
     return Column(children: <Widget>[
-      SettingGroupTitle("Messages", top: 20),
+      SettingGroupTitle(
+        "Messages",
+        top: 20,
+        left: 15,
+      ),
       SwitchListTile(
         onChanged: (bool newValue) {},
         value: false,
@@ -181,14 +193,13 @@ class SettingWindowState extends State<SettingWindow> {
   }
 
   Widget getSupports() {
-    return Column(
-        children: <Widget>[
-          SettingGroupTitle("Supports", top: 20),
-          ListTile(title: Text("Ask a question")),
-          Divider(thickness: 2),
-          ListTile(title: Text("Telegraph FAQ")),
-          Divider(thickness: 2),
-          ListTile(title: Text("Privacy Policy")),
-        ]);
+    return Column(children: <Widget>[
+      SettingGroupTitle("Supports", top: 20),
+      ListTile(title: Text("Ask a question")),
+      Divider(thickness: 2),
+      ListTile(title: Text("Telegraph FAQ")),
+      Divider(thickness: 2),
+      ListTile(title: Text("Privacy Policy")),
+    ]);
   }
 }
