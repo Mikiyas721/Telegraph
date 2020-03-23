@@ -20,7 +20,7 @@ class ChangeUserNameState extends State<ChangeUserName> {
         key: key,
         appBar: AppBar(
           leading: FlatButton(
-            textColor: Colors.white,
+              textColor: Colors.white,
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -28,7 +28,7 @@ class ChangeUserNameState extends State<ChangeUserName> {
           title: Text("UserName"),
           actions: <Widget>[
             FlatButton(
-              textColor: Colors.white,
+                textColor: Colors.white,
                 onPressed: () {
                   // TODO Save the new ChangeUserName
                 },
@@ -37,22 +37,53 @@ class ChangeUserNameState extends State<ChangeUserName> {
         ),
         body: Column(
           children: <Widget>[
-            TextField(),
-            Text(
-                "You can choose a username on Telegraph. If you do, other people will be able to find you by this username and contact you without knowing your phone number."),
-            Text(
-                "You can use a-z, 0-9 and underscores. Minimum length is 5 characters."),
-            Text("This link opens a chat with you on Telegraph: "),
-            GestureDetector(
-              child: Text("https://t.me/$userName",
-                  style: TextStyle(color: Colors.blue)),
-              onTap: () {
-                Clipboard.setData(
-                    new ClipboardData(text: "https://t.me/$userName"));
-                key.currentState.showSnackBar(
-                    new SnackBar(content: new Text("Copied to clipboard")));
-              },
-            )
+            Padding(
+              padding:
+                  EdgeInsets.only(top: 20, right: 20, bottom: 10, left: 20),
+              child: TextField(
+                onChanged: (String newValue) {},
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 0, right: 20, bottom: 10, left: 20),
+              child: Text(
+                "You can choose a username on Telegraph. If you do, other people will be able to find you by this username and contact you without knowing your phone number.",
+                style: TextStyle(fontSize: 16, color: Colors.black54),
+                textAlign: TextAlign.left,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 0, right: 20, bottom: 10, left: 20),
+              child: Text(
+                "You can use a-z, 0-9 and underscores. Minimum length is 5 characters.",
+                style: TextStyle(fontSize: 16, color: Colors.black54),
+                textAlign: TextAlign.left,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 0, right: 20, bottom: 10, left: 20),
+              child: Text(
+                "This link opens a chat with you on Telegraph: ",
+                style: TextStyle(fontSize: 16, color: Colors.black54),
+                textAlign: TextAlign.left,
+              ),
+            ),
+            Padding(
+                padding:
+                    EdgeInsets.only(top: 0, right: 20, bottom: 10, left: 0),
+                child: GestureDetector(
+                  child: Text(
+                    "https://t.me/$userName",
+                    style: TextStyle(color: Colors.blue),
+                    textAlign: TextAlign.left,
+                  ),
+                  onTap: () {
+                    Clipboard.setData(
+                        new ClipboardData(text: "https://t.me/$userName"));
+                    key.currentState.showSnackBar(
+                        new SnackBar(content: new Text("Copied to clipboard")));
+                  },
+                )),
           ],
         ),
       ),
