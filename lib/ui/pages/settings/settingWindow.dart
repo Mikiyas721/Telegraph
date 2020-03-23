@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:telegraph/ui/customWidgets/infoDisplay.dart';
 import 'package:telegraph/ui/customWidgets/settingGroupTitle.dart';
-import 'package:telegraph/ui/pages/settings/changePhoneNumber.dart';
-import 'package:telegraph/ui/pages/settings/changeUsername.dart';
+import 'package:telegraph/ui/pages/settings/info/changePhoneNumber.dart';
+import 'package:telegraph/ui/pages/settings/info/changeUsername.dart';
+import 'package:telegraph/ui/pages/settings/settings/notificationAndSound.dart';
 
 class SettingWindow extends StatefulWidget {
   final SettingWindowState settingWindow;
@@ -21,6 +22,8 @@ class SettingWindowState extends State<SettingWindow> {
   String userString = "@MIKI_YAS";
   String phoneNumber = "+251 941135730";
   bool online = false;
+  bool enableAnimation = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +109,13 @@ class SettingWindowState extends State<SettingWindow> {
   Widget getSettings() {
     return Column(children: <Widget>[
       SettingGroupTitle("Settings", top: 20, left: 15),
-      ListTile(title: Text("Notification and Sounds")),
+      ListTile(
+        title: Text("Notification and Sounds"),
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (BuildContext context) => NotificationAndSounds()));
+        },
+      ),
       Divider(thickness: 1),
       ListTile(title: Text("Privacy and Security")),
       Divider(thickness: 1),
@@ -121,8 +130,12 @@ class SettingWindowState extends State<SettingWindow> {
         thickness: 1,
       ),
       SwitchListTile(
-          onChanged: (bool newValue) {},
-          value: false,
+          onChanged: (bool newValue) {
+            setState(() {
+              enableAnimation = !enableAnimation;
+            });
+          },
+          value: enableAnimation,
           title: Text("Enable Amimation"))
     ]);
   }
@@ -196,9 +209,9 @@ class SettingWindowState extends State<SettingWindow> {
     return Column(children: <Widget>[
       SettingGroupTitle("Supports", top: 20),
       ListTile(title: Text("Ask a question")),
-      Divider(thickness: 2),
+      Divider(thickness: 1),
       ListTile(title: Text("Telegraph FAQ")),
-      Divider(thickness: 2),
+      Divider(thickness: 1),
       ListTile(title: Text("Privacy Policy")),
     ]);
   }
