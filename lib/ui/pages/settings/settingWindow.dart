@@ -3,7 +3,10 @@ import 'package:telegraph/ui/customWidgets/infoDisplay.dart';
 import 'package:telegraph/ui/customWidgets/settingGroupTitle.dart';
 import 'package:telegraph/ui/pages/settings/info/changePhoneNumber.dart';
 import 'package:telegraph/ui/pages/settings/info/changeUsername.dart';
+import 'package:telegraph/ui/pages/settings/settings/chatBackground.dart';
+import 'package:telegraph/ui/pages/settings/settings/languages.dart';
 import 'package:telegraph/ui/pages/settings/settings/notificationAndSound.dart';
+import 'package:telegraph/ui/pages/settings/settings/theme.dart';
 
 class SettingWindow extends StatefulWidget {
   final SettingWindowState settingWindow;
@@ -23,7 +26,6 @@ class SettingWindowState extends State<SettingWindow> {
   String phoneNumber = "+251 941135730";
   bool online = false;
   bool enableAnimation = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -107,112 +109,143 @@ class SettingWindowState extends State<SettingWindow> {
   }
 
   Widget getSettings() {
-    return Column(children: <Widget>[
-      SettingGroupTitle("Settings", top: 20, left: 15),
-      ListTile(
-        title: Text("Notification and Sounds"),
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (BuildContext context) => NotificationAndSounds()));
-        },
-      ),
-      Divider(thickness: 1),
-      ListTile(title: Text("Privacy and Security")),
-      Divider(thickness: 1),
-      ListTile(title: Text("Data and Storage")),
-      Divider(thickness: 1),
-      ListTile(title: Text("Chat Background")),
-      Divider(thickness: 1),
-      ListTile(title: Text("Theme")),
-      Divider(thickness: 1),
-      ListTile(title: Text("Language")),
-      Divider(
-        thickness: 1,
-      ),
-      SwitchListTile(
-          onChanged: (bool newValue) {
-            setState(() {
-              enableAnimation = !enableAnimation;
-            });
-          },
-          value: enableAnimation,
-          title: Text("Enable Amimation"))
-    ]);
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SettingGroupTitle("Settings", top: 20, left: 15),
+          ListTile(
+            title: Text("Notification and Sounds"),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          NotificationAndSounds()));
+            },
+          ),
+          Divider(thickness: 1),
+          ListTile(title: Text("Privacy and Security")),
+          Divider(thickness: 1),
+          ListTile(title: Text("Data and Storage")),
+          Divider(thickness: 1),
+          ListTile(
+            title: Text("Chat Background"),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ChatBackground()));
+            },
+          ),
+          Divider(thickness: 1),
+          ListTile(
+            title: Text("Theme"),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => MyTheme()));
+            },
+          ),
+          Divider(thickness: 1),
+          ListTile(
+            title: Text("Language"),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Languages()));
+            },
+          ),
+          Divider(
+            thickness: 1,
+          ),
+          SwitchListTile(
+              onChanged: (bool newValue) {
+                setState(() {
+                  enableAnimation = !enableAnimation;
+                });
+              },
+              value: enableAnimation,
+              title: Text("Enable Amimation"))
+        ]);
   }
 
   Widget getMessages() {
-    return Column(children: <Widget>[
-      SettingGroupTitle(
-        "Messages",
-        top: 20,
-        left: 15,
-      ),
-      SwitchListTile(
-        onChanged: (bool newValue) {},
-        value: false,
-        title: Text("In-App Browser"),
-        subtitle: Text(
-          "Open External links with in app",
-          style: TextStyle(color: Colors.grey),
-        ),
-      ),
-      Divider(thickness: 1),
-      SwitchListTile(
-        onChanged: (bool newValue) {},
-        value: false,
-        title: Text("Direct Share"),
-        subtitle: Text(
-          "Show recent chats in share menu",
-          style: TextStyle(color: Colors.grey),
-        ),
-      ),
-      Divider(thickness: 1),
-      ListTile(
-        title: Text("Stickers"),
-      ),
-      Divider(thickness: 1),
-      ListTile(
-        title: Text("Message Text Size"),
-        trailing: Text(
-          "16",
-          style: TextStyle(color: Colors.blue),
-        ),
-      ),
-      Divider(thickness: 1),
-      SwitchListTile(
-        onChanged: (bool newValue) {},
-        value: false,
-        title: Text("Raise to Speak"),
-      ),
-      Divider(thickness: 1),
-      SwitchListTile(
-        onChanged: (bool newValue) {},
-        value: false,
-        title: Text("Send by Enter"),
-      ),
-      Divider(thickness: 1),
-      SwitchListTile(
-        onChanged: (bool newValue) {},
-        value: false,
-        title: Text("Autoplay GIFs"),
-      ),
-      Divider(thickness: 1),
-      SwitchListTile(
-        onChanged: (bool newValue) {},
-        value: false,
-        title: Text("Save to Gallery"),
-      ),
-    ]);
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SettingGroupTitle(
+            "Messages",
+            top: 20,
+            left: 15,
+          ),
+          SwitchListTile(
+            onChanged: (bool newValue) {},
+            value: false,
+            title: Text("In-App Browser"),
+            subtitle: Text(
+              "Open External links with in app",
+              style: TextStyle(color: Colors.grey),
+            ),
+          ),
+          Divider(thickness: 1),
+          SwitchListTile(
+            onChanged: (bool newValue) {},
+            value: false,
+            title: Text("Direct Share"),
+            subtitle: Text(
+              "Show recent chats in share menu",
+              style: TextStyle(color: Colors.grey),
+            ),
+          ),
+          Divider(thickness: 1),
+          ListTile(
+            title: Text("Stickers"),
+          ),
+          Divider(thickness: 1),
+          ListTile(
+            title: Text("Message Text Size"),
+            trailing: Text(
+              "16",
+              style: TextStyle(color: Colors.blue),
+            ),
+          ),
+          Divider(thickness: 1),
+          SwitchListTile(
+            onChanged: (bool newValue) {},
+            value: false,
+            title: Text("Raise to Speak"),
+          ),
+          Divider(thickness: 1),
+          SwitchListTile(
+            onChanged: (bool newValue) {},
+            value: false,
+            title: Text("Send by Enter"),
+          ),
+          Divider(thickness: 1),
+          SwitchListTile(
+            onChanged: (bool newValue) {},
+            value: false,
+            title: Text("Autoplay GIFs"),
+          ),
+          Divider(thickness: 1),
+          SwitchListTile(
+            onChanged: (bool newValue) {},
+            value: false,
+            title: Text("Save to Gallery"),
+          ),
+        ]);
   }
 
   Widget getSupports() {
-    return Column(children: <Widget>[
-      SettingGroupTitle("Supports", top: 20),
-      ListTile(title: Text("Ask a question")),
-      Divider(thickness: 1),
-      ListTile(title: Text("Telegraph FAQ")),
-      Divider(thickness: 1),
-      ListTile(title: Text("Privacy Policy")),
-    ]);
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SettingGroupTitle(
+            "Supports",
+            top: 20,
+            left: 15,
+          ),
+          ListTile(title: Text("Ask a question")),
+          Divider(thickness: 1),
+          ListTile(title: Text("Telegraph FAQ")),
+          Divider(thickness: 1),
+          ListTile(title: Text("Privacy Policy")),
+        ]);
   }
 }

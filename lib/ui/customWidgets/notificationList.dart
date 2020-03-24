@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:telegraph/ui/customWidgets/dialogMenu.dart';
 
 class NotificationList extends StatelessWidget {
   @override
@@ -29,7 +30,17 @@ class NotificationList extends StatelessWidget {
             "Default",
             style: TextStyle(color: Colors.blue, fontSize: 16),
           ),
-          onTap: () {},
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => DialogMenu("Vibrate", [
+                      "Disabled",
+                      "Default",
+                      "Short",
+                      "Long",
+                      "Only if silent"
+                    ]));
+          },
         ),
         ListTile(
           title: Text("Popup Notifications"),
@@ -37,7 +48,16 @@ class NotificationList extends StatelessWidget {
             "No popup",
             style: TextStyle(color: Colors.blue, fontSize: 16),
           ),
-          onTap: () {},
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => DialogMenu("Popup Notifications", [
+                  "No popup",
+                  'Only when screen "on"',
+                  'Only when screen "off"',
+                  "Always show popup"
+                ]));
+          },
         ),
         ListTile(
           title: Text("Sound"),
@@ -45,7 +65,16 @@ class NotificationList extends StatelessWidget {
             "Default",
             style: TextStyle(color: Colors.blue, fontSize: 16),
           ),
-          onTap: () {},
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => DialogMenu("Sound", [
+                  "No popup",//TODO access the device ringtones
+                  'Only when screen "on"',
+                  'Only when screen "off"',
+                  "Always show popup"
+                ]));
+          },
         ),
         ListTile(
           title: Text("Priority"),
@@ -53,7 +82,15 @@ class NotificationList extends StatelessWidget {
             "High",
             style: TextStyle(color: Colors.blue, fontSize: 16),
           ),
-          onTap: () {},
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => DialogMenu("Priority", [
+                  "Default",
+                  'High',
+                  "Max"
+                ]));
+          },
         ),
       ],
     );
