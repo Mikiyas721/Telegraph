@@ -20,7 +20,7 @@ class SettingWindow extends StatefulWidget {
 }
 
 class SettingWindowState extends State<SettingWindow> {
-  String imageURL = "";
+  String imageURL = "assets/avatar_1.png";
   String userName = "Miki";
   String userString = "@MIKI_YAS";
   String phoneNumber = "+251 941135730";
@@ -42,8 +42,6 @@ class SettingWindowState extends State<SettingWindow> {
             title: ListTile(
               leading: Image.asset(
                 imageURL,
-                width: 5,
-                height: 5,
               ),
               title: Align(
                 child: Text(

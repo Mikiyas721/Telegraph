@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import '../../models/chatType.dart';
 
 class ChatWindow extends StatefulWidget {
-  ChatWindowState chatWindowState;
+  final ChatWindowState chatWindowState;
 
   ChatWindow(String chatTitle, String imageURL, ChatType chatType,
-      {List<String> menus}) {
-    chatWindowState = ChatWindowState(chatTitle, imageURL, chatType, menus);
-  }
+      {List<String> menus})
+      : chatWindowState = ChatWindowState(chatTitle, imageURL, chatType, menus);
 
   @override
   State<StatefulWidget> createState() {
@@ -74,7 +73,13 @@ class ChatWindowState extends State<ChatWindow> {
                 color: Colors.white,
               )),
           title: Row(
-            children: <Widget>[Image.asset(imageURL), Text(chatTitle)],
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(right: 10, top: 7, bottom: 7),
+                child: Image.asset(imageURL),
+              ),
+              Text(chatTitle)
+            ],
           ),
           actions: <Widget>[
             PopupMenuButton(
@@ -85,7 +90,9 @@ class ChatWindowState extends State<ChatWindow> {
             )
           ],
         ),
-        body: Card(color: Colors.black12,),
+        body: Card(
+          color: Colors.black12,
+        ),
         bottomSheet: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

@@ -22,17 +22,26 @@ class DialogMenuState extends State<DialogMenu> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      contentPadding: EdgeInsets.only(top: 5),
       title: Text(
         title,
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
       backgroundColor: Colors.white,
-      content: ListView(
-        children: getContentChildren(),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListView(
+            shrinkWrap: true,
+            children: getContentChildren(),
+          ),
+        ],
       ),
       actions: <Widget>[
         FlatButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             child: Text(
               "Cancel",
               style: TextStyle(color: Colors.blue),
@@ -42,11 +51,15 @@ class DialogMenuState extends State<DialogMenu> {
   }
 
   List<Widget> getContentChildren() {
-    List<Widget> menuWidgets;
+    List<Widget> menuWidgets = List<Widget>();
     for (String menu in menus) {
-      menuWidgets.add(Radio(
-          value: menu,
-          groupValue: menu,
+      menuWidgets.add(RadioListTile(
+          dense: true,
+          title: Text(
+            menu,
+            style: TextStyle(fontSize: 16),
+          ),
+          value: "XYZ",
           onChanged: (String selectedValue) {
             setState(() {
               this.selectedValue = selectedValue;

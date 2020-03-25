@@ -38,13 +38,13 @@ class HomePageState extends State<HomePage> {
         ),
         body: ListView(
           children: <Widget>[
-            ChatListItem("../../assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
                 "Hi,How are you", () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => ChatWindow("Rotractors",
-                          "../../assets/avatar_1.png", ChatType.GROUP)));
+                          "assets/avatar_1.png", ChatType.GROUP)));
             }, () {}),
             ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
                 "Hi,How are you", () {}, () {}),

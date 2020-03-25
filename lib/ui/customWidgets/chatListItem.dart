@@ -33,14 +33,18 @@ class ChatListItem extends StatelessWidget {
     return Column(
       children: <Widget>[
         ListTile(
+          dense: true,
           leading: Image.asset(imageURL),
           title: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Icon(getIcon()),
-              Text(
-                "$title",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              Padding(
+                child: Text(
+                  "$title",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                padding: EdgeInsets.only(left: 7,bottom: 5),
               ),
               Spacer(),
               Text(
@@ -49,7 +53,10 @@ class ChatListItem extends StatelessWidget {
               )
             ],
           ),
-          subtitle: Text("$lastChatString"),
+          subtitle: Text(
+            "$lastChatString",
+            style: TextStyle(fontSize: 13),
+          ),
           onTap: onTap,
           onLongPress: onLongPress,
         ),

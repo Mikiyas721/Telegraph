@@ -10,10 +10,11 @@ class InfoDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      dense: true,
       onTap: onTap,
       title: Text(
         title,
-        style: TextStyle(fontSize: 17),
+        style: TextStyle(fontSize: 16),
       ),
       subtitle: Text(
         subTitle,
