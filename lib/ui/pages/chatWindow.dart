@@ -90,8 +90,24 @@ class ChatWindowState extends State<ChatWindow> {
             )
           ],
         ),
-        body: Card(
-          color: Colors.black12,
+        body: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/chatBackground_8.jpeg"),
+                  fit: BoxFit.cover)),
+          child: ListView(
+            reverse: true,
+            children: <Widget>[
+              Card(
+                color: Colors.white,
+                child: Text("asdfghjklasdiuytqwer"),
+              ),
+              Card(
+                color: Colors.white,
+                child: Text("asdfghjklasdiuytqwer"),
+              ),
+            ],
+          ),
         ),
         bottomSheet: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,13 +116,16 @@ class ChatWindowState extends State<ChatWindow> {
               child: Icon(Icons.sentiment_very_satisfied),
               onTap: () {},
             ),
-            /*TextField(
-              onChanged: (newValue){},
-              onTap: () {},
-              decoration: InputDecoration(
+            TextField(
+              onChanged: (newValue) {},
+              cursorColor: Colors.white,
+              decoration: InputDecoration.collapsed(
                   hintText: 'Message',
-                  hintStyle: TextStyle(color: Colors.grey)),
-            ),*/
+                  hintStyle: TextStyle(
+                    color: Color.fromRGBO(255, 255, 255, 1),
+                    fontSize: 18,
+                  )),
+            ),
             GestureDetector(
               child: Icon(Icons.attach_file),
               onTap: () {},

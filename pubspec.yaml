@@ -44,6 +44,14 @@ flutter:
   assets:
     - assets/item_type_food.png
     - assets/avatar_1.png
+    - assets/chatBackground_1.jpeg
+    - assets/chatBackground_2.png
+    - assets/chatBackground_3.jpeg
+    - assets/chatBackground_4.jpeg
+    - assets/chatBackground_5.jpeg
+    - assets/chatBackground_6.jpeg
+    - assets/chatBackground_7.jpeg
+    - assets/chatBackground_8.jpeg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
