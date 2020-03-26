@@ -42,7 +42,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/item_type_food.png
     - assets/avatar_1.png
     - assets/chatBackground_1.jpeg
     - assets/chatBackground_2.png
