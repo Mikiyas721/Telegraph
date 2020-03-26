@@ -67,9 +67,9 @@ class ChatBackgroundState extends State<ChatBackground> {
     List<Padding> images = List<Padding>();
     for (String url in imagesUrl) {
       images.add(Padding(
-        padding: EdgeInsets.all(5),
+        /*padding: EdgeInsets.all(5),*/
         child: GestureDetector(
-          child: Image.asset(url,width: 40,),
+          child: Image.asset(url,width: 50,),
           onTap: () {
             setState(() {
               selectedImageUrl = url;

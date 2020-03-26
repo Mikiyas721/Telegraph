@@ -4,8 +4,10 @@ import 'package:telegraph/ui/customWidgets/settingGroupTitle.dart';
 import 'package:telegraph/ui/pages/settings/info/changePhoneNumber.dart';
 import 'package:telegraph/ui/pages/settings/info/changeUsername.dart';
 import 'package:telegraph/ui/pages/settings/settings/chatBackground.dart';
+import 'package:telegraph/ui/pages/settings/settings/dataAndStorage.dart';
 import 'package:telegraph/ui/pages/settings/settings/languages.dart';
 import 'package:telegraph/ui/pages/settings/settings/notificationAndSound.dart';
+import 'package:telegraph/ui/pages/settings/settings/privacyAndSecurity/privacyAndSecurity.dart';
 import 'package:telegraph/ui/pages/settings/settings/theme.dart';
 
 class SettingWindow extends StatefulWidget {
@@ -122,9 +124,25 @@ class SettingWindowState extends State<SettingWindow> {
             },
           ),
           Divider(thickness: 1),
-          ListTile(title: Text("Privacy and Security")),
+          ListTile(
+            title: Text("Privacy and Security"),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => PrivacyAndSecurity()));
+            },
+          ),
           Divider(thickness: 1),
-          ListTile(title: Text("Data and Storage")),
+          ListTile(
+            title: Text("Data and Storage"),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => DataAndStorage()));
+            },
+          ),
           Divider(thickness: 1),
           ListTile(
             title: Text("Chat Background"),
