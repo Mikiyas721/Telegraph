@@ -53,30 +53,37 @@ class ChatBackgroundState extends State<ChatBackground> {
                     image: AssetImage(selectedImageUrl), fit: BoxFit.cover)),
           ),
           bottomSheet: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(selectedImageUrl), fit: BoxFit.cover)),
-            height: 100,
-            child: ListView(
-                scrollDirection: Axis.horizontal, children: getImages()),
-          )),
+              padding: EdgeInsets.only(bottom: 5),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(selectedImageUrl), fit: BoxFit.cover)),
+              height: 100,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  ListView(
+                      scrollDirection: Axis.horizontal, children: getImages()),
+                ],
+              ))),
     );
   }
 
   List<Widget> getImages() {
-    List<Padding> images = List<Padding>();
+    List<GestureDetector> images = List<GestureDetector>();
     for (String url in imagesUrl) {
-      images.add(Padding(
-        /*padding: EdgeInsets.all(5),*/
-        child: GestureDetector(
-          child: Image.asset(url,width: 50,),
+      images.add(
+        GestureDetector(
+          child: Image.asset(
+            url,
+            width: 50,
+          ),
           onTap: () {
             setState(() {
               selectedImageUrl = url;
             });
           },
         ),
-      ));
+      );
     }
     return images;
   }

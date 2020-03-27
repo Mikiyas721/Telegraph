@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:telegraph/ui/pages/news/channelDescription.dart';
+import 'package:telegraph/ui/pages/news/newGroup.dart';
 import 'package:telegraph/ui/pages/settings/settingWindow.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -14,12 +16,19 @@ class MyDrawer extends StatelessWidget {
       children: <Widget>[
         UserAccountsDrawerHeader(
           otherAccountsPictures: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.cloud,
-                  color: Colors.white,
+            Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.blueAccent,
                 ),
-                onPressed: () {})
+                child: IconButton(
+                    icon: Icon(
+                      Icons.cloud,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {}))
           ],
           accountName: Text('$userName'),
           accountEmail: Text('$countryCode $phoneNumber'),
@@ -28,17 +37,34 @@ class MyDrawer extends StatelessWidget {
         ListTile(
           leading: Icon(Icons.people),
           title: Text('New Group'),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        NewGroupAndSecretChat("New Group")));
+          },
         ),
         ListTile(
           leading: Icon(Icons.lock),
           title: Text('New Secret Chat'),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        NewGroupAndSecretChat("New Secret Chat")));
+          },
         ),
         ListTile(
           leading: Icon(Icons.volume_up),
           title: Text('New Channel'),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => ChannelDescription()));
+          },
         ),
         Divider(
           thickness: 2,

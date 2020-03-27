@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:telegraph/ui/pages/news/channelDescription.dart';
 import '../customWidgets/chatListItem.dart';
+import 'news/newGroup.dart';
 
 class ContactsPage extends StatefulWidget {
   @override
@@ -45,17 +47,35 @@ class ContactsPageState extends State<ContactsPage> {
             ListTile(
               leading: Icon(Icons.people),
               title: Text('New Group'),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            NewGroupAndSecretChat("New Group")));
+              },
             ),
             ListTile(
               leading: Icon(Icons.lock),
               title: Text('New Secret Chat'),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            NewGroupAndSecretChat("New Secret Chat")));
+              },
             ),
             ListTile(
               leading: Icon(Icons.volume_up),
               title: Text('New Channel'),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            ChannelDescription()));
+              },
             ),
             Card(
               margin: EdgeInsets.all(0),
@@ -67,37 +87,21 @@ class ContactsPageState extends State<ContactsPage> {
               ),
               color: Color.fromRGBO(250, 0, 0, 230),
             ),
-            ChatListItem('assets/avatar_1.png', "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
+            Column(
+              children: getPlaceHolderContacts(),
+            )
           ],
         ),
       ),
     );
   }
+}
+
+List<Widget> getPlaceHolderContacts() {
+  List<Widget> widgets = List<Widget>();
+  for (int i = 0; i < 20; i++) {
+    widgets.add(ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
+        "Hi,How are you", () {}, () {}));
+  }
+  return widgets;
 }

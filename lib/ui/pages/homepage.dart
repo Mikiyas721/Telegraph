@@ -44,41 +44,12 @@ class HomePageState extends State<HomePage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => DashChat(
-                            user: ChatUser(name: "Miki"),
-                            messages: [
-                              ChatMessage(
-                                  text: "Sup", user: ChatUser(name: "Mikiyas"))
-                            ],
-                            onSend: (ChatMessage chat) {},
-                          )));
+                      builder: (context) => ChatWindow(
+                          "Kebede", "assets/avatar_1.png", ChatType.SINGLE)));
             }, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {}, () {}),
+            Column(
+              children: getPlaceHolderContacts(),
+            )
           ],
         ),
         floatingActionButton: FloatingActionButton(

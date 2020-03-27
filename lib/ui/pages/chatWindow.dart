@@ -1,5 +1,5 @@
+import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/customWidgets/messageDisplay.dart';
 import '../../models/chatType.dart';
 
 class ChatWindow extends StatefulWidget {
@@ -64,78 +64,121 @@ class ChatWindowState extends State<ChatWindow> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
+          appBar: AppBar(
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                )),
+            title: Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(right: 10, top: 7, bottom: 7),
+                  child: Image.asset(imageURL),
+                ),
+                Text(chatTitle)
+              ],
+            ),
+            actions: <Widget>[
+              PopupMenuButton(
+                onSelected: (selectedValue) {},
+                itemBuilder: (context) {
+                  return getMenu();
+                },
+              )
+            ],
+          ),
+          body: DashChat(
+              onLongPressMessage: (ChatMessage chatMessage) {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) =>
+                        getMessageDialog(context));
               },
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              )),
-          title: Row(
+              messages: [
+                ChatMessage(text: "Testing", user: ChatUser(name: "Mikiyas"))
+              ],
+              user: ChatUser(name: "Mikiyas"),
+              onSend: (ChatMessage chatMessage) {})),
+    );
+  }
+
+  Widget getMessageDialog(BuildContext context) {
+    return AlertDialog(
+      contentPadding: EdgeInsets.only(top: 10,bottom: 10),
+      title: Text(
+        "Message",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListView(
+
+            shrinkWrap: true,
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(right: 10, top: 7, bottom: 7),
-                child: Image.asset(imageURL),
+              ListTile(
+                dense: true,
+                leading: Icon(Icons.subdirectory_arrow_left),
+                title: Text("Reply",style: TextStyle(fontSize: 16),),
+                onTap: () {
+                  Navigator.pop(context);
+                },
               ),
-              Text(chatTitle)
+              ListTile(
+                dense: true,
+                leading: Icon(Icons.content_copy),
+                title: Text("Copy",style: TextStyle(fontSize: 16),),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                dense: true,
+                leading: Icon(Icons.subdirectory_arrow_right),
+                title: Text("Forward",style: TextStyle(fontSize: 16),),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                dense: true,
+                leading: Icon(Icons.subdirectory_arrow_right),
+                title: Text("Forward without quoting",style: TextStyle(fontSize: 16),),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                dense: true,
+                leading: Icon(Icons.edit),
+                title: Text("Edit",style: TextStyle(fontSize: 16),),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                dense: true,
+                leading: Icon(Icons.delete),
+                title: Text("Delete",style: TextStyle(fontSize: 16),),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                dense: true,
+                leading: Icon(Icons.cloud_upload),
+                title: Text("Save to my cloud",style: TextStyle(fontSize: 16),),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
             ],
           ),
-          actions: <Widget>[
-            PopupMenuButton(
-              onSelected: (selectedValue) {},
-              itemBuilder: (context) {
-                return getMenu();
-              },
-            )
-          ],
-        ),
-        body: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/chatBackground_8.jpeg"),
-                  fit: BoxFit.cover)),
-          child: ListView(
-            reverse: true,
-            children: <Widget>[
-              MessageDisplay("Testing123", "04:56"),
-              MessageDisplay(
-                  "Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123Testing123Testing123",
-                  "04:56"),
-              MessageDisplay("Testing123", "04:56"),
-              MessageDisplay("Testing123", "04:56"),
-              MessageDisplay("Testing123", "04:56")
-            ],
-          ),
-        ),
-        bottomSheet: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            GestureDetector(
-              child: Icon(Icons.sentiment_very_satisfied),
-              onTap: () {},
-            ),
-            TextField(
-              onChanged: (newValue) {},
-              cursorColor: Colors.white,
-              decoration: InputDecoration.collapsed(
-                  hintText: 'Message',
-                  hintStyle: TextStyle(
-                    color: Color.fromRGBO(255, 255, 255, 1),
-                    fontSize: 18,
-                  )),
-            ),
-            GestureDetector(
-              child: Icon(Icons.attach_file),
-              onTap: () {},
-            ),
-            GestureDetector(
-              child: Icon(Icons.keyboard_voice),
-              onTap: () {},
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }
