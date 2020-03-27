@@ -13,6 +13,14 @@ class MyDrawer extends StatelessWidget {
         child: ListView(
       children: <Widget>[
         UserAccountsDrawerHeader(
+          otherAccountsPictures: <Widget>[
+            IconButton(
+                icon: Icon(
+                  Icons.cloud,
+                  color: Colors.white,
+                ),
+                onPressed: () {})
+          ],
           accountName: Text('$userName'),
           accountEmail: Text('$countryCode $phoneNumber'),
           currentAccountPicture: Image.asset(profilePictureURL),

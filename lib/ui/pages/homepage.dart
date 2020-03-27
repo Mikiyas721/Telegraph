@@ -1,3 +1,4 @@
+import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
 import '../../models/chatType.dart';
 import '../customWidgets/chatListItem.dart';
@@ -43,8 +44,14 @@ class HomePageState extends State<HomePage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ChatWindow("Rotractors",
-                          "assets/avatar_1.png", ChatType.GROUP)));
+                      builder: (context) => DashChat(
+                            user: ChatUser(name: "Miki"),
+                            messages: [
+                              ChatMessage(
+                                  text: "Sup", user: ChatUser(name: "Mikiyas"))
+                            ],
+                            onSend: (ChatMessage chat) {},
+                          )));
             }, () {}),
             ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
                 "Hi,How are you", () {}, () {}),

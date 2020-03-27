@@ -65,37 +65,43 @@ class DataAndStorage extends StatelessWidget {
     return Column(
       children: <Widget>[
         CheckboxListTile(
+          dense: true,
           title: Text("Photos"),
           value: false,
           onChanged: (bool newValue) {},
         ),
         CheckboxListTile(
+          dense: true,
           title: Text("Video Messages"),
           value: false,
           onChanged: (bool newValue) {},
         ),
         CheckboxListTile(
+          dense: true,
           title: Text("Videos"),
           value: false,
           onChanged: (bool newValue) {},
         ),
         CheckboxListTile(
+          dense: true,
           title: Text("Files"),
           value: false,
           onChanged: (bool newValue) {},
         ),
         CheckboxListTile(
+          dense: true,
           title: Text("Music"),
           value: false,
           onChanged: (bool newValue) {},
         ),
         CheckboxListTile(
+          dense: true,
           title: Text("GIFs"),
           value: false,
           onChanged: (bool newValue) {},
         ),
-        FlatButton(
-            onPressed: () {},
+        GestureDetector(
+            onTap: () {},
             child: Text(
               "SAVE",
               style: TextStyle(color: Colors.blue),

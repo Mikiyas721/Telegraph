@@ -34,7 +34,12 @@ class ChatListItem extends StatelessWidget {
       children: <Widget>[
         ListTile(
           dense: true,
-          leading: Image.asset(imageURL),
+          leading: Container(
+            child: Image.asset(imageURL),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+          ),
           title: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -44,7 +49,7 @@ class ChatListItem extends StatelessWidget {
                   "$title",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                padding: EdgeInsets.only(left: 7,bottom: 5),
+                padding: EdgeInsets.only(left: 7, bottom: 5),
               ),
               Spacer(),
               Text(

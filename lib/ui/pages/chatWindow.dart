@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:telegraph/ui/customWidgets/messageDisplay.dart';
 import '../../models/chatType.dart';
 
 class ChatWindow extends StatefulWidget {
@@ -98,14 +99,13 @@ class ChatWindowState extends State<ChatWindow> {
           child: ListView(
             reverse: true,
             children: <Widget>[
-              Card(
-                color: Colors.white,
-                child: Text("asdfghjklasdiuytqwer"),
-              ),
-              Card(
-                color: Colors.white,
-                child: Text("asdfghjklasdiuytqwer"),
-              ),
+              MessageDisplay("Testing123", "04:56"),
+              MessageDisplay(
+                  "Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123 Testing123Testing123Testing123",
+                  "04:56"),
+              MessageDisplay("Testing123", "04:56"),
+              MessageDisplay("Testing123", "04:56"),
+              MessageDisplay("Testing123", "04:56")
             ],
           ),
         ),
