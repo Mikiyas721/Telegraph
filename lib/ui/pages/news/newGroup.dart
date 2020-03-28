@@ -43,7 +43,7 @@ class NewGroupAndSecretChat extends StatelessWidget {
                   hintStyle: TextStyle(color: Colors.grey)),
             ),
             Column(
-              children: getPlaceHolderContacts(),
+              children: getPlaceHolderContacts(context),
             )
           ],
         ),

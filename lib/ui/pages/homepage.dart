@@ -1,8 +1,4 @@
-import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
-import '../../models/chatType.dart';
-import '../customWidgets/chatListItem.dart';
-import '../pages/chatWindow.dart';
 import '../pages/searchPage.dart';
 import '../customWidgets/MyDrawer.dart';
 import 'contactsPage.dart';
@@ -20,6 +16,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title:"Home Page",
       home: Scaffold(
         drawer: MyDrawer(),
         appBar: AppBar(
@@ -38,20 +35,9 @@ class HomePageState extends State<HomePage> {
           ],
         ),
         body: ListView(
-          children: <Widget>[
-            ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-                "Hi,How are you", () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChatWindow(
-                          "Kebede", "assets/avatar_1.png", ChatType.SINGLE)));
-            }, () {}),
-            Column(
-              children: getPlaceHolderContacts(),
-            )
-          ],
-        ),
+            children: ListTile.divideTiles(
+                    context: context, tiles: getPlaceHolderContacts(context))
+                .toList()),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(context,

@@ -65,12 +65,50 @@ class ChatListItem extends StatelessWidget {
           onTap: onTap,
           onLongPress: onLongPress,
         ),
-        Divider(
-          thickness: 2,
-          indent: 70,
-        )
       ],
     );
   }
+
 //TODO Widget to give the divider a position at the bottom
+
+  /*@override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+        itemBuilder: (context, index) => ListTile(
+              dense: true,
+              leading: Container(
+                child: Image.asset(imageURL),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+              ),
+              title: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Icon(getIcon()),
+                  Padding(
+                    child: Text(
+                      "$title",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    padding: EdgeInsets.only(left: 7, bottom: 5),
+                  ),
+                  Spacer(),
+                  Text(
+                    '$hour :$minute $meridian',
+                    style: TextStyle(color: Colors.grey),
+                  )
+                ],
+              ),
+              subtitle: Text(
+                "$lastChatString",
+                style: TextStyle(fontSize: 13),
+              ),
+              onTap: onTap,
+              onLongPress: onLongPress,
+            ),
+        separatorBuilder: (context, index) => Divider(),
+        itemCount: 1);
+  }*/
 }

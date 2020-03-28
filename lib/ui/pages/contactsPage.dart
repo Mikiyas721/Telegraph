@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:telegraph/models/chatType.dart';
 import 'package:telegraph/ui/pages/news/channelDescription.dart';
 import '../customWidgets/chatListItem.dart';
+import 'chatWindow.dart';
 import 'news/newGroup.dart';
 
 class ContactsPage extends StatefulWidget {
@@ -16,6 +18,7 @@ class ContactsPageState extends State<ContactsPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "Contact Page",
       home: Scaffold(
         appBar: AppBar(
           leading: FlatButton(
@@ -88,7 +91,7 @@ class ContactsPageState extends State<ContactsPage> {
               color: Color.fromRGBO(250, 0, 0, 230),
             ),
             Column(
-              children: getPlaceHolderContacts(),
+              children: getPlaceHolderContacts(context),
             )
           ],
         ),
@@ -97,11 +100,17 @@ class ContactsPageState extends State<ContactsPage> {
   }
 }
 
-List<Widget> getPlaceHolderContacts() {
+List<Widget> getPlaceHolderContacts(BuildContext context) {
   List<Widget> widgets = List<Widget>();
   for (int i = 0; i < 20; i++) {
-    widgets.add(ChatListItem("assets/avatar_1.png", "Rotractors", 1, 19, "PM",
-        "Hi,How are you", () {}, () {}));
+    widgets.add(ChatListItem(
+        "assets/avatar_1.png", "Rotractors", 1, 19, "PM", "Hi,How are you", () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ChatWindow(
+                  "Kebede", "assets/avatar_1.png", ChatType.SINGLE)));
+    }, () {}));
   }
   return widgets;
 }
