@@ -9,7 +9,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="telegraph"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/my_icon_1">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

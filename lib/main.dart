@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:telegraph/ui/pages/login/firstPage.dart';
 import 'ui/pages/homepage.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  final bool loggedIn = false;
+  Widget startingPage;
+
+  MyApp() {
+    if (loggedIn)
+      startingPage = HomePage();
+    else
+      startingPage = FirstPage();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: startingPage,
     );
   }
 }
