@@ -42,17 +42,27 @@ class PhoneVerification extends StatelessWidget {
         body: Padding(
           padding: EdgeInsets.only(left: 10, right: 10),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(
-                message,
-                style: TextStyle(color: Colors.grey),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Text(
+                  message,
+                  style: TextStyle(color: Colors.grey),
+                ),
               ),
               TextField(
+                style: TextStyle(fontSize: 18),
                 decoration: InputDecoration(
                     hintText: "Code", hintStyle: TextStyle(color: Colors.grey)),
               ),
               Text(""),
-              FlatButton(onPressed: () {}, child: Text("Didn't get the code")),
+              FlatButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Didn't get the code",
+                    style: TextStyle(color: Colors.blue),
+                  )),
               Spacer(),
               FlatButton(
                   onPressed: () {

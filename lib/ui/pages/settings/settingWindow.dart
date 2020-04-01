@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:telegraph/ui/customWidgets/infoDisplay.dart';
 import 'package:telegraph/ui/customWidgets/settingGroupTitle.dart';
+import 'package:telegraph/ui/pages/login/firstPage.dart';
 import 'package:telegraph/ui/pages/settings/info/changePhoneNumber.dart';
 import 'package:telegraph/ui/pages/settings/info/changeUsername.dart';
 import 'package:telegraph/ui/pages/settings/settings/chatBackground.dart';
@@ -60,7 +61,14 @@ class SettingWindowState extends State<SettingWindow> {
             ),
             actions: <Widget>[
               PopupMenuButton(
-                onSelected: (selectedValue) {},
+                onSelected: (selectedValue) {
+                  if (selectedValue == 1) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => FirstPage()));
+                  }
+                },
                 itemBuilder: (context) {
                   return getMenu();
                 },
@@ -77,8 +85,10 @@ class SettingWindowState extends State<SettingWindow> {
       'Log out',
     ];
     List<PopupMenuEntry> menuList = [];
+    int i = 0;
     for (String menu in menuListString) {
-      menuList.add(new PopupMenuItem(child: Text(menu)));
+      menuList.add(new PopupMenuItem(value: i, child: Text(menu)));
+      i++;
     }
     return menuList;
   }
