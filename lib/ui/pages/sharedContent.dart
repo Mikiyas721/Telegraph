@@ -15,68 +15,30 @@ class SharedContent extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               }),
-          /*title: Container(
-              child: DropdownButton(
-                  hint: Text("Content"),
-                  items: getDropDownItems(),
-                  onChanged: (dynamic selectedValue) {}),
-              height: 50,
-            )*/
+          //TODO find a way to make the color of the DropdownButton different
+          title: DropdownButton(
+              style: TextStyle(color: Colors.black),
+              iconEnabledColor: Colors.white,
+              elevation: 0,
+              value: 'Shared Media',
+              isDense: true,
+              /*hint: Text("Content"),*/
+              items: [
+                'Shared Media',
+                'Shared File',
+                'Shared Music',
+                'Shared Link'
+              ]
+                  .map<DropdownMenuItem<String>>(
+                      (String newValue) => DropdownMenuItem<String>(
+                          value: newValue,
+                          child: Text(
+                            newValue,
+                          )))
+                  .toList(),
+              onChanged: (String selectedValue) {}),
         ),
-        body: DropdownButton<Widget>(
-            hint: Text("Content"),
-            items: getDropDownItems(),
-            onChanged: (dynamic selectedValue) {}),
       ),
     );
-  }
-
-  List<DropdownMenuItem<Widget>> getDropDownItems() {
-    return [
-      DropdownMenuItem(
-        child: ListTile(
-          leading: Icon(Icons.perm_media),
-          title: Text("Shared Media"),
-          trailing: Text(
-            "0",
-            style: TextStyle(color: Colors.blue),
-          ),
-          onTap: () {},
-        ),
-      ),
-      DropdownMenuItem(
-        child: ListTile(
-          leading: Icon(Icons.folder),
-          title: Text("Shared File"),
-          trailing: Text(
-            "0",
-            style: TextStyle(color: Colors.blue),
-          ),
-          onTap: () {},
-        ),
-      ),
-      DropdownMenuItem(
-        child: ListTile(
-          leading: Icon(Icons.music_note),
-          title: Text("Shared Music"),
-          trailing: Text(
-            "0",
-            style: TextStyle(color: Colors.blue),
-          ),
-          onTap: () {},
-        ),
-      ),
-      DropdownMenuItem(
-        child: ListTile(
-          leading: Icon(Icons.link),
-          title: Text("Shared Link"),
-          trailing: Text(
-            "0",
-            style: TextStyle(color: Colors.blue),
-          ),
-          onTap: () {},
-        ),
-      ),
-    ];
   }
 }
