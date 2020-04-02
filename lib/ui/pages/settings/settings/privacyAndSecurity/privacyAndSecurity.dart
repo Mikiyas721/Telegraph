@@ -27,7 +27,12 @@ class PrivacyAndSecurity extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
-            SettingGroupTitle("Privacy",top: 15,left: 15,),
+            SettingGroupTitle(
+              "Privacy",
+              false,
+              top: 15,
+              left: 15,
+            ),
             ListTile(
               title: Text("Blocked Users"),
               onTap: () {},
@@ -50,7 +55,7 @@ class PrivacyAndSecurity extends StatelessWidget {
                         DialogMenu("Who can call me?", menus));
               },
             ),
-            SettingGroupTitle("Security",left: 15),
+            SettingGroupTitle("Security", false, left: 15),
             ListTile(
               title: Text("Passcode Lock"),
               onTap: () {

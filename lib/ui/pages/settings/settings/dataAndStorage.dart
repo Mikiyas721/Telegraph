@@ -28,6 +28,7 @@ class DataAndStorage extends StatelessWidget {
           children: <Widget>[
             SettingGroupTitle(
               "Automatic Media download",
+              false,
               top: 15,
               left: 15,
             ),

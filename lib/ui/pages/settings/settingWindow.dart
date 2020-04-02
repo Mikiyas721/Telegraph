@@ -98,6 +98,7 @@ class SettingWindowState extends State<SettingWindow> {
         children: ListTile.divideTiles(context: context, tiles: [
       SettingGroupTitle(
         "Info",
+        false,
         top: 15,
         left: 15,
         bottom: 5,
@@ -116,6 +117,7 @@ class SettingWindowState extends State<SettingWindow> {
       }),
       SettingGroupTitle(
         "Settings",
+        false,
         top: 20,
         left: 15,
         bottom: 5,
@@ -178,6 +180,7 @@ class SettingWindowState extends State<SettingWindow> {
           title: Text("Enable Amimation")),
       SettingGroupTitle(
         "Messages",
+        false,
         top: 20,
         left: 15,
         bottom: 5,
@@ -249,6 +252,7 @@ class SettingWindowState extends State<SettingWindow> {
       ),
       SettingGroupTitle(
         "Supports",
+        false,
         top: 20,
         left: 15,
         bottom: 5,

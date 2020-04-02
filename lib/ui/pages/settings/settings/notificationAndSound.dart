@@ -20,18 +20,21 @@ class NotificationAndSounds extends StatelessWidget {
           children: <Widget>[
             SettingGroupTitle(
               "Group Notification",
+              false,
               top: 20,
               left: 15,
             ),
             NotificationList(),
             SettingGroupTitle(
               "Group Notification",
+              false,
               top: 20,
               left: 15,
             ),
             NotificationList(),
             SettingGroupTitle(
               "In-app notification",
+              false,
               top: 20,
               left: 15,
             ),
@@ -62,6 +65,7 @@ class NotificationAndSounds extends StatelessWidget {
             ),
             SettingGroupTitle(
               "Voice calls",
+              false,
               top: 20,
               left: 15,
             ),
