@@ -1,6 +1,8 @@
+import 'package:telegraph/assistant.dart';
+
 class User {
   String _firstName;
-  String lastName;
+  String _lastName;
   String _phone;
   List<String> profilePictureURL;
   bool _online;
@@ -8,24 +10,28 @@ class User {
   String _id;
 
   User(this._firstName, this._phone, this._online, this._lastSeen, this._id,
-      {this.lastName, this.profilePictureURL});
+      {lastName, this.profilePictureURL})
+      : _lastName = lastName;
 
   @override
   String toString() {
     return '''{
       "firstName": "$_firstName",
-      "lastName": "$lastName",
-      "imageURLs": [
-         "$profilePictureURL"
-      ],
-      "online": $_online,
-      "phoneNumber": $_phone,
-      "lastSeen": "2020-04-03T15:38:46.383Z",
-      "id": "$_id"
+      "lastName": "$_lastName",
+      "imageURLs": 
+         ${profilePictureURL.toString()}
+      ,
+      "online": "$_online",
+      "phoneNumber": "$_phone",
+      "lastSeen": "${Assistant.getDateString(_lastSeen)}"/// NOTE didn't add id because it causes error in post request      
     }''';
   }
 
-  String get getUserName => '$_firstName $lastName';
+  String get getUserName => '$_firstName $_lastName';
+
+  String get getFirstName => '$_firstName';
+
+  String get getLastName => '$_lastName';
 
   String get getPhoneNumber => '$_phone';
 
@@ -42,7 +48,8 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) {
     return User(json['firstName'], json['phone'], json['online'],
         json['lastSeen'], json['id'],
-        lastName: json['lastName'], profilePictureURL: json['imageURLs']);
+        lastName: Assistant.getDateTime(json['lastName']),
+        profilePictureURL: json['imageURLs']);
   }
 
   User.toJson();

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/models/chatType.dart';
+import 'package:telegraph/chatType.dart';
 
 class ChatListItem extends StatelessWidget {
   final String imageURL;

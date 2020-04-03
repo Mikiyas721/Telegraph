@@ -1,7 +1,7 @@
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:telegraph/ui/pages/profilePage.dart';
-import '../../models/chatType.dart';
+import '../../chatType.dart';
 
 class ChatWindow extends StatefulWidget {
   final ChatWindowState chatWindowState;

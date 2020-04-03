@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/models/chatType.dart';
+import 'package:telegraph/chatType.dart';
 import 'package:telegraph/ui/pages/news/channelDescription.dart';
 import '../customWidgets/chatListItem.dart';
 import 'chatWindow.dart';
