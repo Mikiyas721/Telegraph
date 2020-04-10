@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/customWidgets/notificationList.dart';
-import 'package:telegraph/ui/customWidgets/settingGroupTitle.dart';
+import 'package:Telegraph/ui/customWidgets/notificationList.dart';
+import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
 
 class NotificationAndSounds extends StatelessWidget {
   @override

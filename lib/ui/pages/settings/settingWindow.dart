@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/customWidgets/infoDisplay.dart';
-import 'package:telegraph/ui/customWidgets/settingGroupTitle.dart';
-import 'package:telegraph/ui/pages/login/firstPage.dart';
-import 'package:telegraph/ui/pages/settings/info/changePhoneNumber.dart';
-import 'package:telegraph/ui/pages/settings/info/changeUsername.dart';
-import 'package:telegraph/ui/pages/settings/settings/chatBackground.dart';
-import 'package:telegraph/ui/pages/settings/settings/dataAndStorage.dart';
-import 'package:telegraph/ui/pages/settings/settings/languages.dart';
-import 'package:telegraph/ui/pages/settings/settings/notificationAndSound.dart';
-import 'package:telegraph/ui/pages/settings/settings/privacyAndSecurity/privacyAndSecurity.dart';
-import 'package:telegraph/ui/pages/settings/settings/theme.dart';
+import 'package:Telegraph/ui/customWidgets/infoDisplay.dart';
+import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
+import 'package:Telegraph/ui/pages/login/firstPage.dart';
+import 'package:Telegraph/ui/pages/settings/info/changePhoneNumber.dart';
+import 'package:Telegraph/ui/pages/settings/info/changeUsername.dart';
+import 'package:Telegraph/ui/pages/settings/settings/chatBackground.dart';
+import 'package:Telegraph/ui/pages/settings/settings/dataAndStorage.dart';
+import 'package:Telegraph/ui/pages/settings/settings/languages.dart';
+import 'package:Telegraph/ui/pages/settings/settings/notificationAndSound.dart';
+import 'package:Telegraph/ui/pages/settings/settings/privacyAndSecurity/privacyAndSecurity.dart';
+import 'package:Telegraph/ui/pages/settings/settings/theme.dart';
 import 'package:numberpicker/numberpicker.dart' as picker;
+import 'package:Telegraph/ui/customWidgets/myImageView.dart';
 
 class SettingWindow extends StatefulWidget {
   final SettingWindowState settingWindow;
@@ -37,14 +38,16 @@ class SettingWindowState extends State<SettingWindow> {
         title: 'Setting',
         home: Scaffold(
           appBar: AppBar(
-            leading: FlatButton(
-                textColor: Colors.white,
-                child: Icon(Icons.arrow_back),
+            leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   Navigator.pop(context);
                 }),
             title: ListTile(
-              leading: Image.asset(
+              leading: MyImageView(
                 imageURL,
               ),
               title: Align(

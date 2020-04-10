@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/chatType.dart';
-import 'package:telegraph/ui/pages/news/channelDescription.dart';
+import 'package:Telegraph/chatType.dart';
+import 'package:Telegraph/ui/pages/news/channelDescription.dart';
 import '../customWidgets/chatListItem.dart';
 import 'chatWindow.dart';
 import 'news/newGroup.dart';
@@ -21,25 +21,25 @@ class ContactsPageState extends State<ContactsPage> {
       title: "Contact Page",
       home: Scaffold(
         appBar: AppBar(
-          leading: FlatButton(
+          leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Icon(
+              icon: Icon(
                 Icons.arrow_back,
                 color: Colors.white,
               )),
           title: Text("$title"),
           actions: <Widget>[
-            FlatButton(
+            IconButton(
                 onPressed: () {},
-                child: Icon(
+                icon: Icon(
                   Icons.search,
                   color: Colors.white,
                 )),
-            FlatButton(
+            IconButton(
                 onPressed: () {},
-                child: Icon(
+                icon: Icon(
                   Icons.add,
                   color: Colors.white,
                 ))
@@ -94,6 +94,10 @@ class ContactsPageState extends State<ContactsPage> {
               children: getPlaceHolderContacts(context),
             )
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.add),
         ),
       ),
     );

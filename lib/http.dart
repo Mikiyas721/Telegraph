@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'Package:http/http.dart' as http;
-import 'package:telegraph/assistant.dart';
+import 'package:Telegraph/assistant.dart';
 import 'models/chat.dart';
 import 'models/message.dart';
 import 'models/user.dart';

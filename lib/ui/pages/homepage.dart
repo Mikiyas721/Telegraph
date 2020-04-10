@@ -23,12 +23,12 @@ class HomePageState extends State<HomePage> {
           /*leading: FlatButton(onPressed: () {}, child: Icon(Icons.dehaze)),*/
           title: Text("$title"),
           actions: <Widget>[
-            FlatButton(
+            IconButton(
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SearchPage()));
                 },
-                child: Icon(
+                icon: Icon(
                   Icons.search,
                   color: Colors.white,
                 ))

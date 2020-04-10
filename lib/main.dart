@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/pages/login/firstPage.dart';
+import 'package:Telegraph/ui/pages/login/firstPage.dart';
 import 'ui/pages/homepage.dart';
 
 void main() => runApp(MyApp());

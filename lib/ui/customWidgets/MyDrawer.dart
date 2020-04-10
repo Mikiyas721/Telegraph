@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/pages/news/channelDescription.dart';
-import 'package:telegraph/ui/pages/news/newGroup.dart';
-import 'package:telegraph/ui/pages/settings/settingWindow.dart';
+import 'package:Telegraph/ui/pages/news/channelDescription.dart';
+import 'package:Telegraph/ui/pages/news/newGroup.dart';
+import 'package:Telegraph/ui/pages/settings/settingWindow.dart';
+import 'package:Telegraph/ui/customWidgets/myImageView.dart';
 
 class MyDrawer extends StatelessWidget {
   final String userName = 'Mikiyas';
   final String countryCode = '+251';
   final String phoneNumber = '941135730';
-  final String profilePictureURL = "assets/avatar_1.png";
+  final String profilePictureURL = "assets/chatBackground_3.jpeg";
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class MyDrawer extends StatelessWidget {
           ],
           accountName: Text('$userName'),
           accountEmail: Text('$countryCode $phoneNumber'),
-          currentAccountPicture: Image.asset(profilePictureURL),
+          currentAccountPicture: MyImageView(profilePictureURL),
         ),
         ListTile(
           leading: Icon(Icons.people),

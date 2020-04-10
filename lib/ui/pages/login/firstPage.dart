@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/pages/login/phoneNumberInput.dart';
+import 'package:Telegraph/ui/pages/login/phoneNumberInput.dart';
 
 class FirstPage extends StatelessWidget {
   @override

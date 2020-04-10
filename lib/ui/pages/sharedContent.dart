@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 class SharedContent extends StatelessWidget {
+  final List<String> options = [
+    'Shared Media',
+    'Shared File',
+    'Shared Music',
+    'Shared Link'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,20 +22,18 @@ class SharedContent extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               }),
-          //TODO find a way to make the color of the DropdownButton different
           title: DropdownButton(
-              style: TextStyle(color: Colors.black),
+              selectedItemBuilder: (BuildContext context) => options
+                  .map((String newValue) => Text(
+                        "Shared Media",
+                        style: TextStyle(color: Colors.white),
+                      ))
+                  .toList(),
               iconEnabledColor: Colors.white,
               elevation: 0,
               value: 'Shared Media',
               isDense: true,
-              /*hint: Text("Content"),*/
-              items: [
-                'Shared Media',
-                'Shared File',
-                'Shared Music',
-                'Shared Link'
-              ]
+              items: options
                   .map<DropdownMenuItem<String>>(
                       (String newValue) => DropdownMenuItem<String>(
                           value: newValue,

@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/pages/news/newChannel.dart';
+import 'package:Telegraph/ui/pages/news/newChannel.dart';
 
 class ChannelDescription extends StatelessWidget {
   @override

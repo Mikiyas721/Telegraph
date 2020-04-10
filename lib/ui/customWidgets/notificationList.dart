@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/customWidgets/dialogMenu.dart';
+import 'package:Telegraph/ui/customWidgets/dialogMenu.dart';
 
 class NotificationList extends StatelessWidget {
   @override

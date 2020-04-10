@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/chatType.dart';
+import 'package:Telegraph/chatType.dart';
+import 'package:Telegraph/ui/customWidgets/myImageView.dart';
 
 class ChatListItem extends StatelessWidget {
   final String imageURL;
@@ -11,6 +12,7 @@ class ChatListItem extends StatelessWidget {
   final Function onTap;
   final Function onLongPress;
   final ChatType chatType = ChatType.SINGLE;
+  final String messageStatus = "Sent";
 
   ChatListItem(this.imageURL, this.title, this.hour, this.minute, this.meridian,
       this.lastChatString, this.onTap, this.onLongPress /*,{chatType: type}*/);
@@ -28,50 +30,65 @@ class ChatListItem extends StatelessWidget {
       return Icons.person;
   }
 
+  IconData getMessageStatusIcon() {
+    if (messageStatus == "Pending")
+      return Icons.access_time;
+    else if (messageStatus == "Sent")
+      return Icons.check;
+    else if (messageStatus == "Seen")
+      return Icons.check_circle;
+    else
+      return null;
+  }
+
+  Color getMessageStatusColor() {
+    if (messageStatus == "Pending")
+      return Colors.grey;
+    else
+      return Colors.blue;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          dense: true,
-          leading: Container(
-            child: Image.asset(imageURL),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-            ),
+    return ListTile(
+      dense: true,
+      leading: MyImageView(imageURL),
+      title:
+          Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        Icon(getIcon()),
+        Padding(
+          child: Text(
+            "$title",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
-          title: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Icon(getIcon()),
-              Padding(
-                child: Text(
-                  "$title",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                padding: EdgeInsets.only(left: 7, bottom: 5),
-              ),
-              Spacer(),
-              Text(
-                '$hour :$minute $meridian',
-                style: TextStyle(color: Colors.grey),
-              )
-            ],
-          ),
-          subtitle: Text(
-            "$lastChatString",
-            style: TextStyle(fontSize: 13),
-          ),
-          onTap: onTap,
-          onLongPress: onLongPress,
+          padding: EdgeInsets.only(left: 7, bottom: 5),
         ),
-      ],
+      ]),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Icon(
+            getMessageStatusIcon(),
+            color: getMessageStatusColor(),
+            size: 15,
+          ),
+          Padding(padding: EdgeInsets.only(left: 5)),
+          Text(
+            '$hour :$minute $meridian',
+            style: TextStyle(color: Colors.grey),
+          )
+        ],
+      ),
+      subtitle: Text(
+        "$lastChatString",
+        style: TextStyle(fontSize: 13),
+      ),
+      onTap: onTap,
+      onLongPress: onLongPress,
     );
   }
 
-//TODO Widget to give the divider a position at the bottom
-
-  /*@override
+/*@override
   Widget build(BuildContext context) {
     return ListView.separated(
         itemBuilder: (context, index) => ListTile(

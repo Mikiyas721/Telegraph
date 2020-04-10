@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/pages/homepage.dart';
+import 'package:Telegraph/ui/pages/homepage.dart';
 
 class NewChannel extends StatelessWidget {
   @override

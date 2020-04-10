@@ -13,11 +13,11 @@ class SearchPageState extends State<SearchPage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          leading: FlatButton(
+          leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Icon(
+              icon: Icon(
                 Icons.arrow_back,
                 color: Colors.white,
               )),
@@ -28,9 +28,9 @@ class SearchPageState extends State<SearchPage> {
                 hintText: 'Search', hintStyle: TextStyle(color: Color.fromRGBO(255, 255, 255, 1),fontSize: 18,)),
           ),
           actions: <Widget>[
-            FlatButton(
+            IconButton(
                 onPressed: () {},
-                child: Icon(
+                icon: Icon(
                   Icons.clear,
                   color: Colors.white,
                 ))

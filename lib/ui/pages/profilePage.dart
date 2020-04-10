@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/customWidgets/settingGroupTitle.dart';
-import 'package:telegraph/ui/pages/sharedContent.dart';
+import 'package:Telegraph/ui/customWidgets/myImageView.dart';
+import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
+import 'package:Telegraph/ui/pages/sharedContent.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -30,10 +31,7 @@ class ProfilePage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Padding(
-                          child: Image.asset(
-                            "assets/avatar_1.png",
-                            width: 25,
-                          ),
+                          child: MyImageView("assets/avatar_1.png"),
                           padding: EdgeInsets.only(right: 5)),
                       Column(
                         mainAxisSize: MainAxisSize.min,
@@ -45,7 +43,10 @@ class ProfilePage extends StatelessWidget {
                           ),
                           Text(
                             "last seen at 12:27 AM",
-                            style: TextStyle(color: Colors.white, fontSize: 10,fontWeight: FontWeight.w200),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w200),
                           ),
                         ],
                       )
@@ -119,7 +120,10 @@ class ProfilePage extends StatelessWidget {
                 style: TextStyle(color: Colors.blue),
               ),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>SharedContent()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => SharedContent()));
               },
             ),
             ListTile(
@@ -130,7 +134,10 @@ class ProfilePage extends StatelessWidget {
                 style: TextStyle(color: Colors.blue),
               ),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>SharedContent()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => SharedContent()));
               },
             ),
             ListTile(
@@ -141,7 +148,10 @@ class ProfilePage extends StatelessWidget {
                 style: TextStyle(color: Colors.blue),
               ),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>SharedContent()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => SharedContent()));
               },
             ),
             ListTile(
@@ -152,7 +162,10 @@ class ProfilePage extends StatelessWidget {
                 style: TextStyle(color: Colors.blue),
               ),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>SharedContent()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => SharedContent()));
               },
             ),
           ]),

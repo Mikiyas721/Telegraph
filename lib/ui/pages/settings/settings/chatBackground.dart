@@ -58,13 +58,13 @@ class ChatBackgroundState extends State<ChatBackground> {
                   image: DecorationImage(
                       image: AssetImage(selectedImageUrl), fit: BoxFit.cover)),
               height: 100,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
+              child: /*Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[*/
                   ListView(
                       scrollDirection: Axis.horizontal, children: getImages()),
-                ],
-              ))),
+            /* ],
+              )*/)),
     );
   }
 

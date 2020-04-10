@@ -1,6 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/pages/login/phoneVerification.dart';
+import 'package:Telegraph/ui/pages/login/phoneVerification.dart';
 
 class PhoneNumberInput extends StatelessWidget {
   @override

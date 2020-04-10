@@ -1,4 +1,4 @@
-import 'package:telegraph/assistant.dart';
+import 'package:Telegraph/assistant.dart';
 
 class Message {
   String _chatId;

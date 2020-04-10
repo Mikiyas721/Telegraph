@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/customWidgets/dialogMenu.dart';
-import 'package:telegraph/ui/customWidgets/settingGroupTitle.dart';
-import 'package:telegraph/ui/pages/settings/settings/privacyAndSecurity/passwordPrompt.dart';
+import 'package:Telegraph/ui/customWidgets/dialogMenu.dart';
+import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
+import 'package:Telegraph/ui/pages/settings/settings/privacyAndSecurity/passwordPrompt.dart';
 
 class PrivacyAndSecurity extends StatelessWidget {
   final List<String> menus = ["Everybody", "My Contacts", "Nobody"];

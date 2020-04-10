@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/pages/contactsPage.dart';
+import 'package:Telegraph/ui/pages/contactsPage.dart';
 
 class NewGroupAndSecretChat extends StatelessWidget {
   final String title;

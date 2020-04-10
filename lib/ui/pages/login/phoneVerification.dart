@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/pages/homepage.dart';
-import 'package:telegraph/ui/pages/login/phoneNumberInput.dart';
+import 'package:Telegraph/ui/pages/homepage.dart';
+import 'package:Telegraph/ui/pages/login/phoneNumberInput.dart';
 
 class PhoneVerification extends StatelessWidget {
   final String message;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/customWidgets/settingGroupTitle.dart';
+import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
 
 class DataAndStorage extends StatelessWidget {
   final String dataMediaDownload = "No Media";

@@ -1,6 +1,7 @@
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
-import 'package:telegraph/ui/pages/profilePage.dart';
+import 'package:Telegraph/ui/customWidgets/myImageView.dart';
+import 'package:Telegraph/ui/pages/profilePage.dart';
 import '../../chatType.dart';
 
 class ChatWindow extends StatefulWidget {
@@ -79,7 +80,7 @@ class ChatWindowState extends State<ChatWindow> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(right: 10, top: 7, bottom: 7),
-                    child: Image.asset(imageURL),
+                    child: MyImageView(imageURL),
                   ),
                   Text(chatTitle)
                 ],
