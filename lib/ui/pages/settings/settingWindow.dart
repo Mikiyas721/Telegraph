@@ -1,3 +1,4 @@
+import 'package:Telegraph/ui/customWidgets/myPhotoView.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/infoDisplay.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
@@ -47,8 +48,17 @@ class SettingWindowState extends State<SettingWindow> {
                   Navigator.pop(context);
                 }),
             title: ListTile(
-              leading: MyImageView(
-                imageURL,
+              leading: GestureDetector(
+                child: MyImageView(
+                  imageURL,
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              MyPhotoView(imageURL)));
+                },
               ),
               title: Align(
                 child: Text(

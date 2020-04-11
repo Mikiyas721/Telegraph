@@ -1,3 +1,4 @@
+import 'package:Telegraph/ui/customWidgets/myPhotoView.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/pages/news/channelDescription.dart';
 import 'package:Telegraph/ui/pages/news/newGroup.dart';
@@ -33,7 +34,16 @@ class MyDrawer extends StatelessWidget {
           ],
           accountName: Text('$userName'),
           accountEmail: Text('$countryCode $phoneNumber'),
-          currentAccountPicture: MyImageView(profilePictureURL),
+          currentAccountPicture: GestureDetector(
+            child: MyImageView(profilePictureURL),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          MyPhotoView(profilePictureURL)));
+            },
+          ),
         ),
         ListTile(
           leading: Icon(Icons.people),
