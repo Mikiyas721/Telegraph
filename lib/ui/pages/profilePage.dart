@@ -27,6 +27,7 @@ class ProfilePage extends StatelessWidget {
               expandedHeight: 150,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
+                  titlePadding: EdgeInsets.only(top: 15,left: 70,bottom: 3),
                   centerTitle: false,
                   title: Row(
                     mainAxisSize: MainAxisSize.min,

@@ -12,45 +12,50 @@ class MyPhotoView extends StatelessWidget {
     return MaterialApp(
       title: "Photo View",
       home: Scaffold(
-        backgroundColor: Colors.black,
-        appBar: AppBar(
           backgroundColor: Colors.black,
-          leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-          title: Text(
-            "1 of 1",
-            style: TextStyle(color: Colors.white),
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+            title: Text(
+              "1 of 1",
+              style: TextStyle(color: Colors.white),
+            ),
+            actions: <Widget>[
+              PopupMenuButton(
+                color: Colors.black,
+                onSelected: (selectedValue) {
+                  if (selectedValue == 1) {}
+                },
+                itemBuilder: (context) {
+                  return getMenu();
+                },
+              )
+            ],
           ),
-          actions: <Widget>[
-            PopupMenuButton(
-              color: Colors.black,
-              onSelected: (selectedValue) {
-                if (selectedValue == 1) {}
-              },
-              itemBuilder: (context) {
-                return getMenu();
-              },
-            )
-          ],
-        ),
-        body: Container(
-          margin: EdgeInsets.only(top: 5),
-          color: Colors.black,
-          child: PhotoView(imageProvider: AssetImage(_imageURL)),
-          height: (MediaQuery.of(context).size.height) * 0.72,
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.black,
-          onPressed: () {},
-          child: Icon(Icons.share),
-        ),
-      ),
+          body: Container(
+            margin: EdgeInsets.only(top: 5),
+            color: Colors.black,
+            child: PhotoView(imageProvider: AssetImage(_imageURL)),
+            height: (MediaQuery.of(context).size.height) * 0.72,
+          ),
+          floatingActionButton: Opacity(
+            opacity: 1,
+            child: FloatingActionButton(
+              backgroundColor: Colors.black,
+              onPressed: () {},
+              child: Opacity(
+                opacity: 1,
+                child: Icon(Icons.share),
+              ),
+            ),
+          )),
     );
   }
 

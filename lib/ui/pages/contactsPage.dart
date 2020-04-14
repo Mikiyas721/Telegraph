@@ -1,3 +1,4 @@
+import 'package:Telegraph/ui/pages/news/newAccount.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/chatType.dart';
 import 'package:Telegraph/ui/pages/news/channelDescription.dart';
@@ -38,7 +39,12 @@ class ContactsPageState extends State<ContactsPage> {
                   color: Colors.white,
                 )),
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => NewAccount()));
+                },
                 icon: Icon(
                   Icons.add,
                   color: Colors.white,
@@ -96,7 +102,12 @@ class ContactsPageState extends State<ContactsPage> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => NewAccount()));
+          },
           child: Icon(Icons.add),
         ),
       ),

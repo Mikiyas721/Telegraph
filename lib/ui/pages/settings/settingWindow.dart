@@ -38,57 +38,102 @@ class SettingWindowState extends State<SettingWindow> {
     return MaterialApp(
         title: 'Setting',
         home: Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
-            title: ListTile(
-              leading: GestureDetector(
-                child: MyImageView(
-                  imageURL,
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              MyPhotoView(imageURL)));
-                },
-              ),
-              title: Align(
-                child: Text(
-                  userName,
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-                alignment: Alignment(-1.2, 0),
-              ),
-              subtitle: Text(
-                '$online',
-                style: TextStyle(color: Colors.white, fontSize: 14),
-              ),
-            ),
-            actions: <Widget>[
-              PopupMenuButton(
-                onSelected: (selectedValue) {
-                  if (selectedValue == 1) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) => FirstPage()));
-                  }
-                },
-                itemBuilder: (context) {
-                  return getMenu();
-                },
-              )
-            ],
-          ),
-          body: getBody(),
+          body: NestedScrollView(
+              headerSliverBuilder: (BuildContext context, bool) => [
+                    SliverAppBar(
+                      expandedHeight: 150,
+                      pinned: true,
+                      leading: IconButton(
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                      flexibleSpace: FlexibleSpaceBar(
+                          titlePadding:
+                              EdgeInsets.only(top: 15, left: 70, bottom: 3),
+                          centerTitle: false,
+                          title: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Padding(
+                                  child: GestureDetector(
+                                    child: MyImageView(imageURL),
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  MyPhotoView(imageURL)));
+                                    },
+                                  ),
+                                  padding: EdgeInsets.only(right: 5)),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    userName,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  ),
+                                  Text(
+                                    getOnlineString(),
+                                    style: TextStyle(
+                                        color: Colors.white70,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w200),
+                                  ),
+                                ],
+                              )
+                            ],
+                          )),
+                      /*title: ListTile(
+                        leading: GestureDetector(
+                          child: MyImageView(
+                            imageURL,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        MyPhotoView(imageURL)));
+                          },
+                        ),
+                        title: Align(
+                          child: Text(
+                            userName,
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          alignment: Alignment(-1.2, 0),
+                        ),
+                        subtitle: Text(
+                          '$online',
+                          style: TextStyle(color: Colors.white, fontSize: 14),
+                        ),
+                      ),*/
+                      actions: <Widget>[
+                        PopupMenuButton(
+                          onSelected: (selectedValue) {
+                            if (selectedValue == 1) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          FirstPage()));
+                            }
+                          },
+                          itemBuilder: (context) {
+                            return getMenu();
+                          },
+                        )
+                      ],
+                    )
+                  ],
+              body: getBody()),
         ));
   }
 
@@ -274,5 +319,12 @@ class SettingWindowState extends State<SettingWindow> {
       ListTile(title: Text("Telegraph FAQ")),
       ListTile(title: Text("Privacy Policy")),
     ]).toList());
+  }
+
+  String getOnlineString() {
+    if (online)
+      return "Online";
+    else
+      return "last seen 08:22 AM"; //TODO replace hard coded time string with actually last seen data
   }
 }

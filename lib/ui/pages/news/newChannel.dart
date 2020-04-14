@@ -1,3 +1,5 @@
+import 'package:Telegraph/ui/customWidgets/myImageView.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/pages/homepage.dart';
 
@@ -33,30 +35,36 @@ class NewChannel extends StatelessWidget {
           ],
         ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Image.asset(
-                      "assets/avatar_1.png", /*ImagePicker.pickImage(source: ImageSource.gallery)*/
-                    )),
-                TextField(
+            GestureDetector(
+              onTap: () {},
+              child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: MyImageView(
+                    "assets/avatar_1.png",
+                  )),
+            ),
+            Padding(
+                padding: EdgeInsets.only(left: 100),
+                child: TextField(
                   decoration: InputDecoration(
                       hintText: "Channel name",
                       hintStyle: TextStyle(color: Colors.grey)),
-                )
-              ],
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  hintText: "Description",
-                  hintStyle: TextStyle(color: Colors.grey)),
+                )),
+            Padding(
+              padding: EdgeInsets.only(left: 10, right: 10),
+              child: TextField(
+                decoration: InputDecoration(
+                    hintText: "Description",
+                    hintStyle: TextStyle(color: Colors.grey)),
+              ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 10),
+              padding: EdgeInsets.all(10),
               child: Text(
-                "You can provide an optional description for your channel.",
+                "You can provide an optional description"
+                " for your channel.",
                 style: TextStyle(color: Colors.grey),
               ),
             )
