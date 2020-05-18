@@ -1,4 +1,4 @@
-import 'package:Telegraph/chatType.dart';
+import 'package:Telegraph/others/chatType.dart';
 
 class Chat {
   List<String> _usersId;

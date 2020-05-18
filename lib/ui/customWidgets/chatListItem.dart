@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:Telegraph/chatType.dart';
+import 'package:Telegraph/others/chatType.dart';
 import 'package:Telegraph/ui/customWidgets/myImageView.dart';
 
 class ChatListItem extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/myImageView.dart';
 import 'package:Telegraph/ui/pages/profilePage.dart';
-import '../../chatType.dart';
+import '../../others/chatType.dart';
 
 class ChatWindow extends StatefulWidget {
   final ChatWindowState chatWindowState;

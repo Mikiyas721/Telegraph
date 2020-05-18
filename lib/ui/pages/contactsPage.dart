@@ -1,6 +1,6 @@
 import 'package:Telegraph/ui/pages/news/newAccount.dart';
 import 'package:flutter/material.dart';
-import 'package:Telegraph/chatType.dart';
+import 'package:Telegraph/others/chatType.dart';
 import 'package:Telegraph/ui/pages/news/channelDescription.dart';
 import '../customWidgets/chatListItem.dart';
 import 'chatWindow.dart';

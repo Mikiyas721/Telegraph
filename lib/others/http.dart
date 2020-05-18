@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'Package:http/http.dart' as http;
-import 'package:Telegraph/assistant.dart';
-import 'models/chat.dart';
-import 'models/message.dart';
-import 'models/user.dart';
+import 'package:Telegraph/others/assistant.dart';
+import '../models/chat.dart';
+import '../models/message.dart';
+import '../models/user.dart';
 
 class Http {
   /// POST requests
