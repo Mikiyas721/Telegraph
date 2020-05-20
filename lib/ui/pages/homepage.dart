@@ -1,7 +1,9 @@
+import 'package:Telegraph/controll/contact.dart';
 import 'package:flutter/material.dart';
 import '../pages/searchPage.dart';
 import '../customWidgets/MyDrawer.dart';
 import 'contactsPage.dart';
+import 'package:contacts_service/contacts_service.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,7 +18,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title:"Home Page",
+      title: "Home Page",
       home: Scaffold(
         drawer: MyDrawer(),
         appBar: AppBar(
@@ -39,9 +41,10 @@ class HomePageState extends State<HomePage> {
                     context: context, tiles: getPlaceHolderContacts(context))
                 .toList()),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
+          onPressed: () async {
+            Iterable<Contact> contacts = await getContacts();
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ContactsPage()));
+                MaterialPageRoute(builder: (context) => ContactsPage(contacts)));
           },
           child: Icon(Icons.create),
         ),

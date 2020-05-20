@@ -1,4 +1,5 @@
 import 'package:Telegraph/ui/customWidgets/myPhotoView.dart';
+import 'package:Telegraph/ui/customWidgets/mySwitchListTile.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/infoDisplay.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
@@ -228,14 +229,9 @@ class SettingWindowState extends State<SettingWindow> {
               context, MaterialPageRoute(builder: (context) => Languages()));
         },
       ),
-      SwitchListTile(
-          onChanged: (bool newValue) {
-            setState(() {
-              enableAnimation = !enableAnimation;
-            });
-          },
-          value: enableAnimation,
-          title: Text("Enable Amimation")),
+      MySwitchListTile(
+        "Enable Amimation",
+      ),
       SettingGroupTitle(
         "Messages",
         false,
@@ -243,23 +239,13 @@ class SettingWindowState extends State<SettingWindow> {
         left: 15,
         bottom: 5,
       ),
-      SwitchListTile(
-        onChanged: (bool newValue) {},
-        value: false,
-        title: Text("In-App Browser"),
-        subtitle: Text(
-          "Open External links with in app",
-          style: TextStyle(color: Colors.grey),
-        ),
+      MySwitchListTile(
+        "In-App Browser",
+        subTitle: "Open External links with in app",
       ),
-      SwitchListTile(
-        onChanged: (bool newValue) {},
-        value: false,
-        title: Text("Direct Share"),
-        subtitle: Text(
-          "Show recent chats in share menu",
-          style: TextStyle(color: Colors.grey),
-        ),
+      MySwitchListTile(
+        "Direct Share",
+        subTitle: "Show recent chats in share menu",
       ),
       ListTile(
         title: Text("Stickers"),
@@ -288,25 +274,17 @@ class SettingWindowState extends State<SettingWindow> {
           style: TextStyle(color: Colors.blue),
         ),
       ),
-      SwitchListTile(
-        onChanged: (bool newValue) {},
-        value: false,
-        title: Text("Raise to Speak"),
+      MySwitchListTile(
+        "Raise to Speak",
       ),
-      SwitchListTile(
-        onChanged: (bool newValue) {},
-        value: false,
-        title: Text("Send by Enter"),
+      MySwitchListTile(
+        "Send by Enter",
       ),
-      SwitchListTile(
-        onChanged: (bool newValue) {},
-        value: false,
-        title: Text("Autoplay GIFs"),
+      MySwitchListTile(
+        "Autoplay GIFs",
       ),
-      SwitchListTile(
-        onChanged: (bool newValue) {},
-        value: false,
-        title: Text("Save to Gallery"),
+      MySwitchListTile(
+        "Save to Gallery",
       ),
       SettingGroupTitle(
         "Supports",
