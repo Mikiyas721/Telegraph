@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../blocs/passwordbloc.dart';
 
 class PasswordPrompt extends StatelessWidget {
   @override
@@ -34,12 +35,21 @@ class PasswordPrompt extends StatelessWidget {
                 "Enter a passcode",
                 style: TextStyle(fontSize: 18),
               ),
-              TextField(
-                style: TextStyle(fontSize: 30),
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(top: 20, bottom: 3)),
+              StreamBuilder(
+                stream: bloc.password,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  return TextField(
+                    onChanged: (String newInput) {
+                      bloc.addPassword(newInput);
+                    },
+                    style: TextStyle(fontSize: 30),
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                        errorText: snapshot.error,
+                        contentPadding: EdgeInsets.only(top: 20, bottom: 3)),
+                  );
+                },
               )
             ],
           ),

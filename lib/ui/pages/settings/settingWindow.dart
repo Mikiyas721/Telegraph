@@ -15,24 +15,13 @@ import 'package:Telegraph/ui/pages/settings/settings/theme.dart';
 import 'package:numberpicker/numberpicker.dart' as picker;
 import 'package:Telegraph/ui/customWidgets/myImageView.dart';
 
-class SettingWindow extends StatefulWidget {
-  final SettingWindowState settingWindow;
-
-  SettingWindow() : settingWindow = SettingWindowState();
-
-  @override
-  State<StatefulWidget> createState() {
-    return settingWindow;
-  }
-}
-
-class SettingWindowState extends State<SettingWindow> {
-  String imageURL = "assets/avatar_1.png";
-  String userName = "Miki";
-  String userString = "@MIKI_YAS";
-  String phoneNumber = "+251 941135730";
-  bool online = false;
-  bool enableAnimation = false;
+class SettingWindow extends StatelessWidget {
+  final String imageURL = "assets/avatar_1.png";
+  final String userName = "Miki";
+  final String userString = "@MIKI_YAS";
+  final String phoneNumber = "+251 941135730";
+  final bool online = false;
+  final bool enableAnimation = false;
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +123,7 @@ class SettingWindowState extends State<SettingWindow> {
                       ],
                     )
                   ],
-              body: getBody()),
+              body: getBody(context)),
         ));
   }
 
@@ -152,7 +141,7 @@ class SettingWindowState extends State<SettingWindow> {
     return menuList;
   }
 
-  Widget getBody() {
+  Widget getBody(BuildContext context) {
     return ListView(
         children: ListTile.divideTiles(context: context, tiles: [
       SettingGroupTitle(
@@ -305,4 +294,5 @@ class SettingWindowState extends State<SettingWindow> {
     else
       return "last seen 08:22 AM"; //TODO replace hard coded time string with actually last seen data
   }
+  // TODO Consider Using preferences library
 }
