@@ -1,24 +1,32 @@
 import 'dart:async';
 
-class Bloc {
+import 'package:Telegraph/blocs/passwordProvider.dart';
+import 'package:Telegraph/others/sharedPreferenceHandler.dart';
+import 'package:rxdart/rxdart.dart';
 
-  final StreamController<String> _passwordController =
-      StreamController<String>();
+class PasswordBloc implements Disposable {
+  final passwordStream = BehaviorSubject();
 
-  Function(String password) get addPassword => _passwordController.sink.add;
+  Stream<String> get passwordErrorStream {
+    return passwordStream.map(validatePassword);
+  }
 
-  Stream<String> get password => _passwordController.stream.transform(validateFirstPassword);
+  String validatePassword(String password) {
+    return password.length == 4 ? null : 'Password has to be 4 digits long';
+  }
 
-  final validateFirstPassword = StreamTransformer<String, String>.fromHandlers(
-      handleData: (password, sink) {
-    if (password.length == 4) {
-      sink.add(password);
-    } else {
-      sink.addError('Password has to be 4 digits long');
+  Function(String password) get addPassword => passwordStream.add;
+
+  bool save() {
+    final password = passwordStream.value;
+    if (validatePassword(password) == null) {
+      SharedPreferenceHandler.getInstance().setUserPassword(password);
+      return true;
     }
-  });
-  dispose(){
-    _passwordController.close();
+    return false;
+  }
+
+  dispose() {
+    passwordStream.close();
   }
 }
-final bloc = new Bloc();

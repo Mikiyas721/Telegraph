@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/dialogMenu.dart';
 
+import 'mySwitchListTile.dart';
+
 class NotificationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SwitchListTile(
-          onChanged: (bool value) {},
-          value: false,
-          title: Text("Alert"),
-        ),
-        SwitchListTile(
-          onChanged: (bool value) {},
-          value: true,
-          title: Text("Message Preview"),
-        ),
+        MySwitchListTile("Alert"),
+        MySwitchListTile("Message Preview"),
         ListTile(
           title: Text("LED Color"),
           trailing: Icon(
@@ -51,12 +45,13 @@ class NotificationList extends StatelessWidget {
           onTap: () {
             showDialog(
                 context: context,
-                builder: (BuildContext context) => DialogMenu("Popup Notifications", [
-                  "No popup",
-                  'Only when screen "on"',
-                  'Only when screen "off"',
-                  "Always show popup"
-                ]));
+                builder: (BuildContext context) =>
+                    DialogMenu("Popup Notifications", [
+                      "No popup",
+                      'Only when screen "on"',
+                      'Only when screen "off"',
+                      "Always show popup"
+                    ]));
           },
         ),
         ListTile(
@@ -69,11 +64,11 @@ class NotificationList extends StatelessWidget {
             showDialog(
                 context: context,
                 builder: (BuildContext context) => DialogMenu("Sound", [
-                  "No popup",//TODO access the device ringtones
-                  'Only when screen "on"',
-                  'Only when screen "off"',
-                  "Always show popup"
-                ]));
+                      "No popup", //TODO access the device ringtones
+                      'Only when screen "on"',
+                      'Only when screen "off"',
+                      "Always show popup"
+                    ]));
           },
         ),
         ListTile(
@@ -85,11 +80,8 @@ class NotificationList extends StatelessWidget {
           onTap: () {
             showDialog(
                 context: context,
-                builder: (BuildContext context) => DialogMenu("Priority", [
-                  "Default",
-                  'High',
-                  "Max"
-                ]));
+                builder: (BuildContext context) =>
+                    DialogMenu("Priority", ["Default", 'High', "Max"]));
           },
         ),
       ],

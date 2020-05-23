@@ -32,6 +32,7 @@ dependencies:
   simple_permissions: ^0.1.9
   shared_preferences: ^0.5.7+2
   virtual_keyboard: ^0.1.4
+  rxdart: ^0.24.1
 
 
 dev_dependencies:

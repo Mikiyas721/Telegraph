@@ -1,3 +1,4 @@
+import 'package:Telegraph/ui/customWidgets/mySwitchListTile.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/notificationList.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
@@ -5,7 +6,6 @@ import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
 class NotificationAndSounds extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    bool alert = false;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -38,31 +38,11 @@ class NotificationAndSounds extends StatelessWidget {
               top: 20,
               left: 15,
             ),
-            SwitchListTile(
-              onChanged: (bool value) {},
-              value: true,
-              title: Text("In-App Sounds"),
-            ),
-            SwitchListTile(
-              onChanged: (bool value) {},
-              value: true,
-              title: Text("In-App Vibrate"),
-            ),
-            SwitchListTile(
-              onChanged: (bool value) {},
-              value: true,
-              title: Text("In-App Preview"),
-            ),
-            SwitchListTile(
-              onChanged: (bool value) {},
-              value: true,
-              title: Text("In-Chat Sounds"),
-            ),
-            SwitchListTile(
-              onChanged: (bool value) {},
-              value: false,
-              title: Text("Priority"),
-            ),
+            MySwitchListTile("In-App Sounds"),
+            MySwitchListTile("In-App Vibrate"),
+            MySwitchListTile("In-App Preview"),
+            MySwitchListTile("In-Chat Sounds"),
+            MySwitchListTile("Priority"),
             SettingGroupTitle(
               "Voice calls",
               false,
