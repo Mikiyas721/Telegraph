@@ -6,9 +6,14 @@ import 'package:rxdart/rxdart.dart';
 
 class PasswordBloc implements Disposable {
   final passwordStream = BehaviorSubject();
+  final enableAnimationStream = BehaviorSubject();
 
   Stream<String> get passwordErrorStream {
     return passwordStream.map(validatePassword);
+  }
+
+  Stream<bool> get enableAnimation {
+    return enableAnimationStream.map((newValue) => newValue);
   }
 
   String validatePassword(String password) {
@@ -16,6 +21,8 @@ class PasswordBloc implements Disposable {
   }
 
   Function(String password) get addPassword => passwordStream.add;
+
+  Function(bool newValue) get setAnimationEnabled => enableAnimationStream.add;
 
   bool save() {
     final password = passwordStream.value;
@@ -28,5 +35,6 @@ class PasswordBloc implements Disposable {
 
   dispose() {
     passwordStream.close();
+    enableAnimationStream.close();
   }
 }

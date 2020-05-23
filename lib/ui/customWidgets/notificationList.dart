@@ -8,8 +8,8 @@ class NotificationList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        MySwitchListTile("Alert"),
-        MySwitchListTile("Message Preview"),
+        MySwitchListTile(title: "Alert"),
+        MySwitchListTile(title: "Message Preview"),
         ListTile(
           title: Text("LED Color"),
           trailing: Icon(

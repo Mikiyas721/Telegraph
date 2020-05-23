@@ -1,3 +1,5 @@
+import 'package:Telegraph/blocs/passwordProvider.dart';
+import 'package:Telegraph/others/sharedPreferenceHandler.dart';
 import 'package:Telegraph/ui/customWidgets/myPhotoView.dart';
 import 'package:Telegraph/ui/customWidgets/mySwitchListTile.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ import 'package:Telegraph/ui/pages/settings/settings/privacyAndSecurity/privacyA
 import 'package:Telegraph/ui/pages/settings/settings/theme.dart';
 import 'package:numberpicker/numberpicker.dart' as picker;
 import 'package:Telegraph/ui/customWidgets/myImageView.dart';
+import 'package:Telegraph/blocs/passwordbloc.dart';
 
 class SettingWindow extends StatelessWidget {
   final String imageURL = "assets/avatar_1.png";
@@ -25,106 +28,88 @@ class SettingWindow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Setting',
-        home: Scaffold(
-          body: NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool) => [
-                    SliverAppBar(
-                      expandedHeight: 150,
-                      pinned: true,
-                      leading: IconButton(
-                          icon: Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          }),
-                      flexibleSpace: FlexibleSpaceBar(
-                          titlePadding:
-                              EdgeInsets.only(top: 15, left: 70, bottom: 3),
-                          centerTitle: false,
-                          title: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Padding(
-                                  child: GestureDetector(
-                                    child: MyImageView(imageURL),
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  MyPhotoView(imageURL)));
-                                    },
-                                  ),
-                                  padding: EdgeInsets.only(right: 5)),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    userName,
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                  ),
-                                  Text(
-                                    getOnlineString(),
-                                    style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w200),
-                                  ),
-                                ],
+    return BlocProvider<PasswordBloc>(
+        blocFactory: () => PasswordBloc(),
+        builder: (BuildContext context, bloc) {
+          return MaterialApp(
+              title: 'Setting',
+              home: Scaffold(
+                body: NestedScrollView(
+                    headerSliverBuilder: (BuildContext context, bool) => [
+                          SliverAppBar(
+                            expandedHeight: 150,
+                            pinned: true,
+                            leading: IconButton(
+                                icon: Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                }),
+                            flexibleSpace: FlexibleSpaceBar(
+                                titlePadding: EdgeInsets.only(
+                                    top: 15, left: 70, bottom: 3),
+                                centerTitle: false,
+                                title: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Padding(
+                                        child: GestureDetector(
+                                          child: MyImageView(imageURL),
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        MyPhotoView(imageURL)));
+                                          },
+                                        ),
+                                        padding: EdgeInsets.only(right: 5)),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          userName,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14),
+                                        ),
+                                        Text(
+                                          getOnlineString(),
+                                          style: TextStyle(
+                                              color: Colors.white70,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w200),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )),
+                            actions: <Widget>[
+                              PopupMenuButton(
+                                onSelected: (selectedValue) {
+                                  if (selectedValue == 1) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                FirstPage()));
+                                  }
+                                },
+                                itemBuilder: (context) {
+                                  return getMenu();
+                                },
                               )
                             ],
-                          )),
-                      /*title: ListTile(
-                        leading: GestureDetector(
-                          child: MyImageView(
-                            imageURL,
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        MyPhotoView(imageURL)));
-                          },
-                        ),
-                        title: Align(
-                          child: Text(
-                            userName,
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                          alignment: Alignment(-1.2, 0),
-                        ),
-                        subtitle: Text(
-                          '$online',
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),*/
-                      actions: <Widget>[
-                        PopupMenuButton(
-                          onSelected: (selectedValue) {
-                            if (selectedValue == 1) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          FirstPage()));
-                            }
-                          },
-                          itemBuilder: (context) {
-                            return getMenu();
-                          },
-                        )
-                      ],
-                    )
-                  ],
-              body: getBody(context)),
-        ));
+                          )
+                        ],
+                    body: getBody(context, bloc)),
+              ));
+        });
   }
 
   List<PopupMenuEntry> getMenu() {
@@ -141,7 +126,7 @@ class SettingWindow extends StatelessWidget {
     return menuList;
   }
 
-  Widget getBody(BuildContext context) {
+  Widget getBody(BuildContext context, PasswordBloc bloc) {
     return ListView(
         children: ListTile.divideTiles(context: context, tiles: [
       SettingGroupTitle(
@@ -218,8 +203,19 @@ class SettingWindow extends StatelessWidget {
               context, MaterialPageRoute(builder: (context) => Languages()));
         },
       ),
-      MySwitchListTile(
-        "Enable Amimation",
+      StreamBuilder(
+        stream: bloc.enableAnimation,
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          return MySwitchListTile(
+            title: "Enable Amimation",
+            onChanged: (bool newValue) {
+              SharedPreferenceHandler.getInstance() /// Does this need await
+                  .setEnableAnimation(newValue);
+              bloc.setAnimationEnabled(newValue);
+            },
+            value: snapshot.data == null ? false : snapshot.data,
+          );
+        },
       ),
       SettingGroupTitle(
         "Messages",
@@ -229,11 +225,11 @@ class SettingWindow extends StatelessWidget {
         bottom: 5,
       ),
       MySwitchListTile(
-        "In-App Browser",
+        title: "In-App Browser",
         subTitle: "Open External links with in app",
       ),
       MySwitchListTile(
-        "Direct Share",
+        title: "Direct Share",
         subTitle: "Show recent chats in share menu",
       ),
       ListTile(
@@ -264,16 +260,16 @@ class SettingWindow extends StatelessWidget {
         ),
       ),
       MySwitchListTile(
-        "Raise to Speak",
+        title: "Raise to Speak",
       ),
       MySwitchListTile(
-        "Send by Enter",
+        title: "Send by Enter",
       ),
       MySwitchListTile(
-        "Autoplay GIFs",
+        title: "Autoplay GIFs",
       ),
       MySwitchListTile(
-        "Save to Gallery",
+        title: "Save to Gallery",
       ),
       SettingGroupTitle(
         "Supports",
@@ -294,5 +290,5 @@ class SettingWindow extends StatelessWidget {
     else
       return "last seen 08:22 AM"; //TODO replace hard coded time string with actually last seen data
   }
-  // TODO Consider Using preferences library
+// TODO Consider Using preferences library
 }

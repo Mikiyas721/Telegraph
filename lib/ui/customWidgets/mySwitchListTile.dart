@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MySwitchListTile extends StatefulWidget {
+/*class MySwitchListTile extends StatefulWidget {
   final MySwitchListTileState mySwitchListTileState;
 
   MySwitchListTile(String title, {String subTitle, bool value = false})
@@ -11,38 +11,34 @@ class MySwitchListTile extends StatefulWidget {
     return mySwitchListTileState;
   }
 
-  get value => mySwitchListTileState.value;
-}
+  bool get value => mySwitchListTileState.value;
+}*/
 
-class MySwitchListTileState extends State<MySwitchListTile> {
-  String title;
-  String subTitle;
-  bool value;
+class MySwitchListTile extends StatelessWidget {
+  final String title;
+  final String subTitle;
+  final bool value;
+  final Function(bool newValue) onChanged;
 
-  MySwitchListTileState(String title, String subTitle, bool value)
-      : title = title,
-        subTitle = subTitle,
-        value = value;
+  MySwitchListTile(
+      {@required this.title,
+      /*@required*/ this.value,
+      /*@required*/ this.onChanged,
+      this.subTitle});
+
+  bool get getValue => value;
 
   @override
   Widget build(BuildContext context) {
     if (subTitle == null) {
       return SwitchListTile(
-        onChanged: (bool newValue) {
-          setState(() {
-            value = !value;
-          });
-        },
+        onChanged: onChanged,
         value: value,
         title: Text(title),
       );
     } else {
       return SwitchListTile(
-        onChanged: (bool newValue) {
-          setState(() {
-            value = !value;
-          });
-        },
+        onChanged: onChanged,
         value: value,
         title: Text(title),
         subtitle: Text(
