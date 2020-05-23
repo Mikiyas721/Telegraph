@@ -22,8 +22,8 @@ class MySwitchListTile extends StatelessWidget {
 
   MySwitchListTile(
       {@required this.title,
-      /*@required*/ this.value,
-      /*@required*/ this.onChanged,
+      @required this.value,
+      @required this.onChanged,
       this.subTitle});
 
   bool get getValue => value;

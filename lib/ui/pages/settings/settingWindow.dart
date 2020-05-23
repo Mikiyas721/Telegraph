@@ -1,4 +1,4 @@
-import 'package:Telegraph/blocs/passwordProvider.dart';
+import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/others/sharedPreferenceHandler.dart';
 import 'package:Telegraph/ui/customWidgets/myPhotoView.dart';
 import 'package:Telegraph/ui/customWidgets/mySwitchListTile.dart';
@@ -16,7 +16,7 @@ import 'package:Telegraph/ui/pages/settings/settings/privacyAndSecurity/privacyA
 import 'package:Telegraph/ui/pages/settings/settings/theme.dart';
 import 'package:numberpicker/numberpicker.dart' as picker;
 import 'package:Telegraph/ui/customWidgets/myImageView.dart';
-import 'package:Telegraph/blocs/passwordbloc.dart';
+import 'package:Telegraph/blocs/settingBloc.dart';
 
 class SettingWindow extends StatelessWidget {
   final String imageURL = "assets/avatar_1.png";
@@ -28,8 +28,8 @@ class SettingWindow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<PasswordBloc>(
-        blocFactory: () => PasswordBloc(),
+    return BlocProvider<SettingBloc>(
+        blocFactory: () => SettingBloc(),
         builder: (BuildContext context, bloc) {
           return MaterialApp(
               title: 'Setting',
@@ -126,7 +126,7 @@ class SettingWindow extends StatelessWidget {
     return menuList;
   }
 
-  Widget getBody(BuildContext context, PasswordBloc bloc) {
+  Widget getBody(BuildContext context, SettingBloc bloc) {
     return ListView(
         children: ListTile.divideTiles(context: context, tiles: [
       SettingGroupTitle(
@@ -209,7 +209,7 @@ class SettingWindow extends StatelessWidget {
           return MySwitchListTile(
             title: "Enable Amimation",
             onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance() /// Does this need await
+              SharedPreferenceHandler.getInstance()
                   .setEnableAnimation(newValue);
               bloc.setAnimationEnabled(newValue);
             },
@@ -224,52 +224,122 @@ class SettingWindow extends StatelessWidget {
         left: 15,
         bottom: 5,
       ),
-      MySwitchListTile(
-        title: "In-App Browser",
-        subTitle: "Open External links with in app",
+      StreamBuilder(
+        stream: bloc.inAppBrowser,
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          return MySwitchListTile(
+            title: "In-App Browser",
+            subTitle: "Open External links with in app",
+            onChanged: (bool newValue) {
+              SharedPreferenceHandler.getInstance().setInAppBrowser(newValue);
+              bloc.setInAppBrowser(newValue);
+            },
+            value: snapshot.data == null ? false : snapshot.data,
+          );
+        },
       ),
-      MySwitchListTile(
-        title: "Direct Share",
-        subTitle: "Show recent chats in share menu",
+      StreamBuilder(
+        stream: bloc.directShare,
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          return MySwitchListTile(
+            title: "Direct Share",
+            subTitle: "Show recent chats in share menu",
+            onChanged: (bool newValue) {
+              SharedPreferenceHandler.getInstance().setInAppBrowser(newValue);
+              bloc.setDirectShare(newValue);
+            },
+            value: snapshot.data == null ? false : snapshot.data,
+          );
+        },
       ),
       ListTile(
         title: Text("Stickers"),
       ),
-      ListTile(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    picker.NumberPickerDialog.integer(
-                  title: Text(
-                    "Message Text Size",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  minValue: 11,
-                  maxValue: 30,
-                  initialIntegerValue: 12,
-                  infiniteLoop: true,
-                ),
-              ));
+      StreamBuilder(
+          stream: bloc.messageTextSizeStream,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            return ListTile(
+              onTap: () async {
+                await showDialog<int>(
+                    context: context,
+                    builder: (BuildContext context) =>
+                        picker.NumberPickerDialog.integer(
+                          title: Text(
+                            "Message Text Size",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          minValue: 11,
+                          maxValue: 30,
+                          initialIntegerValue:
+                              snapshot.data == null ? 12 : snapshot.data,
+                          infiniteLoop: true,
+                        )).then((num value) {
+                  if (value != null) {
+                    bloc.setMessageTextSize(value);
+                    SharedPreferenceHandler.getInstance()
+                        .setMessageTextSize(value);
+                  }
+                });
+              },
+              title: Text("Message Text Size"),
+              trailing: Text(
+                "${snapshot.data}",
+                style: TextStyle(color: Colors.blue),
+              ),
+            );
+          }),
+      StreamBuilder(
+        stream: bloc.raiseToSpeak,
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          return MySwitchListTile(
+            title: "Raise to Speak",
+            onChanged: (bool newValue) {
+              SharedPreferenceHandler.getInstance().setRaiseToSpeak(newValue);
+              bloc.setRaiseToSpeak(newValue);
+            },
+            value: snapshot.data == null ? false : snapshot.data,
+          );
         },
-        title: Text("Message Text Size"),
-        trailing: Text(
-          "12",
-          style: TextStyle(color: Colors.blue),
-        ),
       ),
-      MySwitchListTile(
-        title: "Raise to Speak",
+      StreamBuilder(
+        stream: bloc.sendByEnter,
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          return MySwitchListTile(
+            title: "Send by Enter",
+            onChanged: (bool newValue) {
+              SharedPreferenceHandler.getInstance().setSendByEnter(newValue);
+              bloc.setSendByEnter(newValue);
+            },
+            value: snapshot.data == null ? false : snapshot.data,
+          );
+        },
       ),
-      MySwitchListTile(
-        title: "Send by Enter",
+      StreamBuilder(
+        stream: bloc.autoPlayGif,
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          return MySwitchListTile(
+            title: "Autoplay GIFs",
+            onChanged: (bool newValue) {
+              SharedPreferenceHandler.getInstance().setAutoPlayGIF(newValue);
+              bloc.setAutoPlayGif(newValue);
+            },
+            value: snapshot.data == null ? false : snapshot.data,
+          );
+        },
       ),
-      MySwitchListTile(
-        title: "Autoplay GIFs",
-      ),
-      MySwitchListTile(
-        title: "Save to Gallery",
+      StreamBuilder(
+        stream: bloc.saveToGallery,
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          return MySwitchListTile(
+            title: "Save to Gallery",
+            onChanged: (bool newValue) {
+              SharedPreferenceHandler.getInstance().setSaveToGallery(newValue);
+              bloc.setSaveToGallery(newValue);
+            },
+            value: snapshot.data == null ? false : snapshot.data,
+          );
+        },
       ),
       SettingGroupTitle(
         "Supports",

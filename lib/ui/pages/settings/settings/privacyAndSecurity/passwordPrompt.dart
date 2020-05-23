@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:Telegraph/blocs/passwordbloc.dart';
+import 'package:Telegraph/blocs/securityBloc.dart';
 import 'package:flutter/material.dart';
-import '../../../../../blocs/passwordProvider.dart';
+import '../../../../../blocs/provider/provider.dart';
 
 class PasswordPrompt extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<PasswordBloc>(
-        blocFactory: () => PasswordBloc(),
-        builder: (context, bloc) {
+    return BlocProvider<SecurityBloc>(
+        blocFactory: () => SecurityBloc(),
+        builder: (BuildContext context, SecurityBloc bloc) {
           return MaterialApp(
             title: "Enter Password",
             home: Scaffold(
@@ -30,7 +30,7 @@ class PasswordPrompt extends StatelessWidget {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      bool saved = bloc.save();
+                      bool saved = bloc.savePassword();
                       if (saved) {
                         Scaffold.of(context).showSnackBar(
                             SnackBar(content: Text('Password Saved')));

@@ -73,6 +73,26 @@ class SharedPreferenceHandler {
     return instance.getInt('MessageTextSize');
   }
 
+  Future<bool> setRaiseToSpeak(bool inAppBrowser)async{
+    SharedPreferences instance = await _setInstance();
+    return await instance.setBool('RaiseToSpeak', inAppBrowser);
+  }
+
+  bool getRaiseToSpeak(){
+    SharedPreferences instance = _setInstance();
+    return instance.getBool('RaiseToSpeak');
+  }
+
+  Future<bool> setSendByEnter(bool inAppBrowser)async{
+    SharedPreferences instance = await _setInstance();
+    return await instance.setBool('SendByEnter', inAppBrowser);
+  }
+
+  bool getSendByEnter(){
+    SharedPreferences instance = _setInstance();
+    return instance.getBool('SendByEnter');
+  }
+
   Future<bool> setSaveToGallery(bool inAppBrowser)async{
     SharedPreferences instance = await _setInstance();
     return await instance.setBool('SaveToGallery', inAppBrowser);
