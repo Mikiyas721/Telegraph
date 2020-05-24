@@ -31,6 +31,31 @@ class SettingWindow extends StatelessWidget {
     return BlocProvider<SettingBloc>(
         blocFactory: () => SettingBloc(),
         builder: (BuildContext context, bloc) {
+          final instance = SharedPreferenceHandler.getInstance();
+          instance
+              .isAnimationEnabled()
+              .then((newValue) => bloc.setAnimationEnabled(newValue));
+          instance
+              .isInAppBrowser()
+              .then((newValue) => bloc.setInAppBrowser(newValue));
+          instance
+              .isDirectShare()
+              .then((newValue) => bloc.setDirectShare(newValue));
+          instance
+              .getMessageTextSize()
+              .then((newValue) => bloc.setMessageTextSize(newValue));
+          instance
+              .getRaiseToSpeak()
+              .then((newValue) => bloc.setRaiseToSpeak(newValue));
+          instance
+              .getSendByEnter()
+              .then((newValue) => bloc.setSendByEnter(newValue));
+          instance
+              .getAutoPlayGIF()
+              .then((newValue) => bloc.setAutoPlayGif(newValue));
+          instance
+              .getSaveToGallery()
+              .then((newValue) => bloc.setSaveToGallery(newValue));
           return MaterialApp(
               title: 'Setting',
               home: Scaffold(
@@ -213,7 +238,11 @@ class SettingWindow extends StatelessWidget {
                   .setEnableAnimation(newValue);
               bloc.setAnimationEnabled(newValue);
             },
-            value: snapshot.data == null ? false : snapshot.data,
+            value: snapshot.data == null
+                ? (bloc.enableAnimationStream.value == null
+                    ? false
+                    : bloc.enableAnimationStream.value)
+                : snapshot.data,
           );
         },
       ),
@@ -234,7 +263,9 @@ class SettingWindow extends StatelessWidget {
               SharedPreferenceHandler.getInstance().setInAppBrowser(newValue);
               bloc.setInAppBrowser(newValue);
             },
-            value: snapshot.data == null ? false : snapshot.data,
+            value: snapshot.data == null
+                ? bloc.inAppBrowserStream.value
+                : snapshot.data,
           );
         },
       ),
@@ -248,7 +279,9 @@ class SettingWindow extends StatelessWidget {
               SharedPreferenceHandler.getInstance().setInAppBrowser(newValue);
               bloc.setDirectShare(newValue);
             },
-            value: snapshot.data == null ? false : snapshot.data,
+            value: snapshot.data == null
+                ? bloc.directShareStream.value
+                : snapshot.data,
           );
         },
       ),
@@ -271,8 +304,9 @@ class SettingWindow extends StatelessWidget {
                           ),
                           minValue: 11,
                           maxValue: 30,
-                          initialIntegerValue:
-                              snapshot.data == null ? 12 : snapshot.data,
+                          initialIntegerValue: snapshot.data == null
+                              ? bloc.messageTextSizeStream.value
+                              : snapshot.data,
                           infiniteLoop: true,
                         )).then((num value) {
                   if (value != null) {
@@ -298,7 +332,9 @@ class SettingWindow extends StatelessWidget {
               SharedPreferenceHandler.getInstance().setRaiseToSpeak(newValue);
               bloc.setRaiseToSpeak(newValue);
             },
-            value: snapshot.data == null ? false : snapshot.data,
+            value: snapshot.data == null
+                ? bloc.raiseToSpeakStream.value
+                : snapshot.data,
           );
         },
       ),
@@ -311,7 +347,9 @@ class SettingWindow extends StatelessWidget {
               SharedPreferenceHandler.getInstance().setSendByEnter(newValue);
               bloc.setSendByEnter(newValue);
             },
-            value: snapshot.data == null ? false : snapshot.data,
+            value: snapshot.data == null
+                ? bloc.sendByEnterStream.value
+                : snapshot.data,
           );
         },
       ),
@@ -324,7 +362,9 @@ class SettingWindow extends StatelessWidget {
               SharedPreferenceHandler.getInstance().setAutoPlayGIF(newValue);
               bloc.setAutoPlayGif(newValue);
             },
-            value: snapshot.data == null ? false : snapshot.data,
+            value: snapshot.data == null
+                ? bloc.autoPlayGifStream.value
+                : snapshot.data,
           );
         },
       ),
@@ -337,7 +377,9 @@ class SettingWindow extends StatelessWidget {
               SharedPreferenceHandler.getInstance().setSaveToGallery(newValue);
               bloc.setSaveToGallery(newValue);
             },
-            value: snapshot.data == null ? false : snapshot.data,
+            value: snapshot.data == null
+                ? bloc.saveToGalleryStream.value
+                : snapshot.data,
           );
         },
       ),

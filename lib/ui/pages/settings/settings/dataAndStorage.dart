@@ -1,6 +1,7 @@
 import 'package:Telegraph/controll/blocs/customWidgetBloc.dart';
 import 'package:Telegraph/controll/blocs/provider/provider.dart';
 import 'package:Telegraph/controll/blocs/storageBloc.dart';
+import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
 
@@ -10,6 +11,13 @@ class DataAndStorage extends StatelessWidget {
     return BlocProvider<StorageBloc>(
         blocFactory: () => StorageBloc(),
         builder: (BuildContext context, StorageBloc bloc) {
+          final instance = SharedPreferenceHandler.getInstance();
+          instance
+              .getMediaDownloadOnData()
+              .then((newValue) => bloc.setWhenOnData(newValue));
+          instance
+              .getMediaDownloadOnWifi()
+              .then((newValue) => bloc.setWhenOnWifi(newValue));
           return MaterialApp(
             title: "Data and Storage",
             home: Scaffold(

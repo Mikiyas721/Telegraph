@@ -1,4 +1,5 @@
 import 'package:Telegraph/controll/contact.dart';
+import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
 import 'package:flutter/material.dart';
 import '../pages/searchPage.dart';
 import '../customWidgets/MyDrawer.dart';
@@ -10,6 +11,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    setUpDefaults();
     return MaterialApp(
       title: "Home Page",
       home: Scaffold(
@@ -36,12 +38,34 @@ class HomePage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             Iterable<Contact> contacts = await getContacts();
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ContactsPage(contacts)));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ContactsPage(contacts)));
           },
           child: Icon(Icons.create),
         ),
       ),
     );
+  }
+
+  void setUpDefaults() {
+    SharedPreferenceHandler instance = SharedPreferenceHandler.getInstance();
+
+    instance.setMediaDownloadOnData("No Media");
+    instance.setMediaDownloadOnWifi("No Media");
+
+    instance.setChatBackground(" ");
+
+    instance.setAppLanguage("English");
+
+    instance.setEnableAnimation(true);
+    instance.setInAppBrowser(false);
+    instance.setDirectShare(true);
+    instance.setMessageTextSize(12);
+    instance.setRaiseToSpeak(false);
+    instance.setSendByEnter(true);
+    instance.setAutoPlayGIF(false);
+    instance.setSaveToGallery(false);
   }
 }
