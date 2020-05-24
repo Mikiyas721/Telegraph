@@ -1,30 +1,19 @@
+import 'package:Telegraph/controll/others/chatType.dart';
 import 'package:Telegraph/ui/customWidgets/contactsList.dart';
 import 'package:Telegraph/ui/pages/news/newAccount.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:Telegraph/others/chatType.dart';
 import 'package:Telegraph/ui/pages/news/channelDescription.dart';
 import '../customWidgets/chatListItem.dart';
 import 'chatWindow.dart';
 import 'news/newGroup.dart';
 import '../../controll/contact.dart';
 
-class ContactsPage extends StatefulWidget {
+class ContactsPage extends StatelessWidget {
+  final String title = 'New Message';
   final Iterable<Contact> contacts;
 
   ContactsPage(Iterable<Contact> contacts) : contacts = contacts;
-
-  @override
-  State<StatefulWidget> createState() {
-    ContactsPage(contacts);
-  }
-}
-
-class ContactsPageState extends State<ContactsPage> {
-  String title = 'New Message';
-  Iterable<Contact> contacts;
-
-  ContactsPageState(Iterable<Contact> contacts) : contacts = contacts;
 
   @override
   Widget build(BuildContext context) {

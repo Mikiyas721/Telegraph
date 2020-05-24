@@ -1,5 +1,6 @@
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/others/sharedPreferenceHandler.dart';
+
+import 'package:Telegraph/controll/blocs/provider/provider.dart';
+import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SecurityBloc extends Disposable {

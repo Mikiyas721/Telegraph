@@ -1,5 +1,5 @@
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/blocs/securityBloc.dart';
+import 'package:Telegraph/controll/blocs/provider/provider.dart';
+import 'package:Telegraph/controll/blocs/securityBloc.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/dialogMenu.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';

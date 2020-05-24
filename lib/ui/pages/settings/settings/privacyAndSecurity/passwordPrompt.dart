@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:Telegraph/blocs/securityBloc.dart';
+import 'package:Telegraph/controll/blocs/provider/provider.dart';
+import 'package:Telegraph/controll/blocs/securityBloc.dart';
 import 'package:flutter/material.dart';
-import '../../../../../blocs/provider/provider.dart';
 
 class PasswordPrompt extends StatelessWidget {
   @override

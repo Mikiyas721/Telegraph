@@ -1,4 +1,4 @@
-import 'package:Telegraph/blocs/provider/provider.dart';
+import 'package:Telegraph/controll/blocs/provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CustomWidgetBloc extends Disposable {

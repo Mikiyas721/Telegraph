@@ -1,30 +1,17 @@
+import 'package:Telegraph/controll/others/chatType.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/myImageView.dart';
 import 'package:Telegraph/ui/pages/profilePage.dart';
-import '../../others/chatType.dart';
 
-class ChatWindow extends StatefulWidget {
-  final ChatWindowState chatWindowState;
-
-  ChatWindow(String chatTitle, String imageURL, ChatType chatType,
-      {List<String> menus})
-      : chatWindowState = ChatWindowState(chatTitle, imageURL, chatType, menus);
-
-  @override
-  State<StatefulWidget> createState() {
-    return chatWindowState;
-  }
-}
-
-class ChatWindowState extends State<ChatWindow> {
+class ChatWindow extends StatelessWidget {
   final String chatTitle;
   final String imageURL;
   final List<String> menuListString;
   final ChatType chatType;
 
-  ChatWindowState(
-      this.chatTitle, this.imageURL, this.chatType, this.menuListString);
+  ChatWindow(this.chatTitle, this.imageURL, this.chatType,
+      {this.menuListString});
 
   List<PopupMenuEntry> getMenu() {
     if (menuListString != null) {

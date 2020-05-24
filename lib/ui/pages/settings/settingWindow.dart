@@ -1,5 +1,6 @@
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/others/sharedPreferenceHandler.dart';
+import 'package:Telegraph/controll/blocs/provider/provider.dart';
+import 'package:Telegraph/controll/blocs/settingBloc.dart';
+import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
 import 'package:Telegraph/ui/customWidgets/myPhotoView.dart';
 import 'package:Telegraph/ui/customWidgets/mySwitchListTile.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,6 @@ import 'package:Telegraph/ui/pages/settings/settings/privacyAndSecurity/privacyA
 import 'package:Telegraph/ui/pages/settings/settings/theme.dart';
 import 'package:numberpicker/numberpicker.dart' as picker;
 import 'package:Telegraph/ui/customWidgets/myImageView.dart';
-import 'package:Telegraph/blocs/settingBloc.dart';
 
 class SettingWindow extends StatelessWidget {
   final String imageURL = "assets/avatar_1.png";

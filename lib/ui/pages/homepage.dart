@@ -5,15 +5,8 @@ import '../customWidgets/MyDrawer.dart';
 import 'contactsPage.dart';
 import 'package:contacts_service/contacts_service.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return HomePageState();
-  }
-}
-
-class HomePageState extends State<HomePage> {
-  String title = 'Telegraph';
+class HomePage extends StatelessWidget {
+  final String title = 'Telegraph';
 
   @override
   Widget build(BuildContext context) {

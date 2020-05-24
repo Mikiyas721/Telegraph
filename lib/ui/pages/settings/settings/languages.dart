@@ -1,4 +1,4 @@
-import 'package:Telegraph/others/sharedPreferenceHandler.dart';
+import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
 import 'package:flutter/material.dart';
 
 class Languages extends StatelessWidget {
