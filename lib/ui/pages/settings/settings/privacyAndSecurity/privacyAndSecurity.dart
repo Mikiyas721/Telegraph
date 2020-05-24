@@ -1,5 +1,6 @@
 import 'package:Telegraph/controll/blocs/provider/provider.dart';
 import 'package:Telegraph/controll/blocs/securityBloc.dart';
+import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/dialogMenu.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
@@ -13,6 +14,14 @@ class PrivacyAndSecurity extends StatelessWidget {
     return BlocProvider<SecurityBloc>(
       blocFactory: () => SecurityBloc(),
       builder: (BuildContext context, SecurityBloc bloc) {
+        SharedPreferenceHandler instance =
+            SharedPreferenceHandler.getInstance();
+        instance.getWhoCanCallMe().then((savedValue) {
+          bloc.setLastSeen(savedValue);
+        });
+        instance.getWhoCanCallMe().then((savedValue) {
+          bloc.setCalls(savedValue);
+        });
         return MaterialApp(
           title: "Privacy and Security",
           home: Scaffold(
@@ -48,7 +57,7 @@ class PrivacyAndSecurity extends StatelessWidget {
                       return ListTile(
                         title: Text("Last Seen"),
                         trailing: Text(
-                            "${snapShot.data == null ? "My Contacts" : snapShot.data}",
+                            "${snapShot.data == null ? (bloc.lastSeenStream.value == null ? "Nobody" : bloc.lastSeenStream.value) : snapShot.data}",
                             style: TextStyle(color: Colors.blue)),
                         onTap: () async {
                           await showDialog(
@@ -68,7 +77,7 @@ class PrivacyAndSecurity extends StatelessWidget {
                       return ListTile(
                         title: Text("Calls"),
                         trailing: Text(
-                          "${snapShot.data == null ? "My Contacts" : snapShot.data}",
+                          "${snapShot.data == null ? (bloc.callStream.value == null ? "Nobody" : bloc.callStream.value) : snapShot.data}",
                           style: TextStyle(color: Colors.blue),
                         ),
                         onTap: () async {

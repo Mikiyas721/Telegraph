@@ -1,5 +1,6 @@
 import 'package:Telegraph/controll/blocs/notificationBloc.dart';
 import 'package:Telegraph/controll/blocs/provider/provider.dart';
+import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
 import 'package:Telegraph/ui/customWidgets/mySwitchListTile.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/notificationList.dart';
@@ -11,6 +12,23 @@ class NotificationAndSounds extends StatelessWidget {
     return BlocProvider<NotificationBloc>(
         blocFactory: () => NotificationBloc(),
         builder: (BuildContext context, bloc) {
+          SharedPreferenceHandler instance =
+              SharedPreferenceHandler.getInstance();
+          instance.getInAppSound().then((savedValue) {
+            bloc.setInAppSounds(savedValue);
+          });
+          instance.getInAppVibrate().then((savedValue) {
+            bloc.setInAppVibrate(savedValue);
+          });
+          instance.getInAppPreview().then((savedValue) {
+            bloc.setInAppPreview(savedValue);
+          });
+          instance.getInChatSound().then((savedValue) {
+            bloc.setInChatSounds(savedValue);
+          });
+          instance.getInAppPriority().then((savedValue) {
+            bloc.setInAppPriority(savedValue);
+          });
           return MaterialApp(
             home: Scaffold(
               appBar: AppBar(
@@ -30,6 +48,7 @@ class NotificationAndSounds extends StatelessWidget {
                     left: 15,
                   ),
                   NotificationList(
+                    // Make the widgets here read the saved setting
                     alertStream: bloc.messageAlert,
                     messagePreviewStream: bloc.messagePreview,
                     vibrateStream: bloc.messageVibrate,
@@ -42,28 +61,40 @@ class NotificationAndSounds extends StatelessWidget {
                     prioritySink: bloc.setMessagePriority,
                     onAlertChanged: (bool newValue) {
                       bloc.setMessageAlert(newValue);
+                      SharedPreferenceHandler.getInstance()
+                          .setMessageAlert(newValue);
                     },
                     onMessagePreviewChanged: (bool newValue) {
                       bloc.setMessagePreview(newValue);
+                      SharedPreferenceHandler.getInstance()
+                          .setMessagePreview(newValue);
                     },
                     onVibrateTypeSelected: (String newValue) {
                       if (newValue != null) {
                         bloc.setMessageVibrate(newValue);
+                        SharedPreferenceHandler.getInstance()
+                            .setMessageVibrate(newValue);
                       }
                     },
                     onPopUpNotificationSelected: (String newValue) {
                       if (newValue != null) {
                         bloc.setMessagePopup(newValue);
+                        SharedPreferenceHandler.getInstance()
+                            .setMessagePopup(newValue);
                       }
                     },
                     onSoundSelected: (String newValue) {
                       if (newValue != null) {
                         bloc.setMessageSound(newValue);
+                        SharedPreferenceHandler.getInstance()
+                            .setMessageSound(newValue);
                       }
                     },
                     onPrioritySelected: (String newValue) {
                       if (newValue != null) {
                         bloc.setMessagePriority(newValue);
+                        SharedPreferenceHandler.getInstance()
+                            .setMessagePriority(newValue);
                       }
                     },
                   ),
@@ -86,28 +117,40 @@ class NotificationAndSounds extends StatelessWidget {
                     prioritySink: bloc.setGroupPriority,
                     onAlertChanged: (bool newValue) {
                       bloc.setGroupAlert(newValue);
+                      SharedPreferenceHandler.getInstance()
+                          .setGroupAlert(newValue);
                     },
                     onMessagePreviewChanged: (bool newValue) {
                       bloc.setGroupPreview(newValue);
+                      SharedPreferenceHandler.getInstance()
+                          .setGroupPreview(newValue);
                     },
                     onVibrateTypeSelected: (String newValue) {
                       if (newValue != null) {
                         bloc.setGroupVibrate(newValue);
+                        SharedPreferenceHandler.getInstance()
+                            .setGroupVibrate(newValue);
                       }
                     },
                     onPopUpNotificationSelected: (String newValue) {
                       if (newValue != null) {
                         bloc.setGroupPopup(newValue);
+                        SharedPreferenceHandler.getInstance()
+                            .setGroupPopup(newValue);
                       }
                     },
                     onSoundSelected: (String newValue) {
                       if (newValue != null) {
                         bloc.setGroupSound(newValue);
+                        SharedPreferenceHandler.getInstance()
+                            .setGroupSound(newValue);
                       }
                     },
                     onPrioritySelected: (String newValue) {
                       if (newValue != null) {
                         bloc.setGroupPriority(newValue);
+                        SharedPreferenceHandler.getInstance()
+                            .setGroupPriority(newValue);
                       }
                     },
                   ),
@@ -123,8 +166,11 @@ class NotificationAndSounds extends StatelessWidget {
                         return MySwitchListTile(
                             title: "In-App Sounds",
                             onChanged: bloc.setInAppSounds,
-                            value:
-                                snapChat.data == null ? false : snapChat.data);
+                            value: snapChat.data == null
+                                ? (bloc.inAppSoundsStream.value == null
+                                    ? false
+                                    : bloc.inAppSoundsStream.value)
+                                : snapChat.data);
                       }),
                   StreamBuilder(
                       stream: bloc.inAppVibrate,
@@ -133,7 +179,9 @@ class NotificationAndSounds extends StatelessWidget {
                             title: "In-App Vibrate",
                             onChanged: bloc.setInAppVibrate,
                             value:
-                                snapChat.data == null ? true : snapChat.data);
+                                snapChat.data == null ? (bloc.inAppVibrateStream.value == null
+                                    ? false
+                                    : bloc.inAppVibrateStream.value) : snapChat.data);
                       }),
                   StreamBuilder(
                       stream: bloc.inAppPreview,
@@ -142,7 +190,9 @@ class NotificationAndSounds extends StatelessWidget {
                             title: "In-App Preview",
                             onChanged: bloc.setInAppPreview,
                             value:
-                                snapChat.data == null ? false : snapChat.data);
+                                snapChat.data == null ? (bloc.inAppPreviewStream.value == null
+                                    ? false
+                                    : bloc.inAppPreviewStream.value) : snapChat.data);
                       }),
                   StreamBuilder(
                       stream: bloc.inChatSounds,
@@ -151,16 +201,20 @@ class NotificationAndSounds extends StatelessWidget {
                             title: "In-Chat Sounds",
                             onChanged: bloc.setInChatSounds,
                             value:
-                                snapChat.data == null ? true : snapChat.data);
+                                snapChat.data == null ? (bloc.inChatSoundsStream.value == null
+                                    ? false
+                                    : bloc.inChatSoundsStream.value) : snapChat.data);
                       }),
                   StreamBuilder(
                       stream: bloc.priority,
                       builder: (BuildContext context, AsyncSnapshot snapChat) {
                         return MySwitchListTile(
                             title: "Priority",
-                            onChanged: bloc.setPriority,
+                            onChanged: bloc.setInAppPriority,
                             value:
-                                snapChat.data == null ? false : snapChat.data);
+                                snapChat.data == null ? (bloc.inAppPriorityStream.value == null
+                                    ? false
+                                    : bloc.inAppPriorityStream.value) : snapChat.data);
                       }),
                   SettingGroupTitle(
                     "Voice calls",

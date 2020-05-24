@@ -20,7 +20,7 @@ class NotificationBloc extends Disposable {
   final inAppVibrateStream = BehaviorSubject();
   final inAppPreviewStream = BehaviorSubject();
   final inChatSoundsStream = BehaviorSubject();
-  final priorityStream = BehaviorSubject();
+  final inAppPriorityStream = BehaviorSubject();
 
   /// Message Notifications
   Stream<bool> get messageAlert =>
@@ -94,13 +94,13 @@ class NotificationBloc extends Disposable {
   Stream<bool> get inChatSounds =>
       inChatSoundsStream.map((newValue) => newValue);
 
-  Stream<bool> get priority => priorityStream.map((newValue) => newValue);
+  Stream<bool> get priority => inAppPriorityStream.map((newValue) => newValue);
 
   Function(bool) get setInAppSounds => inAppSoundsStream.add;
   Function(bool) get setInAppVibrate => inAppVibrateStream.add;
   Function(bool) get setInAppPreview => inAppPreviewStream.add;
   Function(bool) get setInChatSounds => inChatSoundsStream.add;
-  Function(bool) get setPriority => priorityStream.add;
+  Function(bool) get setInAppPriority => inAppPriorityStream.add;
 
 
   @override
@@ -123,6 +123,6 @@ class NotificationBloc extends Disposable {
     inAppVibrateStream.close();
     inAppPreviewStream.close();
     inChatSoundsStream.close();
-    priorityStream.close();
+    inAppPriorityStream.close();
   }
 }

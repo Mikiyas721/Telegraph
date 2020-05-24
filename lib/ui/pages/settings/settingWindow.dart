@@ -1,5 +1,6 @@
 import 'package:Telegraph/controll/blocs/provider/provider.dart';
 import 'package:Telegraph/controll/blocs/settingBloc.dart';
+import 'package:Telegraph/controll/others/assistant.dart';
 import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
 import 'package:Telegraph/ui/customWidgets/myPhotoView.dart';
 import 'package:Telegraph/ui/customWidgets/mySwitchListTile.dart';
@@ -117,13 +118,7 @@ class SettingWindow extends StatelessWidget {
                             actions: <Widget>[
                               PopupMenuButton(
                                 onSelected: (selectedValue) {
-                                  if (selectedValue == 1) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                                FirstPage()));
-                                  }
+                                  onPopUpSelected(selectedValue, context);
                                 },
                                 itemBuilder: (context) {
                                   return getMenu();
@@ -139,11 +134,12 @@ class SettingWindow extends StatelessWidget {
 
   List<PopupMenuEntry> getMenu() {
     List<String> menuListString = [
+      'Reset to Default',
       'Edit name',
       'Log out',
     ];
     List<PopupMenuEntry> menuList = [];
-    int i = 0;
+    int i = 1;
     for (String menu in menuListString) {
       menuList.add(new PopupMenuItem(value: i, child: Text(menu)));
       i++;
@@ -264,7 +260,9 @@ class SettingWindow extends StatelessWidget {
               bloc.setInAppBrowser(newValue);
             },
             value: snapshot.data == null
-                ? bloc.inAppBrowserStream.value
+                ? (bloc.inAppBrowserStream.value == null
+                    ? false
+                    : bloc.inAppBrowserStream.value)
                 : snapshot.data,
           );
         },
@@ -280,7 +278,9 @@ class SettingWindow extends StatelessWidget {
               bloc.setDirectShare(newValue);
             },
             value: snapshot.data == null
-                ? bloc.directShareStream.value
+                ? (bloc.directShareStream.value == null
+                    ? false
+                    : bloc.directShareStream.value)
                 : snapshot.data,
           );
         },
@@ -305,7 +305,9 @@ class SettingWindow extends StatelessWidget {
                           minValue: 11,
                           maxValue: 30,
                           initialIntegerValue: snapshot.data == null
-                              ? bloc.messageTextSizeStream.value
+                              ? (bloc.messageTextSizeStream.value == null
+                                  ? 11
+                                  : bloc.messageTextSizeStream.value)
                               : snapshot.data,
                           infiniteLoop: true,
                         )).then((num value) {
@@ -333,7 +335,9 @@ class SettingWindow extends StatelessWidget {
               bloc.setRaiseToSpeak(newValue);
             },
             value: snapshot.data == null
-                ? bloc.raiseToSpeakStream.value
+                ? (bloc.raiseToSpeakStream.value == null
+                    ? false
+                    : bloc.raiseToSpeakStream.value)
                 : snapshot.data,
           );
         },
@@ -348,7 +352,9 @@ class SettingWindow extends StatelessWidget {
               bloc.setSendByEnter(newValue);
             },
             value: snapshot.data == null
-                ? bloc.sendByEnterStream.value
+                ? bloc.sendByEnterStream.value == null
+                    ? false
+                    : bloc.sendByEnterStream.value
                 : snapshot.data,
           );
         },
@@ -363,7 +369,9 @@ class SettingWindow extends StatelessWidget {
               bloc.setAutoPlayGif(newValue);
             },
             value: snapshot.data == null
-                ? bloc.autoPlayGifStream.value
+                ? bloc.autoPlayGifStream.value == null
+                    ? false
+                    : bloc.autoPlayGifStream.value
                 : snapshot.data,
           );
         },
@@ -378,7 +386,9 @@ class SettingWindow extends StatelessWidget {
               bloc.setSaveToGallery(newValue);
             },
             value: snapshot.data == null
-                ? bloc.saveToGalleryStream.value
+                ? bloc.saveToGalleryStream.value == null
+                    ? false
+                    : bloc.saveToGalleryStream.value
                 : snapshot.data,
           );
         },
@@ -401,6 +411,36 @@ class SettingWindow extends StatelessWidget {
       return "Online";
     else
       return "last seen 08:22 AM"; //TODO replace hard coded time string with actually last seen data
+  }
+
+  void onPopUpSelected(int selectedValue, BuildContext context) {
+    if (selectedValue == 1) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Information"),
+              content:
+                  Text("Are you sure you want to reset to default settings"),
+              actions: <Widget>[
+                FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("Cancel")),
+                FlatButton(
+                    onPressed: () {
+                      Assistant.setUpDefaults();/// Return to home page?
+                      Navigator.pop(context);
+                    },
+                    child: Text("Ok")),
+              ],
+            );
+          });
+    } else if (selectedValue == 2) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (BuildContext context) => FirstPage()));
+    } else if (selectedValue == 3) {}
   }
 // TODO Consider Using preferences library
 }
