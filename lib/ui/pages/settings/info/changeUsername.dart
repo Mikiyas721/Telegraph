@@ -17,8 +17,10 @@ class ChangeUserNameState extends State<ChangeUserName> {
     return MaterialApp(
       title: "Change UserName",
       home: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         key: key,
         appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
           leading: FlatButton(
               textColor: Colors.white,
               onPressed: () {

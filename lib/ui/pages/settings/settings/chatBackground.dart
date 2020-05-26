@@ -25,7 +25,9 @@ class ChatBackgroundState extends State<ChatBackground> {
     return MaterialApp(
       title: "Chat Background",
       home: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
+            backgroundColor: Theme.of(context).primaryColor,
             leading: IconButton(
                 icon: Icon(
                   Icons.arrow_back,

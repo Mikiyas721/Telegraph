@@ -10,10 +10,11 @@ class ProfilePage extends StatelessWidget {
     return MaterialApp(
       title: 'Profile Page',
       home: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         body: NestedScrollView(
           headerSliverBuilder:
               (BuildContext context, bool innerBoxIsScrolled) => <Widget>[
-            SliverAppBar(
+            SliverAppBar(backgroundColor: Theme.of(context).primaryColorDark,
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {

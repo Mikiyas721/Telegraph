@@ -31,7 +31,9 @@ class NotificationAndSounds extends StatelessWidget {
           });
           return MaterialApp(
             home: Scaffold(
+              backgroundColor: Theme.of(context).backgroundColor,
               appBar: AppBar(
+                backgroundColor: Theme.of(context).primaryColor,
                 leading: IconButton(
                     icon: Icon(Icons.arrow_back),
                     onPressed: () {

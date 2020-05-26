@@ -60,73 +60,77 @@ class SettingWindow extends StatelessWidget {
           return MaterialApp(
               title: 'Setting',
               home: Scaffold(
+                backgroundColor: Theme
+                    .of(context)
+                    .backgroundColor,
                 body: NestedScrollView(
-                    headerSliverBuilder: (BuildContext context, bool) => [
-                          SliverAppBar(
-                            expandedHeight: 150,
-                            pinned: true,
-                            leading: IconButton(
-                                icon: Icon(
-                                  Icons.arrow_back,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                }),
-                            flexibleSpace: FlexibleSpaceBar(
-                                titlePadding: EdgeInsets.only(
-                                    top: 15, left: 70, bottom: 3),
-                                centerTitle: false,
-                                title: Row(
+                    headerSliverBuilder: (BuildContext context, bool) =>
+                    [
+                      SliverAppBar(
+                        expandedHeight: 150,
+                        pinned: true,
+                        leading: IconButton(
+                            icon: Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            }),
+                        flexibleSpace: FlexibleSpaceBar(
+                            titlePadding: EdgeInsets.only(
+                                top: 15, left: 70, bottom: 3),
+                            centerTitle: false,
+                            title: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Padding(
+                                    child: GestureDetector(
+                                      child: MyImageView(imageURL),
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (BuildContext
+                                                context) =>
+                                                    MyPhotoView(imageURL)));
+                                      },
+                                    ),
+                                    padding: EdgeInsets.only(right: 5)),
+                                Column(
                                   mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Padding(
-                                        child: GestureDetector(
-                                          child: MyImageView(imageURL),
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (BuildContext
-                                                            context) =>
-                                                        MyPhotoView(imageURL)));
-                                          },
-                                        ),
-                                        padding: EdgeInsets.only(right: 5)),
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          userName,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14),
-                                        ),
-                                        Text(
-                                          getOnlineString(),
-                                          style: TextStyle(
-                                              color: Colors.white70,
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w200),
-                                        ),
-                                      ],
-                                    )
+                                    Text(
+                                      userName,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14),
+                                    ),
+                                    Text(
+                                      getOnlineString(),
+                                      style: TextStyle(
+                                          color: Colors.white70,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w200),
+                                    ),
                                   ],
-                                )),
-                            actions: <Widget>[
-                              PopupMenuButton(
-                                onSelected: (selectedValue) {
-                                  onPopUpSelected(selectedValue, context);
-                                },
-                                itemBuilder: (context) {
-                                  return getMenu();
-                                },
-                              )
-                            ],
+                                )
+                              ],
+                            )),
+                        actions: <Widget>[
+                          PopupMenuButton(
+                            onSelected: (selectedValue) {
+                              onPopUpSelected(selectedValue, context);
+                            },
+                            itemBuilder: (context) {
+                              return getMenu();
+                            },
                           )
                         ],
+                      )
+                    ],
                     body: getBody(context, bloc)),
               ));
         });
@@ -150,260 +154,269 @@ class SettingWindow extends StatelessWidget {
   Widget getBody(BuildContext context, SettingBloc bloc) {
     return ListView(
         children: ListTile.divideTiles(context: context, tiles: [
-      SettingGroupTitle(
-        "Info",
-        false,
-        top: 15,
-        left: 15,
-        bottom: 5,
-      ),
-      InfoDisplay(
-        phoneNumber,
-        "Phone",
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ChangePhoneNumber()));
-        },
-      ),
-      InfoDisplay(userString, "Username", onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ChangeUserName()));
-      }),
-      SettingGroupTitle(
-        "Settings",
-        false,
-        top: 20,
-        left: 15,
-        bottom: 5,
-      ),
-      ListTile(
-        title: Text("Notification and Sounds"),
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (BuildContext context) => NotificationAndSounds()));
-        },
-      ),
-      ListTile(
-        title: Text("Privacy and Security"),
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (BuildContext context) => PrivacyAndSecurity()));
-        },
-      ),
-      ListTile(
-        title: Text("Data and Storage"),
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (BuildContext context) => DataAndStorage()));
-        },
-      ),
-      ListTile(
-        title: Text("Chat Background"),
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ChatBackground()));
-        },
-      ),
-      ListTile(
-        title: Text("Theme"),
-        onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MyTheme()));
-        },
-      ),
-      ListTile(
-        title: Text("Language"),
-        onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Languages()));
-        },
-      ),
-      StreamBuilder(
-        stream: bloc.enableAnimation,
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          return MySwitchListTile(
-            title: "Enable Amimation",
-            onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance()
-                  .setEnableAnimation(newValue);
-              bloc.setAnimationEnabled(newValue);
+          SettingGroupTitle(
+            "Info",
+            false,
+            top: 15,
+            left: 15,
+            bottom: 5,
+          ),
+          InfoDisplay(
+            phoneNumber,
+            "Phone",
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ChangePhoneNumber()));
             },
-            value: snapshot.data == null
-                ? (bloc.enableAnimationStream.value == null
+          ),
+          InfoDisplay(userString, "Username", onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ChangeUserName()));
+          }),
+          SettingGroupTitle(
+            "Settings",
+            false,
+            top: 20,
+            left: 15,
+            bottom: 5,
+          ),
+          ListTile(
+            title: Text("Notification and Sounds"),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          NotificationAndSounds()));
+            },
+          ),
+          ListTile(
+            title: Text("Privacy and Security"),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => PrivacyAndSecurity()));
+            },
+          ),
+          ListTile(
+            title: Text("Data and Storage"),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => DataAndStorage()));
+            },
+          ),
+          ListTile(
+            title: Text("Chat Background"),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ChatBackground()));
+            },
+          ),
+          ListTile(
+            title: Text("Theme"),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => MyTheme()));
+            },
+          ),
+          ListTile(
+            title: Text("Language"),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Languages()));
+            },
+          ),
+          StreamBuilder(
+            stream: bloc.enableAnimation,
+            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+              return MySwitchListTile(
+                title: "Enable Amimation",
+                onChanged: (bool newValue) {
+                  SharedPreferenceHandler.getInstance()
+                      .setEnableAnimation(newValue);
+                  bloc.setAnimationEnabled(newValue);
+                },
+                value: snapshot.data == null
+                    ? (bloc.enableAnimationStream.value == null
                     ? false
                     : bloc.enableAnimationStream.value)
-                : snapshot.data,
-          );
-        },
-      ),
-      SettingGroupTitle(
-        "Messages",
-        false,
-        top: 20,
-        left: 15,
-        bottom: 5,
-      ),
-      StreamBuilder(
-        stream: bloc.inAppBrowser,
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          return MySwitchListTile(
-            title: "In-App Browser",
-            subTitle: "Open External links with in app",
-            onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance().setInAppBrowser(newValue);
-              bloc.setInAppBrowser(newValue);
+                    : snapshot.data,
+              );
             },
-            value: snapshot.data == null
-                ? (bloc.inAppBrowserStream.value == null
+          ),
+          SettingGroupTitle(
+            "Messages",
+            false,
+            top: 20,
+            left: 15,
+            bottom: 5,
+          ),
+          StreamBuilder(
+            stream: bloc.inAppBrowser,
+            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+              return MySwitchListTile(
+                title: "In-App Browser",
+                subTitle: "Open External links with in app",
+                onChanged: (bool newValue) {
+                  SharedPreferenceHandler.getInstance().setInAppBrowser(
+                      newValue);
+                  bloc.setInAppBrowser(newValue);
+                },
+                value: snapshot.data == null
+                    ? (bloc.inAppBrowserStream.value == null
                     ? false
                     : bloc.inAppBrowserStream.value)
-                : snapshot.data,
-          );
-        },
-      ),
-      StreamBuilder(
-        stream: bloc.directShare,
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          return MySwitchListTile(
-            title: "Direct Share",
-            subTitle: "Show recent chats in share menu",
-            onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance().setInAppBrowser(newValue);
-              bloc.setDirectShare(newValue);
+                    : snapshot.data,
+              );
             },
-            value: snapshot.data == null
-                ? (bloc.directShareStream.value == null
+          ),
+          StreamBuilder(
+            stream: bloc.directShare,
+            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+              return MySwitchListTile(
+                title: "Direct Share",
+                subTitle: "Show recent chats in share menu",
+                onChanged: (bool newValue) {
+                  SharedPreferenceHandler.getInstance().setInAppBrowser(
+                      newValue);
+                  bloc.setDirectShare(newValue);
+                },
+                value: snapshot.data == null
+                    ? (bloc.directShareStream.value == null
                     ? false
                     : bloc.directShareStream.value)
-                : snapshot.data,
-          );
-        },
-      ),
-      ListTile(
-        title: Text("Stickers"),
-      ),
-      StreamBuilder(
-          stream: bloc.messageTextSizeStream,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return ListTile(
-              onTap: () async {
-                await showDialog<int>(
-                    context: context,
-                    builder: (BuildContext context) =>
-                        picker.NumberPickerDialog.integer(
-                          title: Text(
-                            "Message Text Size",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
-                          ),
-                          minValue: 11,
-                          maxValue: 30,
-                          initialIntegerValue: snapshot.data == null
-                              ? (bloc.messageTextSizeStream.value == null
+                    : snapshot.data,
+              );
+            },
+          ),
+          ListTile(
+            title: Text("Stickers"),
+          ),
+          StreamBuilder(
+              stream: bloc.messageTextSizeStream,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                return ListTile(
+                  onTap: () async {
+                    await showDialog<int>(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            picker.NumberPickerDialog.integer(
+                              title: Text(
+                                "Message Text Size",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                              minValue: 11,
+                              maxValue: 30,
+                              initialIntegerValue: snapshot.data == null
+                                  ? (bloc.messageTextSizeStream.value == null
                                   ? 11
                                   : bloc.messageTextSizeStream.value)
-                              : snapshot.data,
-                          infiniteLoop: true,
-                        )).then((num value) {
-                  if (value != null) {
-                    bloc.setMessageTextSize(value);
-                    SharedPreferenceHandler.getInstance()
-                        .setMessageTextSize(value);
-                  }
-                });
-              },
-              title: Text("Message Text Size"),
-              trailing: Text(
-                "${snapshot.data}",
-                style: TextStyle(color: Colors.blue),
-              ),
-            );
-          }),
-      StreamBuilder(
-        stream: bloc.raiseToSpeak,
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          return MySwitchListTile(
-            title: "Raise to Speak",
-            onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance().setRaiseToSpeak(newValue);
-              bloc.setRaiseToSpeak(newValue);
-            },
-            value: snapshot.data == null
-                ? (bloc.raiseToSpeakStream.value == null
+                                  : snapshot.data,
+                              infiniteLoop: true,
+                            )).then((num value) {
+                      if (value != null) {
+                        bloc.setMessageTextSize(value);
+                        SharedPreferenceHandler.getInstance()
+                            .setMessageTextSize(value);
+                      }
+                    });
+                  },
+                  title: Text("Message Text Size"),
+                  trailing: Text(
+                    "${snapshot.data}",
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                );
+              }),
+          StreamBuilder(
+            stream: bloc.raiseToSpeak,
+            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+              return MySwitchListTile(
+                title: "Raise to Speak",
+                onChanged: (bool newValue) {
+                  SharedPreferenceHandler.getInstance().setRaiseToSpeak(
+                      newValue);
+                  bloc.setRaiseToSpeak(newValue);
+                },
+                value: snapshot.data == null
+                    ? (bloc.raiseToSpeakStream.value == null
                     ? false
                     : bloc.raiseToSpeakStream.value)
-                : snapshot.data,
-          );
-        },
-      ),
-      StreamBuilder(
-        stream: bloc.sendByEnter,
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          return MySwitchListTile(
-            title: "Send by Enter",
-            onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance().setSendByEnter(newValue);
-              bloc.setSendByEnter(newValue);
+                    : snapshot.data,
+              );
             },
-            value: snapshot.data == null
-                ? bloc.sendByEnterStream.value == null
+          ),
+          StreamBuilder(
+            stream: bloc.sendByEnter,
+            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+              return MySwitchListTile(
+                title: "Send by Enter",
+                onChanged: (bool newValue) {
+                  SharedPreferenceHandler.getInstance().setSendByEnter(
+                      newValue);
+                  bloc.setSendByEnter(newValue);
+                },
+                value: snapshot.data == null
+                    ? bloc.sendByEnterStream.value == null
                     ? false
                     : bloc.sendByEnterStream.value
-                : snapshot.data,
-          );
-        },
-      ),
-      StreamBuilder(
-        stream: bloc.autoPlayGif,
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          return MySwitchListTile(
-            title: "Autoplay GIFs",
-            onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance().setAutoPlayGIF(newValue);
-              bloc.setAutoPlayGif(newValue);
+                    : snapshot.data,
+              );
             },
-            value: snapshot.data == null
-                ? bloc.autoPlayGifStream.value == null
+          ),
+          StreamBuilder(
+            stream: bloc.autoPlayGif,
+            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+              return MySwitchListTile(
+                title: "Autoplay GIFs",
+                onChanged: (bool newValue) {
+                  SharedPreferenceHandler.getInstance().setAutoPlayGIF(
+                      newValue);
+                  bloc.setAutoPlayGif(newValue);
+                },
+                value: snapshot.data == null
+                    ? bloc.autoPlayGifStream.value == null
                     ? false
                     : bloc.autoPlayGifStream.value
-                : snapshot.data,
-          );
-        },
-      ),
-      StreamBuilder(
-        stream: bloc.saveToGallery,
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          return MySwitchListTile(
-            title: "Save to Gallery",
-            onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance().setSaveToGallery(newValue);
-              bloc.setSaveToGallery(newValue);
+                    : snapshot.data,
+              );
             },
-            value: snapshot.data == null
-                ? bloc.saveToGalleryStream.value == null
+          ),
+          StreamBuilder(
+            stream: bloc.saveToGallery,
+            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+              return MySwitchListTile(
+                title: "Save to Gallery",
+                onChanged: (bool newValue) {
+                  SharedPreferenceHandler.getInstance().setSaveToGallery(
+                      newValue);
+                  bloc.setSaveToGallery(newValue);
+                },
+                value: snapshot.data == null
+                    ? bloc.saveToGalleryStream.value == null
                     ? false
                     : bloc.saveToGalleryStream.value
-                : snapshot.data,
-          );
-        },
-      ),
-      SettingGroupTitle(
-        "Supports",
-        false,
-        top: 20,
-        left: 15,
-        bottom: 5,
-      ),
-      ListTile(title: Text("Ask a question")),
-      ListTile(title: Text("Telegraph FAQ")),
-      ListTile(title: Text("Privacy Policy")),
-    ]).toList());
+                    : snapshot.data,
+              );
+            },
+          ),
+          SettingGroupTitle(
+            "Supports",
+            false,
+            top: 20,
+            left: 15,
+            bottom: 5,
+          ),
+          ListTile(title: Text("Ask a question")),
+          ListTile(title: Text("Telegraph FAQ")),
+          ListTile(title: Text("Privacy Policy")),
+        ]).toList());
   }
 
   String getOnlineString() {
@@ -421,7 +434,7 @@ class SettingWindow extends StatelessWidget {
             return AlertDialog(
               title: Text("Information"),
               content:
-                  Text("Are you sure you want to reset to default settings"),
+              Text("Are you sure you want to reset to default settings"),
               actions: <Widget>[
                 FlatButton(
                     onPressed: () {
@@ -430,7 +443,9 @@ class SettingWindow extends StatelessWidget {
                     child: Text("Cancel")),
                 FlatButton(
                     onPressed: () {
-                      Assistant.setUpDefaults();/// Return to home page?
+                      Assistant.setUpDefaults();
+
+                      /// Return to home page?
                       Navigator.pop(context);
                     },
                     child: Text("Ok")),

@@ -9,7 +9,9 @@ class NewChannel extends StatelessWidget {
     return MaterialApp(
       title: "New Channel",
       home: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,

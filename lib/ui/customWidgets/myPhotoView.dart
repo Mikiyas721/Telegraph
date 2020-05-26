@@ -12,9 +12,9 @@ class MyPhotoView extends StatelessWidget {
     return MaterialApp(
       title: "Photo View",
       home: Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
-            backgroundColor: Colors.black,
+            backgroundColor: Theme.of(context).primaryColor,
             leading: IconButton(
                 icon: Icon(
                   Icons.arrow_back,

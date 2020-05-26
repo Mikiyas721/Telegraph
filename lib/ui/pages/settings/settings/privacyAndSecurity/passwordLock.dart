@@ -7,7 +7,10 @@ class PasswordLock extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.black26,
+        backgroundColor: Theme
+            .of(context)
+            .backgroundColor,
+
         body: Column(
           children: <Widget>[
             Padding(

@@ -17,7 +17,9 @@ class MyTheme extends StatelessWidget {
           });
           return MaterialApp(
             home: Scaffold(
+              backgroundColor: Theme.of(context).backgroundColor,
               appBar: AppBar(
+                backgroundColor: Theme.of(context).primaryColor,
                 leading: IconButton(
                     icon: Icon(Icons.arrow_back),
                     onPressed: () {
@@ -60,6 +62,7 @@ class MyTheme extends StatelessWidget {
                               : null),
                           onTap: () {
                             bloc.setSelectedTheme("Default");
+                            print("Writing Default");
                             sharedPreference.setSelectedTheme("Default");
                           },
                         );
@@ -78,6 +81,7 @@ class MyTheme extends StatelessWidget {
                               : null,
                           onTap: () {
                             bloc.setSelectedTheme("Dark");
+                            print("Writing Dark");
                             sharedPreference.setSelectedTheme("Dark");
                           },
                         );

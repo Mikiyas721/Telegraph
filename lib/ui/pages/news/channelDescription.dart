@@ -8,7 +8,9 @@ class ChannelDescription extends StatelessWidget {
     return MaterialApp(
       title: "Channel Description",
       home: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme
+            .of(context)
+            .backgroundColor,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,

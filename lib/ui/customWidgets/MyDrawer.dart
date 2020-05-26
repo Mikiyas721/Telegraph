@@ -17,13 +17,16 @@ class MyDrawer extends StatelessWidget {
         child: ListView(
       children: <Widget>[
         UserAccountsDrawerHeader(
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+          ),
           otherAccountsPictures: <Widget>[
             Container(
                 height: 30,
                 width: 30,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.blueAccent,
+                    color: Theme.of(context).primaryColorDark,
                 ),
                 child: IconButton(
                     icon: Icon(

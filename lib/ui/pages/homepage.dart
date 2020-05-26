@@ -13,9 +13,10 @@ class HomePage extends StatelessWidget {
     return MaterialApp(
       title: "Home Page",
       home: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         drawer: MyDrawer(),
         appBar: AppBar(
-          /*leading: FlatButton(onPressed: () {}, child: Icon(Icons.dehaze)),*/
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text("$title"),
           actions: <Widget>[
             IconButton(
@@ -34,6 +35,7 @@ class HomePage extends StatelessWidget {
                     context: context, tiles: getPlaceHolderContacts(context))
                 .toList()),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Theme.of(context).accentColor,
           onPressed: () async {
             Iterable<Contact> contacts = await getContacts();
             Navigator.push(
@@ -41,7 +43,9 @@ class HomePage extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (context) => ContactsPage(contacts)));
           },
-          child: Icon(Icons.create),
+          child: Icon(
+            Icons.create,
+          ),
         ),
       ),
     );

@@ -15,8 +15,10 @@ class PasswordPrompt extends StatelessWidget {
           return MaterialApp(
             title: "Enter Password",
             home: Scaffold(
+              backgroundColor: Theme.of(context).backgroundColor,
               key: snackBarKey,
               appBar: AppBar(
+                backgroundColor: Theme.of(context).primaryColor,
                 leading: IconButton(
                     icon: Icon(
                       Icons.arrow_back,

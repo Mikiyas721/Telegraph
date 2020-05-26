@@ -7,7 +7,6 @@ import 'package:Telegraph/ui/pages/news/channelDescription.dart';
 import '../customWidgets/chatListItem.dart';
 import 'chatWindow.dart';
 import 'news/newGroup.dart';
-import '../../controll/contact.dart';
 
 class ContactsPage extends StatelessWidget {
   final String title = 'New Message';
@@ -20,7 +19,9 @@ class ContactsPage extends StatelessWidget {
     return MaterialApp(
       title: "Contact Page",
       home: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);

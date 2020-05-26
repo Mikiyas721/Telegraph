@@ -6,6 +6,7 @@ class FirstPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           body: Center(
         child: Column(
           children: <Widget>[
