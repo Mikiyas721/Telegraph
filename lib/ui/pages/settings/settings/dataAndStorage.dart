@@ -61,7 +61,7 @@ class DataAndStorage extends StatelessWidget {
                                         bloc.whenOnDataStream.value == null
                                             ? []
                                             : bloc.whenOnDataStream.value
-                                                .split(", ")));
+                                                .split(", "),SharedPreferenceHandler.getInstance().setMediaDownloadOnData));
                           },
                         );
                       }),
@@ -83,7 +83,7 @@ class DataAndStorage extends StatelessWidget {
                                         bloc.whenOnWifiStream.value == null
                                             ? []
                                             : bloc.whenOnWifiStream.value
-                                                .split(", ")));
+                                                .split(", "),SharedPreferenceHandler.getInstance().setMediaDownloadOnWifi));
                           },
                         );
                       })
@@ -94,7 +94,7 @@ class DataAndStorage extends StatelessWidget {
         });
   }
 
-  Widget getBottomSheet(Function(String) parentSink, List<String> selected) {
+  Widget getBottomSheet(Function(String) parentSink, List<String> selected,Future<bool> Function(String) sharedPreferenceSink) {
     return BlocProvider<CustomWidgetBloc>(
         blocFactory: () => CustomWidgetBloc(),
         builder: (BuildContext context, CustomWidgetBloc bloc) {
@@ -197,6 +197,7 @@ class DataAndStorage extends StatelessWidget {
                           selectedMedia += "GIF, ";
                         if (selectedMedia == '') selectedMedia = "No Media";
                         parentSink(selectedMedia);
+                        sharedPreferenceSink(selectedMedia);
                         Navigator.pop(context);
                       },
                       child: Text(

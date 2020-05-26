@@ -16,7 +16,7 @@ class PrivacyAndSecurity extends StatelessWidget {
       builder: (BuildContext context, SecurityBloc bloc) {
         SharedPreferenceHandler instance =
             SharedPreferenceHandler.getInstance();
-        instance.getWhoCanCallMe().then((savedValue) {
+        instance.getWhoViewLastSeen().then((savedValue) {
           bloc.setLastSeen(savedValue);
         });
         instance.getWhoCanCallMe().then((savedValue) {
@@ -65,9 +65,22 @@ class PrivacyAndSecurity extends StatelessWidget {
                               builder: (context) => DialogMenu(
                                     title: "Who can See your last seen time?",
                                     menus: menus,
-                                    selectedValue: "My Contacts",
+                                    selectedValue: snapShot.data == null
+                                        ? (bloc.lastSeenStream.value == null
+                                            ? "Nobody"
+                                            : bloc.lastSeenStream.value)
+                                        : snapShot.data,
                                     parentSink: bloc.setLastSeen,
-                                  )).then(bloc.setLastSeen);
+                                    sharedPreferenceSink:
+                                        SharedPreferenceHandler.getInstance()
+                                            .setWhoViewLastSeen,
+                                  )).then((selectedValue) {
+                            if (selectedValue != null) {
+                              bloc.setLastSeen(selectedValue);
+
+                              /// Check these out promise callbacks
+                            }
+                          });
                         },
                       );
                     }),
@@ -86,9 +99,20 @@ class PrivacyAndSecurity extends StatelessWidget {
                               builder: (context) => DialogMenu(
                                     title: "Who can call me?",
                                     menus: menus,
-                                    selectedValue: "My Contacts",
+                                    selectedValue: snapShot.data == null
+                                        ? (bloc.callStream.value == null
+                                            ? "Nobody"
+                                            : bloc.callStream.value)
+                                        : snapShot.data,
                                     parentSink: bloc.setCalls,
-                                  )).then(bloc.setCalls);
+                                    sharedPreferenceSink:
+                                        SharedPreferenceHandler.getInstance()
+                                            .setWhoCanCallMe,
+                                  )).then((selectedValue) async {
+                            if (selectedValue != null) {
+                              bloc.setCalls(selectedValue);
+                            }
+                          });
                         },
                       );
                     }),

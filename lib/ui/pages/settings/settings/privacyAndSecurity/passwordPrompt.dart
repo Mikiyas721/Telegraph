@@ -5,6 +5,8 @@ import 'package:Telegraph/controll/blocs/securityBloc.dart';
 import 'package:flutter/material.dart';
 
 class PasswordPrompt extends StatelessWidget {
+  final snackBarKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SecurityBloc>(
@@ -13,6 +15,7 @@ class PasswordPrompt extends StatelessWidget {
           return MaterialApp(
             title: "Enter Password",
             home: Scaffold(
+              key: snackBarKey,
               appBar: AppBar(
                 leading: IconButton(
                     icon: Icon(
@@ -32,9 +35,9 @@ class PasswordPrompt extends StatelessWidget {
                     onPressed: () {
                       bool saved = bloc.savePassword();
                       if (saved) {
-                        Scaffold.of(context).showSnackBar(
+                        snackBarKey.currentState.showSnackBar(
                             SnackBar(content: Text('Password Saved')));
-                        Timer(Duration(seconds: 1), () {
+                        Timer(Duration(milliseconds: 400), () {
                           Navigator.pop(context);
                         });
                       }

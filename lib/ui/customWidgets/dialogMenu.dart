@@ -8,12 +8,14 @@ class DialogMenu extends StatelessWidget {
   final List<String> menus;
   final String selectedValue;
   final Function(String) parentSink;
+  final Future<bool> Function(String) sharedPreferenceSink;
 
   DialogMenu(
       {@required this.title,
       @required this.menus,
       @required this.selectedValue,
-      this.parentSink});
+      @required this.parentSink,
+      @required this.sharedPreferenceSink});
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +70,7 @@ class DialogMenu extends StatelessWidget {
                 onChanged: (String newValue) {
                   bloc.setDialogMenuString(newValue);
                   parentSink(newValue);
+                  sharedPreferenceSink(newValue);
                   Timer(Duration(milliseconds: 300), () {
                     Navigator.pop(context);
                   });

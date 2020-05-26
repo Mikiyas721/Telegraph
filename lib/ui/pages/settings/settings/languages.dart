@@ -45,7 +45,6 @@ class Languages extends StatelessWidget {
             SnackBar snackBar =
                 SnackBar(content: Text('Language Updated to $language'));
             snackBarKey.currentState.showSnackBar(snackBar);
-            //Scaffold.of(context).showSnackBar(snackBar);
           }
         },
       ));

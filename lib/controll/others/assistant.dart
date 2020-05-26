@@ -13,6 +13,7 @@ class Assistant {
   static String getDateString(DateTime dateTime) {
     return '${dateTime.year}-${dateTime.month}-${dateTime.day}T${dateTime.hour}:${dateTime.minute}:${dateTime.second}.${dateTime.millisecond}Z';
   }
+
   static bool getBoolean(String bool) {
     if (bool == 'true')
       return true;
@@ -51,6 +52,8 @@ class Assistant {
 
     instance.setChatBackground(" ");
 
+    instance.setSelectedTheme("Default");
+
     instance.setAppLanguage("English");
 
     instance.setEnableAnimation(true);
@@ -62,5 +65,4 @@ class Assistant {
     instance.setAutoPlayGIF(false);
     instance.setSaveToGallery(false);
   }
-
 }

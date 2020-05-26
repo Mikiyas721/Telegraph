@@ -2,19 +2,19 @@ import 'package:Telegraph/controll/blocs/provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class NotificationBloc extends Disposable {
-  final messageAlertStream = BehaviorSubject();
-  final messagePreviewStream = BehaviorSubject();
-  final messageVibrateStream = BehaviorSubject();
-  final messagePopupStream = BehaviorSubject();
-  final messageSoundStream = BehaviorSubject();
-  final messagePriorityStream = BehaviorSubject();
+  final messageAlertStream = BehaviorSubject<bool>();
+  final messagePreviewStream = BehaviorSubject<bool>();
+  final messageVibrateStream = BehaviorSubject<String>();
+  final messagePopupStream = BehaviorSubject<String>();
+  final messageSoundStream = BehaviorSubject<String>();
+  final messagePriorityStream = BehaviorSubject<String>();
 
-  final groupAlertStream = BehaviorSubject();
-  final groupPreviewStream = BehaviorSubject();
-  final groupVibrateStream = BehaviorSubject();
-  final groupPopupStream = BehaviorSubject();
-  final groupSoundStream = BehaviorSubject();
-  final groupPriorityStream = BehaviorSubject();
+  final groupAlertStream = BehaviorSubject<bool>();
+  final groupPreviewStream = BehaviorSubject<bool>();
+  final groupVibrateStream = BehaviorSubject<String>();
+  final groupPopupStream = BehaviorSubject<String>();
+  final groupSoundStream = BehaviorSubject<String>();
+  final groupPriorityStream = BehaviorSubject<String>();
 
   final inAppSoundsStream = BehaviorSubject();
   final inAppVibrateStream = BehaviorSubject();

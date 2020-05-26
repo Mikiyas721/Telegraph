@@ -49,16 +49,20 @@ class NotificationAndSounds extends StatelessWidget {
                   ),
                   NotificationList(
                     // Make the widgets here read the saved setting
-                    alertStream: bloc.messageAlert,
-                    messagePreviewStream: bloc.messagePreview,
-                    vibrateStream: bloc.messageVibrate,
-                    popUpNotificationStream: bloc.messagePopup,
-                    soundStream: bloc.messageSound,
-                    priorityStream: bloc.messagePriority,
+                    alertStream: bloc.messageAlertStream,
+                    messagePreviewStream: bloc.messagePreviewStream,
+                    vibrateStream: bloc.messageVibrateStream,
+                    popUpStream: bloc.messagePopupStream,
+                    soundStream: bloc.messageSoundStream,
+                    priorityStream: bloc.messagePriorityStream,
                     vibrateSink: bloc.setMessageVibrate,
                     popUpNotificationSink: bloc.setMessagePopup,
                     soundSink: bloc.setMessageSound,
                     prioritySink: bloc.setMessagePriority,
+                    vibrateSharedPreference: instance.setMessageVibrate,
+                    popUpSharedPreference:  instance.setMessagePopup,
+                    soundSharedPreference:  instance.setMessageSound,
+                    prioritySharedPreference:  instance.setMessagePriority,
                     onAlertChanged: (bool newValue) {
                       bloc.setMessageAlert(newValue);
                       SharedPreferenceHandler.getInstance()
@@ -97,6 +101,33 @@ class NotificationAndSounds extends StatelessWidget {
                             .setMessagePriority(newValue);
                       }
                     },
+                    readSharedPreferences: () {
+                      SharedPreferenceHandler instance = SharedPreferenceHandler.getInstance();
+                          instance.getMessageAlert()
+                          .then((savedValue) {
+                        bloc.setMessageAlert(savedValue);
+                      });
+                      instance.getMessagePreview()
+                          .then((savedValue) {
+                        bloc.setMessagePreview(savedValue);
+                      });
+                      instance.getMessageVibrate()
+                          .then((savedValue) {
+                        bloc.setMessageVibrate(savedValue);
+                      });
+                      instance.getMessagePopup()
+                          .then((savedValue) {
+                        bloc.setMessagePopup(savedValue);
+                      });
+                      instance.getMessageSound()
+                          .then((savedValue) {
+                        bloc.setMessageSound(savedValue);
+                      });
+                      instance.getMessagePriority()
+                          .then((savedValue) {
+                        bloc.setMessagePriority(savedValue);
+                      });
+                    },
                   ),
                   SettingGroupTitle(
                     "Group Notifications",
@@ -105,16 +136,20 @@ class NotificationAndSounds extends StatelessWidget {
                     left: 15,
                   ),
                   NotificationList(
-                    alertStream: bloc.groupAlert,
-                    messagePreviewStream: bloc.groupPreview,
-                    vibrateStream: bloc.groupVibrate,
-                    popUpNotificationStream: bloc.groupPopup,
-                    soundStream: bloc.groupSound,
-                    priorityStream: bloc.groupPriority,
+                    alertStream: bloc.groupAlertStream,
+                    messagePreviewStream: bloc.groupPreviewStream,
+                    vibrateStream: bloc.groupVibrateStream,
+                    popUpStream: bloc.groupPopupStream,
+                    soundStream: bloc.groupSoundStream,
+                    priorityStream: bloc.groupPriorityStream,
                     vibrateSink: bloc.setGroupVibrate,
                     popUpNotificationSink: bloc.setGroupPopup,
                     soundSink: bloc.setGroupSound,
                     prioritySink: bloc.setGroupPriority,
+                    vibrateSharedPreference: instance.setGroupVibrate,
+                    popUpSharedPreference:  instance.setGroupPopup,
+                    soundSharedPreference:  instance.setGroupSound,
+                    prioritySharedPreference:  instance.setGroupPriority,
                     onAlertChanged: (bool newValue) {
                       bloc.setGroupAlert(newValue);
                       SharedPreferenceHandler.getInstance()
@@ -152,7 +187,33 @@ class NotificationAndSounds extends StatelessWidget {
                         SharedPreferenceHandler.getInstance()
                             .setGroupPriority(newValue);
                       }
-                    },
+                    }, readSharedPreferences: () {
+                    SharedPreferenceHandler instance = SharedPreferenceHandler.getInstance();
+                    instance.getGroupAlert()
+                        .then((savedValue) {
+                      bloc.setGroupAlert(savedValue);
+                    });
+                    instance.getGroupPreview()
+                        .then((savedValue) {
+                      bloc.setGroupPreview(savedValue);
+                    });
+                    instance.getGroupVibrate()
+                        .then((savedValue) {
+                      bloc.setGroupVibrate(savedValue);
+                    });
+                    instance.getGroupPopup()
+                        .then((savedValue) {
+                      bloc.setGroupPopup(savedValue);
+                    });
+                    instance.getGroupSound()
+                        .then((savedValue) {
+                      bloc.setGroupSound(savedValue);
+                    });
+                    instance.getGroupPriority()
+                        .then((savedValue) {
+                      bloc.setGroupPriority(savedValue);
+                    });
+                  },
                   ),
                   SettingGroupTitle(
                     "In-app notification",
@@ -178,10 +239,11 @@ class NotificationAndSounds extends StatelessWidget {
                         return MySwitchListTile(
                             title: "In-App Vibrate",
                             onChanged: bloc.setInAppVibrate,
-                            value:
-                                snapChat.data == null ? (bloc.inAppVibrateStream.value == null
+                            value: snapChat.data == null
+                                ? (bloc.inAppVibrateStream.value == null
                                     ? false
-                                    : bloc.inAppVibrateStream.value) : snapChat.data);
+                                    : bloc.inAppVibrateStream.value)
+                                : snapChat.data);
                       }),
                   StreamBuilder(
                       stream: bloc.inAppPreview,
@@ -189,10 +251,11 @@ class NotificationAndSounds extends StatelessWidget {
                         return MySwitchListTile(
                             title: "In-App Preview",
                             onChanged: bloc.setInAppPreview,
-                            value:
-                                snapChat.data == null ? (bloc.inAppPreviewStream.value == null
+                            value: snapChat.data == null
+                                ? (bloc.inAppPreviewStream.value == null
                                     ? false
-                                    : bloc.inAppPreviewStream.value) : snapChat.data);
+                                    : bloc.inAppPreviewStream.value)
+                                : snapChat.data);
                       }),
                   StreamBuilder(
                       stream: bloc.inChatSounds,
@@ -200,10 +263,11 @@ class NotificationAndSounds extends StatelessWidget {
                         return MySwitchListTile(
                             title: "In-Chat Sounds",
                             onChanged: bloc.setInChatSounds,
-                            value:
-                                snapChat.data == null ? (bloc.inChatSoundsStream.value == null
+                            value: snapChat.data == null
+                                ? (bloc.inChatSoundsStream.value == null
                                     ? false
-                                    : bloc.inChatSoundsStream.value) : snapChat.data);
+                                    : bloc.inChatSoundsStream.value)
+                                : snapChat.data);
                       }),
                   StreamBuilder(
                       stream: bloc.priority,
@@ -211,10 +275,11 @@ class NotificationAndSounds extends StatelessWidget {
                         return MySwitchListTile(
                             title: "Priority",
                             onChanged: bloc.setInAppPriority,
-                            value:
-                                snapChat.data == null ? (bloc.inAppPriorityStream.value == null
+                            value: snapChat.data == null
+                                ? (bloc.inAppPriorityStream.value == null
                                     ? false
-                                    : bloc.inAppPriorityStream.value) : snapChat.data);
+                                    : bloc.inAppPriorityStream.value)
+                                : snapChat.data);
                       }),
                   SettingGroupTitle(
                     "Voice calls",

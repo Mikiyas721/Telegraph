@@ -250,6 +250,17 @@ class SharedPreferenceHandler {
     return instance.getString('ChatBackground');
   }
 
+  /// Theme
+  Future<bool> setSelectedTheme(String selectedTheme) async {
+    SharedPreferences instance = await _setInstance();
+    return await instance.setString("SelectedTheme", selectedTheme);
+  }
+
+  Future<String> getSelectedTheme() async {
+    SharedPreferences instance = await _setInstance();
+    return instance.getString('SelectedTheme');
+  }
+
   /// Language
 
   Future<bool> setAppLanguage(String selectedLanguage) async {

@@ -1,4 +1,3 @@
-
 import 'package:Telegraph/controll/blocs/provider/provider.dart';
 import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
 import 'package:rxdart/rxdart.dart';
@@ -9,7 +8,7 @@ class SecurityBloc extends Disposable {
   final callStream = BehaviorSubject();
 
   Stream<String> get passwordErrorStream {
-    return passwordStream.map(validatePassword);
+    return passwordStream.map((dynamic password) => validatePassword(password));
   }
 
   Function(String password) get addPassword => passwordStream.add;
@@ -21,7 +20,8 @@ class SecurityBloc extends Disposable {
   bool savePassword() {
     final password = passwordStream.value;
     if (validatePassword(password) == null) {
-      SharedPreferenceHandler.getInstance().setUserPassword(password);
+      SharedPreferenceHandler.getInstance()
+          .setUserPassword(int.parse(password));
       return true;
     }
     return false;
