@@ -50,9 +50,9 @@ class Assistant {
     instance.setMediaDownloadOnData("No Media");
     instance.setMediaDownloadOnWifi("No Media");
 
-    instance.setChatBackground(" ");
+    instance.setChatBackground("assets/chatBackground_8.jpeg");
 
-    instance.setSelectedTheme("Default");
+    instance.setSelectedTheme("DefaultLight");
 
     instance.setAppLanguage("English");
 

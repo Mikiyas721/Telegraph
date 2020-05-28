@@ -13,7 +13,8 @@ class ContactsPage extends StatelessWidget {
   final Iterable<Contact> contacts;
   final ThemeData themeData;
 
-  ContactsPage(Iterable<Contact> contacts,{this.themeData}) : contacts = contacts;
+  ContactsPage(Iterable<Contact> contacts, {this.themeData})
+      : contacts = contacts;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,10 @@ class ContactsPage extends StatelessWidget {
                 Icons.arrow_back,
                 color: themeData.iconTheme.color,
               )),
-          title: Text("$title", style: themeData.textTheme.title,),
+          title: Text(
+            "$title",
+            style: themeData.textTheme.title,
+          ),
           actions: <Widget>[
             IconButton(
                 onPressed: () {},
@@ -44,7 +48,8 @@ class ContactsPage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (BuildContext context) => NewAccount(themeData:themeData)));
+                          builder: (BuildContext context) =>
+                              NewAccount(themeData: themeData)));
                 },
                 icon: Icon(
                   Icons.add,
@@ -116,7 +121,7 @@ class ContactsPage extends StatelessWidget {
   }
 }
 
-List<Widget> getPlaceHolderContacts(BuildContext context) {
+List<Widget> getPlaceHolderContacts(BuildContext context, ThemeData themeData) {
   List<Widget> widgets = List<Widget>();
   for (int i = 0; i < 20; i++) {
     widgets.add(ChatListItem(
@@ -126,7 +131,7 @@ List<Widget> getPlaceHolderContacts(BuildContext context) {
           MaterialPageRoute(
               builder: (context) => ChatWindow(
                   "Kebede", "assets/avatar_1.png", ChatType.SINGLE)));
-    }, () {}));
+    }, () {}, themeData: themeData));
   }
   return widgets;
 }

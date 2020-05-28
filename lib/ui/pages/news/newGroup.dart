@@ -46,7 +46,7 @@ class NewGroupAndSecretChat extends StatelessWidget {
                   hintStyle: themeData.textTheme.body1),
             ),
             Column(
-              children: getPlaceHolderContacts(context),
+              children: getPlaceHolderContacts(context, themeData),
             )
           ],
         ),

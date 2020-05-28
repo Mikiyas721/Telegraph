@@ -511,6 +511,7 @@ class SettingWindow extends StatelessWidget {
     } else if (selectedValue == 3) {
       Navigator.push(context,
           MaterialPageRoute(builder: (BuildContext context) => FirstPage(themeData: themeData,)));
+      //TODO Replace the Navigator with the appropriate Navigator
     }
   }
 // TODO Consider Using preferences library

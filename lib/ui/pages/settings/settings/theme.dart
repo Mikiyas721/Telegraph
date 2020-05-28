@@ -2,7 +2,7 @@ import 'package:Telegraph/controll/blocs/provider/provider.dart';
 import 'package:Telegraph/controll/blocs/themeBloc.dart';
 import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
 import 'package:Telegraph/main.dart';
-import 'package:Telegraph/resources/myThemeData.dart';
+import 'package:Telegraph/controll/others/myThemeData.dart';
 import 'package:Telegraph/ui/customWidgets/circularContainer.dart';
 import 'package:flutter/material.dart';
 
@@ -57,26 +57,27 @@ class MyTheme extends StatelessWidget {
                             left: 10, right: 10, top: 10, bottom: 10),
                         child: Text(
                           "You can create your own theme by changing the colors within the app. You can always switch back to the default Telegraph theme here.",
-                          style:themeData.textTheme.caption,
+                          style: themeData.textTheme.caption,
                         )),
                   ),
                   StreamBuilder(
                       stream: bloc.selectedThemeData,
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         return ListTile(
-                          leading:
-                              CircularContainer(backGroundColor: Colors.blue),
-                          title: Text("Default", style: themeData.textTheme.body2,),
-                          trailing: snapshot.data == MyThemeData.defaultTheme
+                          leading: CircularContainer(
+                              backGroundColor:
+                                  MyThemeData.defaultLight.primaryColor),
+                          title: Text(
+                            "Light",
+                            style: themeData.textTheme.body2,
+                          ),
+                          trailing: snapshot.data == MyThemeData.defaultLight
                               ? getMarkedIcon()
-                              : (bloc.selectedThemeStream.value ==
-                                      MyThemeData.defaultTheme
-                                  ? getMarkedIcon()
-                                  : null),
+                              : null,
                           onTap: () {
                             bloc.setSelectedThemeData(
-                                bloc.mapStringToThemeData("Default"));
-                            sharedPreference.setSelectedTheme("Default");
+                                bloc.mapStringToThemeData("DefaultLight"));
+                            sharedPreference.setSelectedTheme("DefaultLight");
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
@@ -90,18 +91,19 @@ class MyTheme extends StatelessWidget {
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         return ListTile(
                           leading: CircularContainer(
-                              backGroundColor: Colors.black54),
-                          title: Text("Dark", style: themeData.textTheme.body2,),
-                          trailing: snapshot.data == "Dark"
+                              backGroundColor:
+                                  MyThemeData.defaultDark.primaryColor),
+                          title: Text(
+                            "Dark",
+                            style: themeData.textTheme.body2,
+                          ),
+                          trailing: snapshot.data == MyThemeData.defaultDark
                               ? getMarkedIcon()
-                              : bloc.selectedThemeStream.value ==
-                                      MyThemeData.themeDark
-                                  ? getMarkedIcon()
-                                  : null,
+                              : null,
                           onTap: () {
                             bloc.setSelectedThemeData(
-                                bloc.mapStringToThemeData("Dark"));
-                            sharedPreference.setSelectedTheme("Dark");
+                                bloc.mapStringToThemeData("DefaultDark"));
+                            sharedPreference.setSelectedTheme("DefaultDark");
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
@@ -109,7 +111,33 @@ class MyTheme extends StatelessWidget {
                                 (Route<dynamic> route) => false);
                           },
                         );
-                      })
+                      }),
+                  StreamBuilder(
+                      stream: bloc.selectedThemeStream,
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        return ListTile(
+                          leading: CircularContainer(
+                              backGroundColor:
+                              MyThemeData.defaultLerp.primaryColor),
+                          title: Text(
+                            "Lerp",
+                            style: themeData.textTheme.body2,
+                          ),
+                          trailing: snapshot.data == MyThemeData.defaultLerp
+                              ? getMarkedIcon()
+                              : null,
+                          onTap: () {
+                            bloc.setSelectedThemeData(
+                                bloc.mapStringToThemeData("DefaultLerp"));
+                            sharedPreference.setSelectedTheme("DefaultLerp");
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) => MyApp()),
+                                    (Route<dynamic> route) => false);
+                          },
+                        );
+                      }),
                 ],
               ),
             ),

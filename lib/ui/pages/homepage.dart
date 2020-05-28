@@ -7,17 +7,22 @@ import 'package:contacts_service/contacts_service.dart';
 
 class HomePage extends StatelessWidget {
   final String title = 'Telegraph';
+  final ThemeData themeData;
+
+  HomePage({this.themeData});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Home Page",
       home: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        drawer: MyDrawer(themeData: Theme.of(context),),
+        backgroundColor: themeData.scaffoldBackgroundColor,
+        drawer: MyDrawer(
+          themeData: themeData,
+        ),
         appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          title: Text("$title"),
+          backgroundColor: themeData.primaryColor,
+          title: Text("$title", style: themeData.textTheme.title),
           actions: <Widget>[
             IconButton(
                 onPressed: () {
@@ -26,16 +31,18 @@ class HomePage extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.search,
-                  color: Colors.white,
+                  color: themeData.iconTheme.color,
                 ))
           ],
         ),
         body: ListView(
             children: ListTile.divideTiles(
-                    context: context, tiles: getPlaceHolderContacts(context))
+                    context: context,
+                    tiles: getPlaceHolderContacts(context, Theme.of(context)))
                 .toList()),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).floatingActionButtonTheme.backgroundColor,
+          backgroundColor:
+              Theme.of(context).floatingActionButtonTheme.backgroundColor,
           onPressed: () async {
             Iterable<Contact> contacts = await getContacts();
             Navigator.push(
@@ -45,6 +52,7 @@ class HomePage extends StatelessWidget {
           },
           child: Icon(
             Icons.create,
+            color: Theme.of(context).iconTheme.color,
           ),
         ),
       ),

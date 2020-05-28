@@ -13,9 +13,10 @@ class ChatListItem extends StatelessWidget {
   final Function onLongPress;
   final ChatType chatType = ChatType.SINGLE;
   final String messageStatus = "Sent";
+  final ThemeData themeData;
 
   ChatListItem(this.imageURL, this.title, this.hour, this.minute, this.meridian,
-      this.lastChatString, this.onTap, this.onLongPress /*,{chatType: type}*/);
+      this.lastChatString, this.onTap, this.onLongPress,{this.themeData});
 
   /*chatType = type;*/
 
@@ -55,11 +56,11 @@ class ChatListItem extends StatelessWidget {
       leading: MyImageView(imageURL),
       title:
           Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-        Icon(getIcon()),
+        Icon(getIcon(), color: themeData.iconTheme.color,),
         Padding(
           child: Text(
             "$title",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Theme.of(context).cardColor),
+            style: themeData.textTheme.body2,
           ),
           padding: EdgeInsets.only(left: 7, bottom: 5),
         ),
@@ -81,51 +82,10 @@ class ChatListItem extends StatelessWidget {
       ),
       subtitle: Text(
         "$lastChatString",
-        style: TextStyle(fontSize: 13,color: Theme.of(context).cardColor),
+        style: themeData.textTheme.caption,
       ),
       onTap: onTap,
       onLongPress: onLongPress,
     );
   }
-
-/*@override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-        itemBuilder: (context, index) => ListTile(
-              dense: true,
-              leading: Container(
-                child: Image.asset(imageURL),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-              ),
-              title: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Icon(getIcon()),
-                  Padding(
-                    child: Text(
-                      "$title",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    padding: EdgeInsets.only(left: 7, bottom: 5),
-                  ),
-                  Spacer(),
-                  Text(
-                    '$hour :$minute $meridian',
-                    style: TextStyle(color: Colors.grey),
-                  )
-                ],
-              ),
-              subtitle: Text(
-                "$lastChatString",
-                style: TextStyle(fontSize: 13),
-              ),
-              onTap: onTap,
-              onLongPress: onLongPress,
-            ),
-        separatorBuilder: (context, index) => Divider(),
-        itemCount: 1);
-  }*/
 }

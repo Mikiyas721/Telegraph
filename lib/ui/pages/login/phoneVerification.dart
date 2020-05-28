@@ -1,3 +1,4 @@
+import 'package:Telegraph/controll/others/assistant.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/pages/homepage.dart';
 import 'package:Telegraph/ui/pages/login/phoneNumberInput.dart';
@@ -35,10 +36,11 @@ class PhoneVerification extends StatelessWidget {
                   color: themeData.iconTheme.color,
                 ),
                 onPressed: () {
+                  Assistant.setUpDefaults();
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (BuildContext context) => HomePage()));
+                          builder: (BuildContext context) => HomePage(themeData: themeData,)));
                 })
           ],
         ),
