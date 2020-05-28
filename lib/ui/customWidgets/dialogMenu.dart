@@ -9,13 +9,14 @@ class DialogMenu extends StatelessWidget {
   final String selectedValue;
   final Function(String) parentSink;
   final Future<bool> Function(String) sharedPreferenceSink;
+  final ThemeData themeData;
 
   DialogMenu(
       {@required this.title,
       @required this.menus,
       @required this.selectedValue,
       @required this.parentSink,
-      @required this.sharedPreferenceSink});
+      @required this.sharedPreferenceSink,this.themeData});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class DialogMenu extends StatelessWidget {
               title,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            backgroundColor: Colors.white,
+            backgroundColor: themeData.dialogBackgroundColor,
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[

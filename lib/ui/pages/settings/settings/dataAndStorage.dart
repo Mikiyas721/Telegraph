@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
 
 class DataAndStorage extends StatelessWidget {
+  final ThemeData themeData;
+
+  DataAndStorage({this.themeData});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<StorageBloc>(
@@ -21,20 +25,20 @@ class DataAndStorage extends StatelessWidget {
           return MaterialApp(
             title: "Data and Storage",
             home: Scaffold(
-              backgroundColor: Theme.of(context).backgroundColor,
+              backgroundColor: themeData.scaffoldBackgroundColor,
               appBar: AppBar(
-                backgroundColor: Theme.of(context).primaryColor,
+                backgroundColor: themeData.primaryColor,
                 leading: IconButton(
                     icon: Icon(
                       Icons.arrow_back,
-                      color: Colors.white,
+                      color: themeData.iconTheme.color,
                     ),
                     onPressed: () {
                       Navigator.pop(context);
                     }),
                 title: Text(
                   "Data and Storage",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  style: themeData.textTheme.title,
                 ),
               ),
               body: ListView(
@@ -49,10 +53,11 @@ class DataAndStorage extends StatelessWidget {
                       stream: bloc.whenOnDataStream,
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         return ListTile(
-                          title: Text("When using mobile data"),
+                          title: Text("When using mobile data",
+                              style: themeData.textTheme.body2),
                           subtitle: Text(
                             "${snapshot.data}",
-                            style: TextStyle(color: Colors.grey, fontSize: 13),
+                            style: themeData.textTheme.caption,
                           ),
                           onTap: () {
                             showModalBottomSheet(
@@ -63,7 +68,9 @@ class DataAndStorage extends StatelessWidget {
                                         bloc.whenOnDataStream.value == null
                                             ? []
                                             : bloc.whenOnDataStream.value
-                                                .split(", "),SharedPreferenceHandler.getInstance().setMediaDownloadOnData));
+                                                .split(", "),
+                                        SharedPreferenceHandler.getInstance()
+                                            .setMediaDownloadOnData));
                           },
                         );
                       }),
@@ -71,10 +78,11 @@ class DataAndStorage extends StatelessWidget {
                       stream: bloc.whenOnWifiStream,
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         return ListTile(
-                          title: Text("When connected to Wi-Fi"),
+                          title: Text("When connected to Wi-Fi",
+                              style: themeData.textTheme.body2),
                           subtitle: Text(
                             "${snapshot.data}",
-                            style: TextStyle(color: Colors.grey, fontSize: 13),
+                            style: themeData.textTheme.caption,
                           ),
                           onTap: () {
                             showModalBottomSheet(
@@ -85,7 +93,9 @@ class DataAndStorage extends StatelessWidget {
                                         bloc.whenOnWifiStream.value == null
                                             ? []
                                             : bloc.whenOnWifiStream.value
-                                                .split(", "),SharedPreferenceHandler.getInstance().setMediaDownloadOnWifi));
+                                                .split(", "),
+                                        SharedPreferenceHandler.getInstance()
+                                            .setMediaDownloadOnWifi));
                           },
                         );
                       })
@@ -96,7 +106,8 @@ class DataAndStorage extends StatelessWidget {
         });
   }
 
-  Widget getBottomSheet(Function(String) parentSink, List<String> selected,Future<bool> Function(String) sharedPreferenceSink) {
+  Widget getBottomSheet(Function(String) parentSink, List<String> selected,
+      Future<bool> Function(String) sharedPreferenceSink) {
     return BlocProvider<CustomWidgetBloc>(
         blocFactory: () => CustomWidgetBloc(),
         builder: (BuildContext context, CustomWidgetBloc bloc) {
@@ -113,103 +124,106 @@ class DataAndStorage extends StatelessWidget {
               bloc.setMusic(true);
             else if (select == "GIF") bloc.setGif(true);
           }
-          return Column(
-            children: <Widget>[
-              StreamBuilder(
-                stream: bloc.photoStream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return CheckboxListTile(
-                    dense: true,
-                    title: Text("Photos"),
-                    value: snapshot.data == null ? false : snapshot.data,
-                    onChanged: bloc.setPhoto,
-                  );
-                },
-              ),
-              StreamBuilder(
-                stream: bloc.videoMessageStream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return CheckboxListTile(
-                    dense: true,
-                    title: Text("Video Messages"),
-                    value: snapshot.data == null ? false : snapshot.data,
-                    onChanged: bloc.setVideoMessage,
-                  );
-                },
-              ),
-              StreamBuilder(
-                stream: bloc.videoStream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return CheckboxListTile(
-                    dense: true,
-                    title: Text("Video"),
-                    value: snapshot.data == null ? false : snapshot.data,
-                    onChanged: bloc.setVideo,
-                  );
-                },
-              ),
-              StreamBuilder(
-                stream: bloc.fileStream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return CheckboxListTile(
-                    dense: true,
-                    title: Text("Files"),
-                    value: snapshot.data == null ? false : snapshot.data,
-                    onChanged: bloc.setFile,
-                  );
-                },
-              ),
-              StreamBuilder(
-                stream: bloc.musicStream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return CheckboxListTile(
-                    dense: true,
-                    title: Text("Music"),
-                    value: snapshot.data == null ? false : snapshot.data,
-                    onChanged: bloc.setMusic,
-                  );
-                },
-              ),
-              StreamBuilder(
-                stream: bloc.gifStream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return CheckboxListTile(
-                    dense: true,
-                    title: Text("GIFs"),
-                    value: snapshot.data == null ? false : snapshot.data,
-                    onChanged: bloc.setGif,
-                  );
-                },
-              ),
-              Expanded(
-                  child: GestureDetector(
-                      onTap: () {
-                        String selectedMedia = '';
-                        if (bloc.photoStream.value == true)
-                          selectedMedia += "Photo, ";
-                        if (bloc.videoMessageStream.value == true)
-                          selectedMedia += "Video Message, ";
-                        if (bloc.videoStream.value == true)
-                          selectedMedia += "Video, ";
-                        if (bloc.fileStream.value == true)
-                          selectedMedia += "File, ";
-                        if (bloc.musicStream.value == true)
-                          selectedMedia += "Music, ";
-                        if (bloc.gifStream.value == true)
-                          selectedMedia += "GIF, ";
-                        if (selectedMedia == '') selectedMedia = "No Media";
-                        parentSink(selectedMedia);
-                        sharedPreferenceSink(selectedMedia);
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        "SAVE",
-                        style: TextStyle(
-                            color: Colors.white70,
-                            backgroundColor: Colors.blue),
-                      )))
-            ],
-          );
+          return Container(
+              color: themeData.scaffoldBackgroundColor,
+              child: Column(
+                children: <Widget>[
+                  StreamBuilder(
+                    stream: bloc.photoStream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      return CheckboxListTile(
+                        dense: true,
+                        title: Text("Photos", style: themeData.textTheme.body2),
+                        value: snapshot.data == null ? false : snapshot.data,
+                        onChanged: bloc.setPhoto,
+                      );
+                    },
+                  ),
+                  StreamBuilder(
+                    stream: bloc.videoMessageStream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      return CheckboxListTile(
+                        dense: true,
+                        title: Text("Voice Messages",
+                            style: themeData.textTheme.body2),
+                        value: snapshot.data == null ? false : snapshot.data,
+                        onChanged: bloc.setVideoMessage,
+                      );
+                    },
+                  ),
+                  StreamBuilder(
+                    stream: bloc.videoStream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      return CheckboxListTile(
+                        dense: true,
+                        title: Text("Video", style: themeData.textTheme.body2),
+                        value: snapshot.data == null ? false : snapshot.data,
+                        onChanged: bloc.setVideo,
+                      );
+                    },
+                  ),
+                  StreamBuilder(
+                    stream: bloc.fileStream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      return CheckboxListTile(
+                        dense: true,
+                        title: Text("Files", style: themeData.textTheme.body2),
+                        value: snapshot.data == null ? false : snapshot.data,
+                        onChanged: bloc.setFile,
+                      );
+                    },
+                  ),
+                  StreamBuilder(
+                    stream: bloc.musicStream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      return CheckboxListTile(
+                        dense: true,
+                        title: Text("Music", style: themeData.textTheme.body2),
+                        value: snapshot.data == null ? false : snapshot.data,
+                        onChanged: bloc.setMusic,
+                      );
+                    },
+                  ),
+                  StreamBuilder(
+                    stream: bloc.gifStream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      return CheckboxListTile(
+                        dense: true,
+                        title: Text("GIFs", style: themeData.textTheme.body2),
+                        value: snapshot.data == null ? false : snapshot.data,
+                        onChanged: bloc.setGif,
+                      );
+                    },
+                  ),
+                  Expanded(
+                      child: GestureDetector(
+                          onTap: () {
+                            String selectedMedia = '';
+                            if (bloc.photoStream.value == true)
+                              selectedMedia += "Photo, ";
+                            if (bloc.videoMessageStream.value == true)
+                              selectedMedia += "Voice Message, ";
+                            if (bloc.videoStream.value == true)
+                              selectedMedia += "Video, ";
+                            if (bloc.fileStream.value == true)
+                              selectedMedia += "File, ";
+                            if (bloc.musicStream.value == true)
+                              selectedMedia += "Music, ";
+                            if (bloc.gifStream.value == true)
+                              selectedMedia += "GIF, ";
+                            if (selectedMedia == '') selectedMedia = "No Media";
+                            parentSink(selectedMedia);
+                            sharedPreferenceSink(selectedMedia);
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "  SAVE  ",
+                            style: TextStyle(
+                                color: themeData.textTheme.button.color,
+                                backgroundColor: themeData.buttonColor),
+                          )))
+                ],
+              ));
         });
   }
 }

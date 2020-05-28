@@ -27,16 +27,18 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, ThemeBloc bloc) {
           SharedPreferenceHandler.getInstance()
               .getSelectedTheme()
-              .then(bloc.setSelectedTheme);
-          return StreamBuilder(
-              stream: bloc.selectedTheme,
-              builder: (BuildContext context, AsyncSnapshot<ThemeData> snapshot) {
+              .then((String value) {
+            ThemeData x = bloc.mapStringToThemeData(value);
+            bloc.setSelectedThemeData(x);
+          });
+          return StreamBuilder<ThemeData>(
+              stream: bloc.selectedThemeData,
+              builder:
+                  (BuildContext context, AsyncSnapshot<ThemeData> snapshot) {
                 return MaterialApp(
-                  title: 'Flutter Demo',
+                  title: 'Telegraph',
                   theme: snapshot.data == null
-                      ? (bloc.selectedTheme == null
-                          ? MyThemeData.defaultTheme
-                          : bloc.selectedTheme)
+                      ? MyThemeData.defaultTheme
                       : snapshot.data,
                   home: startingPage,
                 );

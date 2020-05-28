@@ -3,21 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/pages/news/newChannel.dart';
 
 class ChannelDescription extends StatelessWidget {
+  final ThemeData themeData;
+
+  ChannelDescription({this.themeData});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Channel Description",
       home: Scaffold(
-        backgroundColor: Theme
-            .of(context)
-            .backgroundColor,
+        backgroundColor: themeData.scaffoldBackgroundColor,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.white,
+          backgroundColor: themeData.scaffoldBackgroundColor,
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black45,
+                color: themeData.iconTheme.color,
               ),
               onPressed: () {
                 Navigator.pop(context);
@@ -35,19 +37,19 @@ class ChannelDescription extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 30, top: 30)),
             Text(
               "What is a Channel?",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              style: themeData.textTheme.title,
             ),
             Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 "Channels are a new tool for broadcasting your messages to large audiences",
-                style: TextStyle(color: Colors.grey, fontSize: 15),
+                style: themeData.textTheme.subtitle,
               ),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 30),
             ),
-            FlatButton(
+            FlatButton(color: themeData.buttonColor,
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -56,7 +58,7 @@ class ChannelDescription extends StatelessWidget {
                 },
                 child: Text(
                   "CREATE CHANNEL",
-                  style: TextStyle(color: Colors.blue, fontSize: 20),
+                  style: themeData.textTheme.button,
                 ))
           ],
         ),

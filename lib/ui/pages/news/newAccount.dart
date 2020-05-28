@@ -2,28 +2,30 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 
 class NewAccount extends StatelessWidget {
+  final ThemeData themeData;
+  NewAccount({this.themeData});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "New Account",
       home: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: themeData.scaffoldBackgroundColor,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: themeData.primaryColor,
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.white,
+                color: themeData.iconTheme.color,
               ),
               onPressed: () {
                 Navigator.pop(context);
               }),
           title: Text(
             "New Account",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: TextStyle(color: themeData.textTheme.body2.color, fontWeight: FontWeight.bold),
           ),
           actions: <Widget>[
-            IconButton(icon: Icon(Icons.check), onPressed: () {})
+            IconButton(icon: Icon(Icons.check,color:themeData.iconTheme.color), onPressed: () {})
           ],
         ),
         body: Column(

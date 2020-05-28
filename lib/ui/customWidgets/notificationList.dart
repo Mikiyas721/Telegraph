@@ -31,6 +31,8 @@ class NotificationList extends StatelessWidget {
 
   final Function() readSharedPreferences;
 
+  final ThemeData themeData;
+
   NotificationList(
       {@required this.alertStream,
       @required this.messagePreviewStream,
@@ -52,7 +54,7 @@ class NotificationList extends StatelessWidget {
       @required this.onVibrateTypeSelected,
       @required this.onPopUpNotificationSelected,
       @required this.onSoundSelected,
-      @required this.onPrioritySelected});
+      @required this.onPrioritySelected,this.themeData});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +69,7 @@ class NotificationList extends StatelessWidget {
               onChanged: onAlertChanged,
               value: snapshot.data == null
                   ? alertStream.value == null ? false : alertStream.value
-                  : snapshot.data,
+                  : snapshot.data,themeData: themeData,
             );
           },
         ),
@@ -81,15 +83,15 @@ class NotificationList extends StatelessWidget {
                   ? messagePreviewStream.value == null
                       ? false
                       : messagePreviewStream.value
-                  : snapshot.data,
+                  : snapshot.data,themeData: themeData
             );
           },
         ),
         ListTile(
-          title: Text("LED Color"),
+          title: Text("LED Color",style: themeData.textTheme.body2,),
           trailing: Icon(
             Icons.phone_iphone,
-            color: Colors.blue,
+            color: themeData.iconTheme.color,
           ),
           onTap: () {},
         ),
@@ -97,7 +99,7 @@ class NotificationList extends StatelessWidget {
           stream: vibrateStream,
           builder: (BuildContext context, AsyncSnapshot snapShot) {
             return ListTile(
-                title: Text("Vibrate"),
+                title: Text("Vibrate", style: themeData.textTheme.body2,),
                 trailing: Text(
                   "${snapShot.data == null ? messagePreviewStream.value == null ? "Default" : messagePreviewStream.value : snapShot.data}",
                   style: TextStyle(color: Colors.blue, fontSize: 16),
@@ -129,7 +131,7 @@ class NotificationList extends StatelessWidget {
             stream: popUpStream,
             builder: (BuildContext context, AsyncSnapshot snapShot) {
               return ListTile(
-                title: Text("Popup Notifications"),
+                title: Text("Popup Notifications",style: themeData.textTheme.body2,),
                 trailing: Text(
                   "${snapShot == null ? messagePreviewStream.value == null ? "No popup" : messagePreviewStream.value : snapShot.data}",
                   style: TextStyle(color: Colors.blue, fontSize: 16),
@@ -160,7 +162,7 @@ class NotificationList extends StatelessWidget {
             stream: soundStream,
             builder: (BuildContext context, AsyncSnapshot snapShot) {
               return ListTile(
-                title: Text("Sound"),
+                title: Text("Sound",style: themeData.textTheme.body2,),
                 trailing: Text(
                   "${snapShot.data == null ? messagePreviewStream.value == null ? "No popup" : messagePreviewStream.value : snapShot.data}",
                   style: TextStyle(color: Colors.blue, fontSize: 16),
@@ -191,7 +193,7 @@ class NotificationList extends StatelessWidget {
             stream: priorityStream,
             builder: (BuildContext context, AsyncSnapshot snapShot) {
               return ListTile(
-                title: Text("Priority"),
+                title: Text("Priority",style: themeData.textTheme.body2,),
                 trailing: Text(
                   "${snapShot.data == null ? messagePreviewStream.value == null ? "Default" : messagePreviewStream.value : snapShot.data}",
                   style: TextStyle(color: Colors.blue, fontSize: 16),

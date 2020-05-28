@@ -4,18 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
 
 class ThemeBloc extends Disposable {
-  final selectedThemeStream = BehaviorSubject();
+  final BehaviorSubject<ThemeData> selectedThemeStream = BehaviorSubject<ThemeData>();
 
-  Stream<ThemeData> get selectedTheme =>
-      selectedThemeStream.map((selectedValue) {
-        if (selectedValue == "Default")
-          return MyThemeData.defaultTheme;
-        else
-          return MyThemeData.themeDark;
-      });
+  Stream<ThemeData> get selectedThemeData => selectedThemeStream.map((selectedValue)=>selectedValue);
+  Function(ThemeData themeData) get setSelectedThemeData => selectedThemeStream.add;
 
-  Function(String selectedValue) get setSelectedTheme =>
-      selectedThemeStream.add;
+  Stream<String> get selectedThemeDataString => selectedThemeStream.map(mapThemeDataToString);
+
+  String mapThemeDataToString(ThemeData themeData){
+    if(themeData == MyThemeData.themeDark) return "Dark";
+    else return "Default";
+  }
+  ThemeData mapStringToThemeData(String themeDataString){
+    if(themeDataString=="Dark") return MyThemeData.themeDark;
+    else return MyThemeData.defaultTheme;
+  }
 
   @override
   void dispose() {

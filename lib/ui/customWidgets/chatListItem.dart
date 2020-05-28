@@ -59,7 +59,7 @@ class ChatListItem extends StatelessWidget {
         Padding(
           child: Text(
             "$title",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Theme.of(context).cardColor),
           ),
           padding: EdgeInsets.only(left: 7, bottom: 5),
         ),
@@ -81,7 +81,7 @@ class ChatListItem extends StatelessWidget {
       ),
       subtitle: Text(
         "$lastChatString",
-        style: TextStyle(fontSize: 13),
+        style: TextStyle(fontSize: 13,color: Theme.of(context).cardColor),
       ),
       onTap: onTap,
       onLongPress: onLongPress,

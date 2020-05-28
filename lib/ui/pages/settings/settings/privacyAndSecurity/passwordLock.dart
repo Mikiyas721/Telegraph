@@ -9,7 +9,7 @@ class PasswordLock extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Theme
             .of(context)
-            .backgroundColor,
+            .scaffoldBackgroundColor,
 
         body: Column(
           children: <Widget>[

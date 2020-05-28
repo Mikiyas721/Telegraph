@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/pages/login/phoneNumberInput.dart';
 
 class FirstPage extends StatelessWidget {
+  final ThemeData themeData;
+  FirstPage({this.themeData});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: themeData.scaffoldBackgroundColor,
           body: Center(
         child: Column(
           children: <Widget>[
@@ -22,26 +24,26 @@ class FirstPage extends StatelessWidget {
                 )),
             Text(
               "Telegraph",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: themeData.textTheme.body2.color),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 50, top: 8),
               child: Text(
                 "A fast and easy way of communication.",
-                style: TextStyle(fontSize: 14, color: Colors.grey),
+                style: themeData.textTheme.caption,
               ),
             ),
             RaisedButton(
-                color: Colors.lightBlue,
-                textColor: Colors.white,
+                color: themeData.buttonColor,
+                textColor: themeData.textTheme.button.color,
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              PhoneNumberInput()));
+                              PhoneNumberInput(themeData:themeData)));
                 },
-                child: Text("Start Messaging..."))
+                child: Text("Start Messaging...", style: themeData.textTheme.button,))
           ],
         ),
       )),

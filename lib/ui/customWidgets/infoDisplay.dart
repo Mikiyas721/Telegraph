@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class InfoDisplay extends StatelessWidget {
-  InfoDisplay(this.title, this.subTitle, {this.onTap});
+  InfoDisplay(this.title, this.subTitle, {this.onTap, this.themeData});
 
   final String title;
   final String subTitle;
   final Function onTap;
+  final ThemeData themeData;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class InfoDisplay extends StatelessWidget {
       onTap: onTap,
       title: Text(
         title,
-        style: TextStyle(fontSize: 16),
+        style: themeData.textTheme.body2,
       ),
       subtitle: Text(
         subTitle,

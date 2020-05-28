@@ -8,6 +8,9 @@ import 'package:Telegraph/ui/pages/settings/settings/privacyAndSecurity/password
 
 class PrivacyAndSecurity extends StatelessWidget {
   final List<String> menus = ["Everybody", "My Contacts", "Nobody"];
+  final ThemeData themeData;
+
+  PrivacyAndSecurity({this.themeData});
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +28,20 @@ class PrivacyAndSecurity extends StatelessWidget {
         return MaterialApp(
           title: "Privacy and Security",
           home: Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: themeData.scaffoldBackgroundColor,
             appBar: AppBar(
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: themeData.primaryColor,
               leading: IconButton(
                   icon: Icon(
                     Icons.arrow_back,
-                    color: Colors.white,
+                    color: themeData.iconTheme.color,
                   ),
                   onPressed: () {
                     Navigator.pop(context);
                   }),
               title: Text(
                 "Privacy and Security",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: themeData.textTheme.title,
               ),
             ),
             body: ListView(
@@ -50,14 +53,14 @@ class PrivacyAndSecurity extends StatelessWidget {
                   left: 15,
                 ),
                 ListTile(
-                  title: Text("Blocked Users"),
+                  title: Text("Blocked Users", style: themeData.textTheme.body2,),
                   onTap: () {},
                 ),
                 StreamBuilder(
                     stream: bloc.lastSeenStream,
                     builder: (BuildContext context, AsyncSnapshot snapShot) {
                       return ListTile(
-                        title: Text("Last Seen"),
+                        title: Text("Last Seen",style: themeData.textTheme.body2),
                         trailing: Text(
                             "${snapShot.data == null ? (bloc.lastSeenStream.value == null ? "Nobody" : bloc.lastSeenStream.value) : snapShot.data}",
                             style: TextStyle(color: Colors.blue)),
@@ -75,7 +78,7 @@ class PrivacyAndSecurity extends StatelessWidget {
                                     parentSink: bloc.setLastSeen,
                                     sharedPreferenceSink:
                                         SharedPreferenceHandler.getInstance()
-                                            .setWhoViewLastSeen,
+                                            .setWhoViewLastSeen,themeData: themeData,
                                   )).then((selectedValue) {
                             if (selectedValue != null) {
                               bloc.setLastSeen(selectedValue);
@@ -90,7 +93,7 @@ class PrivacyAndSecurity extends StatelessWidget {
                     stream: bloc.callStream,
                     builder: (BuildContext context, AsyncSnapshot snapShot) {
                       return ListTile(
-                        title: Text("Calls"),
+                        title: Text("Calls",style: themeData.textTheme.body2),
                         trailing: Text(
                           "${snapShot.data == null ? (bloc.callStream.value == null ? "Nobody" : bloc.callStream.value) : snapShot.data}",
                           style: TextStyle(color: Colors.blue),
@@ -109,7 +112,7 @@ class PrivacyAndSecurity extends StatelessWidget {
                                     parentSink: bloc.setCalls,
                                     sharedPreferenceSink:
                                         SharedPreferenceHandler.getInstance()
-                                            .setWhoCanCallMe,
+                                            .setWhoCanCallMe,themeData: themeData,
                                   )).then((selectedValue) async {
                             if (selectedValue != null) {
                               bloc.setCalls(selectedValue);
@@ -120,17 +123,17 @@ class PrivacyAndSecurity extends StatelessWidget {
                     }),
                 SettingGroupTitle("Security", false, left: 15),
                 ListTile(
-                  title: Text("Passcode Lock"),
+                  title: Text("Passcode Lock",style: themeData.textTheme.body2),
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                PasswordPrompt()));
+                                PasswordPrompt(themeData:themeData)));
                   },
                 ),
                 ListTile(
-                  title: Text("Two-Step Verification"),
+                  title: Text("Two-Step Verification",style: themeData.textTheme.body2),
                   onTap: () {},
                 ),
               ],

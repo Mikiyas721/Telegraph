@@ -11,39 +11,40 @@ import 'news/newGroup.dart';
 class ContactsPage extends StatelessWidget {
   final String title = 'New Message';
   final Iterable<Contact> contacts;
+  final ThemeData themeData;
 
-  ContactsPage(Iterable<Contact> contacts) : contacts = contacts;
+  ContactsPage(Iterable<Contact> contacts,{this.themeData}) : contacts = contacts;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Contact Page",
       home: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: themeData.scaffoldBackgroundColor,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: themeData.primaryColor,
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
               },
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.white,
+                color: themeData.iconTheme.color,
               )),
-          title: Text("$title"),
+          title: Text("$title", style: themeData.textTheme.title,),
           actions: <Widget>[
             IconButton(
                 onPressed: () {},
                 icon: Icon(
                   Icons.search,
-                  color: Colors.white,
+                  color: themeData.iconTheme.color,
                 )),
             IconButton(
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (BuildContext context) => NewAccount()));
+                          builder: (BuildContext context) => NewAccount(themeData:themeData)));
                 },
                 icon: Icon(
                   Icons.add,

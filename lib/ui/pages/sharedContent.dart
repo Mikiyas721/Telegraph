@@ -13,7 +13,7 @@ class SharedContent extends StatelessWidget {
     return MaterialApp(
       title: "Shared Content",
       home: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           leading: IconButton(

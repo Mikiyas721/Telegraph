@@ -17,7 +17,7 @@ class SettingGroupTitle extends StatelessWidget {
     if (bold) {
       text = Text(
         title,
-        style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+        style: TextStyle(color: Theme.of(context).textTheme.title.color,backgroundColor: Theme.of(context).scaffoldBackgroundColor, fontWeight: FontWeight.bold),
         textAlign: TextAlign.left,
       );
     } else {

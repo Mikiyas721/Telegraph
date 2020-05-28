@@ -4,34 +4,35 @@ import 'package:Telegraph/ui/pages/login/phoneNumberInput.dart';
 
 class PhoneVerification extends StatelessWidget {
   final String message;
+  final ThemeData themeData;
 
-  PhoneVerification(String message) : message = message;
+  PhoneVerification(String message, {this.themeData}) : message = message;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Phone Verification",
       home: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: themeData.scaffoldBackgroundColor,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: themeData.primaryColor,
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.white,
+                color: themeData.iconTheme.color,
               ),
               onPressed: () {
                 Navigator.pop(context);
               }),
           title: Text(
             "Phone Verification",
-            style: TextStyle(color: Colors.white),
+            style: themeData.textTheme.title,
           ),
           actions: <Widget>[
             IconButton(
                 icon: Icon(
                   Icons.check,
-                  color: Colors.white,
+                  color: themeData.iconTheme.color,
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -50,13 +51,13 @@ class PhoneVerification extends StatelessWidget {
                 padding: EdgeInsets.only(top: 10),
                 child: Text(
                   message,
-                  style: TextStyle(color: Colors.grey),
+                  style: themeData.textTheme.caption,
                 ),
               ),
               TextField(
                 style: TextStyle(fontSize: 18),
                 decoration: InputDecoration(
-                    hintText: "Code", hintStyle: TextStyle(color: Colors.grey)),
+                    hintText: "Code", hintStyle: themeData.textTheme.body1),
               ),
               Text(""),
               FlatButton(
@@ -67,6 +68,7 @@ class PhoneVerification extends StatelessWidget {
                   )),
               Spacer(),
               FlatButton(
+                  color: themeData.buttonColor,
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -76,7 +78,7 @@ class PhoneVerification extends StatelessWidget {
                   },
                   child: Text(
                     "Wrong number?",
-                    style: TextStyle(color: Colors.blue),
+                    style: themeData.textTheme.button,
                   ))
             ],
           ),

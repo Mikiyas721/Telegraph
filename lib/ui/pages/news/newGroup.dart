@@ -3,34 +3,35 @@ import 'package:Telegraph/ui/pages/contactsPage.dart';
 
 class NewGroupAndSecretChat extends StatelessWidget {
   final String title;
+  final ThemeData themeData;
 
-  const NewGroupAndSecretChat(this.title, {Key key}) : super(key: key);
+  const NewGroupAndSecretChat(this.title, {Key key, this.themeData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "New Group",
       home: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: themeData.scaffoldBackgroundColor,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: themeData.primaryColor,
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.white,
+                color: themeData.iconTheme.color,
               ),
               onPressed: () {
                 Navigator.pop(context);
               }),
           title: Text(
             title,
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: themeData.textTheme.title,
           ),
           actions: <Widget>[
             IconButton(
                 icon: Icon(
                   Icons.check,
-                  color: Colors.white,
+                  color: themeData.iconTheme.color,
                 ),
                 onPressed: () {})
           ],
@@ -42,7 +43,7 @@ class NewGroupAndSecretChat extends StatelessWidget {
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.only(top: 15, bottom: 15, left: 8),
                   hintText: "Add people ...",
-                  hintStyle: TextStyle(color: Colors.grey)),
+                  hintStyle: themeData.textTheme.body1),
             ),
             Column(
               children: getPlaceHolderContacts(context),

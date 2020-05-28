@@ -7,6 +7,8 @@ import 'package:Telegraph/ui/customWidgets/notificationList.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
 
 class NotificationAndSounds extends StatelessWidget {
+  final ThemeData themeData;
+  NotificationAndSounds({this.themeData});
   @override
   Widget build(BuildContext context) {
     return BlocProvider<NotificationBloc>(
@@ -31,15 +33,15 @@ class NotificationAndSounds extends StatelessWidget {
           });
           return MaterialApp(
             home: Scaffold(
-              backgroundColor: Theme.of(context).backgroundColor,
+              backgroundColor: themeData.scaffoldBackgroundColor,
               appBar: AppBar(
-                backgroundColor: Theme.of(context).primaryColor,
+                backgroundColor: themeData.primaryColor,
                 leading: IconButton(
-                    icon: Icon(Icons.arrow_back),
+                    icon: Icon(Icons.arrow_back,color: themeData.iconTheme.color,),
                     onPressed: () {
                       Navigator.pop(context);
                     }),
-                title: Text("Notifications and Sounds"),
+                title: Text("Notifications and Sounds",style: themeData.textTheme.title,),
               ),
               body: ListView(
                 children: <Widget>[
@@ -130,6 +132,7 @@ class NotificationAndSounds extends StatelessWidget {
                         bloc.setMessagePriority(savedValue);
                       });
                     },
+                    themeData: themeData,
                   ),
                   SettingGroupTitle(
                     "Group Notifications",
@@ -215,7 +218,7 @@ class NotificationAndSounds extends StatelessWidget {
                         .then((savedValue) {
                       bloc.setGroupPriority(savedValue);
                     });
-                  },
+                  },themeData: themeData,
                   ),
                   SettingGroupTitle(
                     "In-app notification",
@@ -233,7 +236,7 @@ class NotificationAndSounds extends StatelessWidget {
                                 ? (bloc.inAppSoundsStream.value == null
                                     ? false
                                     : bloc.inAppSoundsStream.value)
-                                : snapChat.data);
+                                : snapChat.data,themeData: themeData,);
                       }),
                   StreamBuilder(
                       stream: bloc.inAppVibrate,
@@ -245,7 +248,7 @@ class NotificationAndSounds extends StatelessWidget {
                                 ? (bloc.inAppVibrateStream.value == null
                                     ? false
                                     : bloc.inAppVibrateStream.value)
-                                : snapChat.data);
+                                : snapChat.data,themeData: themeData,);
                       }),
                   StreamBuilder(
                       stream: bloc.inAppPreview,
@@ -257,7 +260,7 @@ class NotificationAndSounds extends StatelessWidget {
                                 ? (bloc.inAppPreviewStream.value == null
                                     ? false
                                     : bloc.inAppPreviewStream.value)
-                                : snapChat.data);
+                                : snapChat.data,themeData: themeData,);
                       }),
                   StreamBuilder(
                       stream: bloc.inChatSounds,
@@ -269,7 +272,7 @@ class NotificationAndSounds extends StatelessWidget {
                                 ? (bloc.inChatSoundsStream.value == null
                                     ? false
                                     : bloc.inChatSoundsStream.value)
-                                : snapChat.data);
+                                : snapChat.data,themeData: themeData);
                       }),
                   StreamBuilder(
                       stream: bloc.priority,
@@ -281,7 +284,7 @@ class NotificationAndSounds extends StatelessWidget {
                                 ? (bloc.inAppPriorityStream.value == null
                                     ? false
                                     : bloc.inAppPriorityStream.value)
-                                : snapChat.data);
+                                : snapChat.data,themeData: themeData,);
                       }),
                   SettingGroupTitle(
                     "Voice calls",
@@ -290,7 +293,7 @@ class NotificationAndSounds extends StatelessWidget {
                     left: 15,
                   ),
                   ListTile(
-                    title: Text("Vibrate"),
+                    title: Text("Vibrate", style: themeData.textTheme.body2,),
                     trailing: Text(
                       "Default",
                       style: TextStyle(color: Colors.blue, fontSize: 16),
@@ -298,7 +301,7 @@ class NotificationAndSounds extends StatelessWidget {
                     onTap: () {},
                   ),
                   ListTile(
-                    title: Text("Ringtone"),
+                    title: Text("Ringtone",style: themeData.textTheme.body2),
                     trailing: Text(
                       "Default",
                       style: TextStyle(color: Colors.blue, fontSize: 16),
