@@ -122,7 +122,7 @@ class NotificationList extends StatelessWidget {
                                     : snapShot.data
                                 : vibrateStream.value,
                             parentSink: vibrateSink,
-                            sharedPreferenceSink: vibrateSharedPreference,
+                            sharedPreferenceSink: vibrateSharedPreference,themeData: themeData,
                           )).then(onVibrateTypeSelected);
                 });
           },
@@ -153,7 +153,7 @@ class NotificationList extends StatelessWidget {
                                 : snapShot.data
                                 : popUpStream.value,
                             parentSink: popUpNotificationSink,
-                            sharedPreferenceSink: popUpSharedPreference,
+                            sharedPreferenceSink: popUpSharedPreference,themeData: themeData,
                           )).then(onPopUpNotificationSelected);
                 },
               );
@@ -184,7 +184,7 @@ class NotificationList extends StatelessWidget {
                                 : snapShot.data
                                 : soundStream.value,
                             parentSink: soundSink,
-                            sharedPreferenceSink: soundSharedPreference,
+                            sharedPreferenceSink: soundSharedPreference,themeData: themeData,
                           )).then(onSoundSelected);
                 },
               );
@@ -210,7 +210,7 @@ class NotificationList extends StatelessWidget {
                                 : snapShot.data
                                 : priorityStream.value,
                             parentSink: prioritySink,
-                            sharedPreferenceSink: prioritySharedPreference,
+                            sharedPreferenceSink: prioritySharedPreference,themeData: themeData,
                           )).then(onPrioritySelected);
                 },
               );

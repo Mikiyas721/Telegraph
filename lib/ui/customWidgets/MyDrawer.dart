@@ -40,8 +40,8 @@ class MyDrawer extends StatelessWidget {
                             ),
                             onPressed: () {}))
                   ],
-                  accountName: Text('$userName'),
-                  accountEmail: Text('$countryCode $phoneNumber'),
+                  accountName: Text('$userName', style: themeData.textTheme.title,),
+                  accountEmail: Text('$countryCode $phoneNumber',style: themeData.textTheme.subtitle,),
                   currentAccountPicture: GestureDetector(
                     child: MyImageView(profilePictureURL),
                     onTap: () {

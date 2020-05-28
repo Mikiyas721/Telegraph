@@ -489,7 +489,7 @@ class SettingWindow extends StatelessWidget {
               backgroundColor: Theme.of(context).dialogBackgroundColor,
               title: Text("Information"),
               content:
-                  Text("Are you sure you want to reset to default settings"),
+                  Text("Are you sure you want to reset to default settings", style: themeData.textTheme.body1,),
               actions: <Widget>[
                 FlatButton(
                     onPressed: () {
@@ -499,7 +499,6 @@ class SettingWindow extends StatelessWidget {
                 FlatButton(
                     onPressed: () {
                       Assistant.setUpDefaults();
-
                       /// Return to home page?
                       Navigator.pop(context);
                     },

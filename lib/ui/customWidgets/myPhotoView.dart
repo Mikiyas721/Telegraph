@@ -1,35 +1,35 @@
-import 'package:Telegraph/ui/customWidgets/myImageView.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class MyPhotoView extends StatelessWidget {
   final String _imageURL;
+  final ThemeData themeData;
 
-  MyPhotoView(this._imageURL);
+  MyPhotoView(this._imageURL, {this.themeData});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Photo View",
       home: Scaffold(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          backgroundColor: Colors.black,
           appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: themeData.primaryColor,
             leading: IconButton(
                 icon: Icon(
                   Icons.arrow_back,
-                  color: Colors.white,
+                  color: themeData.iconTheme.color,
                 ),
                 onPressed: () {
                   Navigator.pop(context);
                 }),
             title: Text(
               "1 of 1",
-              style: TextStyle(color: Colors.white),
+              style: themeData.textTheme.title,
             ),
             actions: <Widget>[
               PopupMenuButton(
-                color: Colors.black,
+                color: themeData.backgroundColor,
                 onSelected: (selectedValue) {
                   if (selectedValue == 1) {}
                 },
@@ -70,7 +70,7 @@ class MyPhotoView extends StatelessWidget {
           value: i,
           child: Text(
             menu,
-            style: TextStyle(color: Colors.white),
+            style: themeData.textTheme.caption,
           )));
       i++;
     }

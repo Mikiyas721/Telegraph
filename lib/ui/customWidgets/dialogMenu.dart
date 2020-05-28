@@ -63,7 +63,7 @@ class DialogMenu extends StatelessWidget {
                 dense: true,
                 title: Text(
                   menu,
-                  style: TextStyle(fontSize: 16),
+                  style: themeData.textTheme.body1,
                 ),
                 value: menu,
                 groupValue:

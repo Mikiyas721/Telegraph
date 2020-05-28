@@ -78,11 +78,11 @@ class MyTheme extends StatelessWidget {
                             bloc.setSelectedThemeData(
                                 bloc.mapStringToThemeData("DefaultLight"));
                             sharedPreference.setSelectedTheme("DefaultLight");
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) => MyApp()),
-                                (Route<dynamic> route) => false);
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => MyApp()),
+                            );
                           },
                         );
                       }),
@@ -104,11 +104,11 @@ class MyTheme extends StatelessWidget {
                             bloc.setSelectedThemeData(
                                 bloc.mapStringToThemeData("DefaultDark"));
                             sharedPreference.setSelectedTheme("DefaultDark");
-                            Navigator.pushAndRemoveUntil(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) => MyApp()),
-                                (Route<dynamic> route) => false);
+                                );
                           },
                         );
                       }),
@@ -118,7 +118,33 @@ class MyTheme extends StatelessWidget {
                         return ListTile(
                           leading: CircularContainer(
                               backGroundColor:
-                              MyThemeData.defaultLerp.primaryColor),
+                                  MyThemeData.darkBlue.primaryColor),
+                          title: Text(
+                            "Dark Blue",
+                            style: themeData.textTheme.body2,
+                          ),
+                          trailing: snapshot.data == MyThemeData.darkBlue
+                              ? getMarkedIcon()
+                              : null,
+                          onTap: () {
+                            bloc.setSelectedThemeData(
+                                bloc.mapStringToThemeData("DarkBlue"));
+                            sharedPreference.setSelectedTheme("DarkBlue");
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) => MyApp()),
+                               );
+                          },
+                        );
+                      }),
+                  StreamBuilder(
+                      stream: bloc.selectedThemeStream,
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        return ListTile(
+                          leading: CircularContainer(
+                              backGroundColor:
+                                  MyThemeData.defaultLerp.primaryColor),
                           title: Text(
                             "Lerp",
                             style: themeData.textTheme.body2,
@@ -130,11 +156,11 @@ class MyTheme extends StatelessWidget {
                             bloc.setSelectedThemeData(
                                 bloc.mapStringToThemeData("DefaultLerp"));
                             sharedPreference.setSelectedTheme("DefaultLerp");
-                            Navigator.pushAndRemoveUntil(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) => MyApp()),
-                                    (Route<dynamic> route) => false);
+                                );
                           },
                         );
                       }),

@@ -14,11 +14,13 @@ class ThemeBloc extends Disposable {
   String mapThemeDataToString(ThemeData themeData){
     if(themeData == MyThemeData.defaultDark) return "DefaultDark";
     else if(themeData == MyThemeData.defaultLerp) return "DefaultLerp";
+    else if(themeData == MyThemeData.darkBlue) return "DarkBlue";
     else return "DefaultLight";
   }
   ThemeData mapStringToThemeData(String themeDataString){
     if(themeDataString=="DefaultDark") return MyThemeData.defaultDark;
     else if(themeDataString=="DefaultLerp") return MyThemeData.defaultLerp;
+    else if(themeDataString=="DarkBlue") return MyThemeData.darkBlue;
     else return MyThemeData.defaultLight;
   }
 
