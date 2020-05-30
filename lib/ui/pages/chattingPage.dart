@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/myImageView.dart';
 import 'package:Telegraph/ui/pages/profilePage.dart';
 
-class ChatWindow extends StatelessWidget {
+class ChattingPage extends StatelessWidget {
   final String chatTitle;
   final String imageURL;
   final List<String> menuListString;
   final ChatType chatType;
 
-  ChatWindow(this.chatTitle, this.imageURL, this.chatType,
+  ChattingPage(this.chatTitle, this.imageURL, this.chatType,
       {this.menuListString});
 
   List<PopupMenuEntry> getMenu() {
@@ -51,8 +51,7 @@ class ChatWindow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
@@ -101,8 +100,7 @@ class ChatWindow extends StatelessWidget {
                 ChatMessage(text: "Testing", user: ChatUser(name: "Mikiyas"))
               ],
               user: ChatUser(name: "Mikiyas"),
-              onSend: (ChatMessage chatMessage) {})),
-    );
+              onSend: (ChatMessage chatMessage) {}));
   }
 
   Widget getMessageDialog(BuildContext context) {

@@ -65,7 +65,7 @@ class Http {
         newUser = User(
             firstName,
             futureUser.getPhoneNumber,
-            Assistant.getBoolean(futureUser.isOnline),
+            futureUser.isOnline=="true"?true:false,
             Assistant.getDateTime(futureUser.getLastSeen),
             userId,
             lastName: futureUser.getFirstName,
@@ -76,7 +76,7 @@ class Http {
         newUser = User(
             firstName,
             futureUser.getPhoneNumber,
-            Assistant.getBoolean(futureUser.isOnline),
+            futureUser.isOnline=="true"?true:false,
             Assistant.getDateTime(futureUser.getLastSeen),
             userId,
             lastName: lastName,
@@ -94,7 +94,7 @@ class Http {
       newUser = User(
           futureUser.getFirstName,
           phoneNumber,
-          Assistant.getBoolean(futureUser.isOnline),
+          futureUser.isOnline=="true"?true:false,
           Assistant.getDateTime(futureUser.getLastSeen),
           userId,
           lastName: futureUser.getLastName,

@@ -5,43 +5,40 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/pages/news/channelDescription.dart';
 import '../customWidgets/chatListItem.dart';
-import 'chatWindow.dart';
+import 'chattingPage.dart';
 import 'news/newGroup.dart';
 
 class ContactsPage extends StatelessWidget {
   final String title = 'New Message';
   final Iterable<Contact> contacts;
-  final ThemeData themeData;
 
-  ContactsPage(Iterable<Contact> contacts, {this.themeData})
+  ContactsPage(Iterable<Contact> contacts)
       : contacts = contacts;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Contact Page",
-      home: Scaffold(
-        backgroundColor: themeData.scaffoldBackgroundColor,
+    return Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
-          backgroundColor: themeData.primaryColor,
+          backgroundColor: Theme.of(context).primaryColor,
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
               },
               icon: Icon(
                 Icons.arrow_back,
-                color: themeData.iconTheme.color,
+                color: Theme.of(context).iconTheme.color,
               )),
           title: Text(
             "$title",
-            style: themeData.textTheme.title,
+            style: Theme.of(context).textTheme.title,
           ),
           actions: <Widget>[
             IconButton(
                 onPressed: () {},
                 icon: Icon(
                   Icons.search,
-                  color: themeData.iconTheme.color,
+                  color: Theme.of(context).iconTheme.color,
                 )),
             IconButton(
                 onPressed: () {
@@ -49,7 +46,7 @@ class ContactsPage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              NewAccount(themeData: themeData)));
+                              NewAccountPage()));
                 },
                 icon: Icon(
                   Icons.add,
@@ -67,7 +64,7 @@ class ContactsPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            NewGroupAndSecretChat("New Group")));
+                            NewGroupPage("New Group")));
               },
             ),
             ListTile(
@@ -78,7 +75,7 @@ class ContactsPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            NewGroupAndSecretChat("New Secret Chat")));
+                            NewGroupPage("New Secret Chat")));
               },
             ),
             ListTile(
@@ -89,7 +86,7 @@ class ContactsPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            ChannelDescription()));
+                            ChannelDescriptionPage()));
               },
             ),
             Card(
@@ -112,12 +109,11 @@ class ContactsPage extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => NewAccount()));
+                    builder: (BuildContext context) => NewAccountPage()));
           },
           child: Icon(Icons.add),
         ),
-      ),
-    );
+      );
   }
 }
 
@@ -129,7 +125,7 @@ List<Widget> getPlaceHolderContacts(BuildContext context, ThemeData themeData) {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => ChatWindow(
+              builder: (context) => ChattingPage(
                   "Kebede", "assets/avatar_1.png", ChatType.SINGLE)));
     }, () {}, themeData: themeData));
   }

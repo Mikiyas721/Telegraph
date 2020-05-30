@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:Telegraph/controll/blocs/customWidgetBloc.dart';
 import 'package:Telegraph/controll/blocs/provider/provider.dart';
+import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
 import 'package:flutter/material.dart';
 
 class DialogMenu extends StatelessWidget {
@@ -8,15 +9,14 @@ class DialogMenu extends StatelessWidget {
   final List<String> menus;
   final String selectedValue;
   final Function(String) parentSink;
-  final Future<bool> Function(String) sharedPreferenceSink;
   final ThemeData themeData;
+  final String preferenceKey;
 
   DialogMenu(
       {@required this.title,
       @required this.menus,
       @required this.selectedValue,
-      @required this.parentSink,
-      @required this.sharedPreferenceSink,this.themeData});
+      @required this.parentSink,this.preferenceKey,this.themeData});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class DialogMenu extends StatelessWidget {
                 onChanged: (String newValue) {
                   bloc.setDialogMenuString(newValue);
                   parentSink(newValue);
-                  sharedPreferenceSink(newValue);
+                  PreferenceHandler.setPreference(preferenceKey,newValue);
                   Timer(Duration(milliseconds: 300), () {
                     Navigator.pop(context);
                   });

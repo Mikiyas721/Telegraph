@@ -14,55 +14,46 @@ class Assistant {
     return '${dateTime.year}-${dateTime.month}-${dateTime.day}T${dateTime.hour}:${dateTime.minute}:${dateTime.second}.${dateTime.millisecond}Z';
   }
 
-  static bool getBoolean(String bool) {
-    if (bool == 'true')
-      return true;
-    else
-      return false;
-  }
-
   static void setUpDefaults() {
-    SharedPreferenceHandler instance = SharedPreferenceHandler.getInstance();
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.messageAlert, true);
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.messagePreview, false);
+    PreferenceHandler.setPreference<String>(PreferenceHandler.messageVibrate, "Default");
+    PreferenceHandler.setPreference<String>(PreferenceHandler.messagePopup, "No popup");
+    PreferenceHandler.setPreference<String>(PreferenceHandler.messageSound, "No popup");
+    PreferenceHandler.setPreference<String>(PreferenceHandler.messagePriority, "Default");
 
-    instance.setMessageAlert(true);
-    instance.setMessagePreview(false);
-    instance.setMessageVibrate("Default");
-    instance.setMessagePopup("No popup");
-    instance.setMessageSound("No popup");
-    instance.setMessagePriority("Default");
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.groupAlert, false);
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.groupPreview, true);
+    PreferenceHandler.setPreference<String>(PreferenceHandler.groupVibrate, "Default");
+    PreferenceHandler.setPreference<String>(PreferenceHandler.groupPopup, "No popup");
+    PreferenceHandler.setPreference<String>(PreferenceHandler.groupSound, "No popup");
+    PreferenceHandler.setPreference<String>(PreferenceHandler.groupPriority, "Default");
 
-    instance.setGroupAlert(false);
-    instance.setGroupPreview(true);
-    instance.setGroupVibrate("Default");
-    instance.setGroupPopup("No popup");
-    instance.setGroupSound("No popup");
-    instance.setGroupPriority("Default");
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.inAppSound, false);
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.inAppVibrate, true);
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.inAppPreview, true);
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.inChatSound, false);
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.inAppPriority, false);
 
-    instance.setInAppSound(false);
-    instance.setInAppVibrate(true);
-    instance.setInAppPreview(true);
-    instance.setInChatSound(false);
-    instance.setInAppPriority(false);
+    PreferenceHandler.setPreference<String>(PreferenceHandler.whoViewLastSeen, "My Contacts");
+    PreferenceHandler.setPreference<String>(PreferenceHandler.whoCanCallMe, "My Contacts");
 
-    instance.setWhoViewLastSeen("My Contacts");
-    instance.setWhoCanCallMe("My Contacts");
+    PreferenceHandler.setPreference<String>(PreferenceHandler.onMobileData, "No Media");
+    PreferenceHandler.setPreference<String>(PreferenceHandler.onWifi, "No Media");
 
-    instance.setMediaDownloadOnData("No Media");
-    instance.setMediaDownloadOnWifi("No Media");
+    PreferenceHandler.setPreference<String>(PreferenceHandler.chatBackground, "assets/chatBackground_8.jpeg");
 
-    instance.setChatBackground("assets/chatBackground_8.jpeg");
+    PreferenceHandler.setPreference<String>(PreferenceHandler.selectedTheme, "DefaultLight");
 
-    instance.setSelectedTheme("DefaultLight");
+    PreferenceHandler.setPreference<String>(PreferenceHandler.selectedTheme, "English");
 
-    instance.setAppLanguage("English");
-
-    instance.setEnableAnimation(true);
-    instance.setInAppBrowser(false);
-    instance.setDirectShare(true);
-    instance.setMessageTextSize(12);
-    instance.setRaiseToSpeak(false);
-    instance.setSendByEnter(true);
-    instance.setAutoPlayGIF(false);
-    instance.setSaveToGallery(false);
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.enableAnimation, true);
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.inAppBrowser, false);
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.directShare, true);
+    PreferenceHandler.setPreference<int>(PreferenceHandler.messageTextSize, 12);
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.raiseToSpeak, false);
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.sendByEnter, true);
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.autoPlayGIF, false);
+    PreferenceHandler.setPreference<bool>(PreferenceHandler.saveToGallery, false);
   }
 }

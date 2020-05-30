@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SharedContent extends StatelessWidget {
+class SharedContentPage extends StatelessWidget {
   final List<String> options = [
     'Shared Media',
     'Shared File',
@@ -10,9 +10,7 @@ class SharedContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Shared Content",
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
@@ -45,7 +43,6 @@ class SharedContent extends StatelessWidget {
                   .toList(),
               onChanged: (String selectedValue) {}),
         ),
-      ),
-    );
+      );
   }
 }

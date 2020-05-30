@@ -20,8 +20,7 @@ class SecurityBloc extends Disposable {
   bool savePassword() {
     final password = passwordStream.value;
     if (validatePassword(password) == null) {
-      SharedPreferenceHandler.getInstance()
-          .setUserPassword(int.parse(password));
+      PreferenceHandler.setPreference<int>(PreferenceHandler.userPassword,int.parse(password));
       return true;
     }
     return false;

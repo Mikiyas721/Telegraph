@@ -1,60 +1,53 @@
 import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
 import 'package:flutter/material.dart';
 
-class Languages extends StatelessWidget {
+class LanguagesPage extends StatelessWidget {
   final snackBarKey = GlobalKey<ScaffoldState>();
-  final ThemeData themeData;
-
-  Languages({this.themeData});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Languages",
-      home: Scaffold(
-        backgroundColor: themeData.scaffoldBackgroundColor,
+    return Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         key: snackBarKey,
         appBar: AppBar(
-          backgroundColor: themeData.primaryColor,
+          backgroundColor: Theme.of(context).primaryColor,
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: themeData.iconTheme.color,
+                color: Theme.of(context).iconTheme.color,
               ),
               onPressed: () {
                 Navigator.pop(context);
               }),
           title: Text(
             "Languages",
-            style: themeData.textTheme.title,
+            style: Theme.of(context).textTheme.title,
           ),
         ),
         body: ListView(
             children:
-                ListTile.divideTiles(context: context, tiles: getLanguageList())
+                ListTile.divideTiles(context: context, tiles: getLanguageList(context))
                     .toList()),
-      ),
-    );
+      );
   }
 
-  List<Widget> getLanguageList() {
+  List<Widget> getLanguageList(BuildContext context) {
     List<Widget> languageWidget = List<Widget>();
     List languages = ['Amharic', 'English'];
     for (String language in languages) {
       languageWidget.add(ListTile(
         title: Text(
           language,
-          style: themeData.textTheme.body2,
+          style: Theme.of(context).textTheme.body2,
         ),
         onTap: () async {
-          bool languageUpdated = await SharedPreferenceHandler.getInstance()
-              .setAppLanguage(language);
+          bool languageUpdated = await PreferenceHandler.setPreference(PreferenceHandler.language, language);
           if (languageUpdated) {
             SnackBar snackBar = SnackBar(
-                backgroundColor: themeData.backgroundColor,
+                backgroundColor: Theme.of(context).backgroundColor,
                 content: Text(
                   'Language Updated to $language',
-                  style: themeData.textTheme.body2,
+                  style: Theme.of(context).textTheme.body2,
                 ));
             snackBarKey.currentState.showSnackBar(snackBar);
           }

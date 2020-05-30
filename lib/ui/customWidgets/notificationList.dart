@@ -17,11 +17,6 @@ class NotificationList extends StatelessWidget {
   final Function(String) soundSink;
   final Function(String) prioritySink;
 
-  final Future<bool> Function(String) vibrateSharedPreference;
-  final Future<bool> Function(String) popUpSharedPreference;
-  final Future<bool> Function(String) soundSharedPreference;
-  final Future<bool> Function(String) prioritySharedPreference;
-
   final Function(bool newValue) onAlertChanged;
   final Function(bool newValue) onMessagePreviewChanged;
   final Function(String selectedValue) onVibrateTypeSelected;
@@ -32,6 +27,11 @@ class NotificationList extends StatelessWidget {
   final Function() readSharedPreferences;
 
   final ThemeData themeData;
+
+  final String vibrateString;
+  final String popUpString;
+  final String soundString;
+  final String priorityString;
 
   NotificationList(
       {@required this.alertStream,
@@ -44,17 +44,18 @@ class NotificationList extends StatelessWidget {
       @required this.popUpNotificationSink,
       @required this.soundSink,
       @required this.prioritySink,
-      @required this.vibrateSharedPreference,
-      @required this.popUpSharedPreference,
-      @required this.soundSharedPreference,
-      @required this.prioritySharedPreference,
       @required this.readSharedPreferences,
       @required this.onAlertChanged,
       @required this.onMessagePreviewChanged,
       @required this.onVibrateTypeSelected,
       @required this.onPopUpNotificationSelected,
       @required this.onSoundSelected,
-      @required this.onPrioritySelected,this.themeData});
+      @required this.onPrioritySelected,
+      @required this.themeData,
+      @required this.vibrateString,
+      @required this.popUpString,
+      @required this.soundString,
+      @required this.priorityString});
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +70,8 @@ class NotificationList extends StatelessWidget {
               onChanged: onAlertChanged,
               value: snapshot.data == null
                   ? alertStream.value == null ? false : alertStream.value
-                  : snapshot.data,themeData: themeData,
+                  : snapshot.data,
+              themeData: themeData,
             );
           },
         ),
@@ -77,18 +79,21 @@ class NotificationList extends StatelessWidget {
           stream: messagePreviewStream,
           builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
             return MySwitchListTile(
-              title: "Message Preview",
-              onChanged: onMessagePreviewChanged,
-              value: snapshot.data == null
-                  ? messagePreviewStream.value == null
-                      ? false
-                      : messagePreviewStream.value
-                  : snapshot.data,themeData: themeData
-            );
+                title: "Message Preview",
+                onChanged: onMessagePreviewChanged,
+                value: snapshot.data == null
+                    ? messagePreviewStream.value == null
+                        ? false
+                        : messagePreviewStream.value
+                    : snapshot.data,
+                themeData: themeData);
           },
         ),
         ListTile(
-          title: Text("LED Color",style: themeData.textTheme.body2,),
+          title: Text(
+            "LED Color",
+            style: themeData.textTheme.body2,
+          ),
           trailing: Icon(
             Icons.phone_iphone,
             color: themeData.iconTheme.color,
@@ -99,7 +104,10 @@ class NotificationList extends StatelessWidget {
           stream: vibrateStream,
           builder: (BuildContext context, AsyncSnapshot snapShot) {
             return ListTile(
-                title: Text("Vibrate", style: themeData.textTheme.body2,),
+                title: Text(
+                  "Vibrate",
+                  style: themeData.textTheme.body2,
+                ),
                 trailing: Text(
                   "${snapShot.data == null ? messagePreviewStream.value == null ? "Default" : messagePreviewStream.value : snapShot.data}",
                   style: TextStyle(color: Colors.blue, fontSize: 16),
@@ -122,7 +130,8 @@ class NotificationList extends StatelessWidget {
                                     : snapShot.data
                                 : vibrateStream.value,
                             parentSink: vibrateSink,
-                            sharedPreferenceSink: vibrateSharedPreference,themeData: themeData,
+                            themeData: themeData,
+                            preferenceKey: vibrateString,
                           )).then(onVibrateTypeSelected);
                 });
           },
@@ -131,7 +140,10 @@ class NotificationList extends StatelessWidget {
             stream: popUpStream,
             builder: (BuildContext context, AsyncSnapshot snapShot) {
               return ListTile(
-                title: Text("Popup Notifications",style: themeData.textTheme.body2,),
+                title: Text(
+                  "Popup Notifications",
+                  style: themeData.textTheme.body2,
+                ),
                 trailing: Text(
                   "${snapShot == null ? messagePreviewStream.value == null ? "No popup" : messagePreviewStream.value : snapShot.data}",
                   style: TextStyle(color: Colors.blue, fontSize: 16),
@@ -149,11 +161,12 @@ class NotificationList extends StatelessWidget {
                             ],
                             selectedValue: snapShot.data == null
                                 ? popUpStream.value == null
-                                ? "No popup"
-                                : snapShot.data
+                                    ? "No popup"
+                                    : snapShot.data
                                 : popUpStream.value,
                             parentSink: popUpNotificationSink,
-                            sharedPreferenceSink: popUpSharedPreference,themeData: themeData,
+                            themeData: themeData,
+                            preferenceKey: popUpString,
                           )).then(onPopUpNotificationSelected);
                 },
               );
@@ -162,7 +175,10 @@ class NotificationList extends StatelessWidget {
             stream: soundStream,
             builder: (BuildContext context, AsyncSnapshot snapShot) {
               return ListTile(
-                title: Text("Sound",style: themeData.textTheme.body2,),
+                title: Text(
+                  "Sound",
+                  style: themeData.textTheme.body2,
+                ),
                 trailing: Text(
                   "${snapShot.data == null ? messagePreviewStream.value == null ? "No popup" : messagePreviewStream.value : snapShot.data}",
                   style: TextStyle(color: Colors.blue, fontSize: 16),
@@ -180,11 +196,12 @@ class NotificationList extends StatelessWidget {
                             ],
                             selectedValue: snapShot.data == null
                                 ? soundStream.value == null
-                                ? "No popup"
-                                : snapShot.data
+                                    ? "No popup"
+                                    : snapShot.data
                                 : soundStream.value,
                             parentSink: soundSink,
-                            sharedPreferenceSink: soundSharedPreference,themeData: themeData,
+                            themeData: themeData,
+                            preferenceKey: soundString,
                           )).then(onSoundSelected);
                 },
               );
@@ -193,7 +210,10 @@ class NotificationList extends StatelessWidget {
             stream: priorityStream,
             builder: (BuildContext context, AsyncSnapshot snapShot) {
               return ListTile(
-                title: Text("Priority",style: themeData.textTheme.body2,),
+                title: Text(
+                  "Priority",
+                  style: themeData.textTheme.body2,
+                ),
                 trailing: Text(
                   "${snapShot.data == null ? messagePreviewStream.value == null ? "Default" : messagePreviewStream.value : snapShot.data}",
                   style: TextStyle(color: Colors.blue, fontSize: 16),
@@ -206,12 +226,14 @@ class NotificationList extends StatelessWidget {
                             menus: ["Default", 'High', "Max"],
                             selectedValue: snapShot.data == null
                                 ? priorityStream.value == null
-                                ? "Default"
-                                : snapShot.data
+                                    ? "Default"
+                                    : snapShot.data
                                 : priorityStream.value,
                             parentSink: prioritySink,
-                            sharedPreferenceSink: prioritySharedPreference,themeData: themeData,
-                          )).then(onPrioritySelected);
+                            themeData: themeData,
+                        preferenceKey: priorityString,
+
+                      )).then(onPrioritySelected);
                 },
               );
             })

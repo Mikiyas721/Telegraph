@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
@@ -32,7 +31,6 @@ class SearchPage extends StatelessWidget {
           ],
         ),
         body: ListView(),
-      ),
-    );
+      );
   }
 }

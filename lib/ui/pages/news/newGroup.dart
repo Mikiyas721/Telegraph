@@ -1,37 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/pages/contactsPage.dart';
 
-class NewGroupAndSecretChat extends StatelessWidget {
+class NewGroupPage extends StatelessWidget {
   final String title;
-  final ThemeData themeData;
 
-  const NewGroupAndSecretChat(this.title, {Key key, this.themeData}) : super(key: key);
+  const NewGroupPage(this.title, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "New Group",
-      home: Scaffold(
-        backgroundColor: themeData.scaffoldBackgroundColor,
+    return Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
-          backgroundColor: themeData.primaryColor,
+          backgroundColor: Theme.of(context).primaryColor,
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: themeData.iconTheme.color,
+                color: Theme.of(context).iconTheme.color,
               ),
               onPressed: () {
                 Navigator.pop(context);
               }),
           title: Text(
             title,
-            style: themeData.textTheme.title,
+            style: Theme.of(context).textTheme.title,
           ),
           actions: <Widget>[
             IconButton(
                 icon: Icon(
                   Icons.check,
-                  color: themeData.iconTheme.color,
+                  color: Theme.of(context).iconTheme.color,
                 ),
                 onPressed: () {})
           ],
@@ -43,14 +40,13 @@ class NewGroupAndSecretChat extends StatelessWidget {
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.only(top: 15, bottom: 15, left: 8),
                   hintText: "Add people ...",
-                  hintStyle: themeData.textTheme.body1),
+                  hintStyle: Theme.of(context).textTheme.body1),
             ),
             Column(
-              children: getPlaceHolderContacts(context, themeData),
+              children: getPlaceHolderContacts(context, Theme.of(context)),
             )
           ],
         ),
-      ),
-    );
+      );
   }
 }

@@ -1,9 +1,13 @@
 import 'package:Telegraph/controll/blocs/provider/provider.dart';
 import 'package:Telegraph/controll/others/myThemeData.dart';
+import 'package:Telegraph/data/theme_datasouce.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:rxdart/subjects.dart';
 
 class ThemeBloc extends Disposable {
+  //ThemeRepo get themeRepo=>GetIt.instance.get<ThemeRepo>();
+
   final BehaviorSubject<ThemeData> selectedThemeStream = BehaviorSubject<ThemeData>();
 
   Stream<ThemeData> get selectedThemeData => selectedThemeStream.map((selectedValue)=>selectedValue);
@@ -23,6 +27,10 @@ class ThemeBloc extends Disposable {
     else if(themeDataString=="DarkBlue") return MyThemeData.darkBlue;
     else return MyThemeData.defaultLight;
   }
+
+ /* changeTheme(String name){
+    themeRepo.update(MyTheme(name:name));
+  }*/
 
   @override
   void dispose() {

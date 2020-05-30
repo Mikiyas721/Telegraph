@@ -1,139 +1,107 @@
+import 'package:flutter/material.dart';
 import 'package:Telegraph/controll/blocs/provider/provider.dart';
 import 'package:Telegraph/controll/blocs/settingBloc.dart';
 import 'package:Telegraph/controll/others/assistant.dart';
 import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
 import 'package:Telegraph/ui/customWidgets/myPhotoView.dart';
 import 'package:Telegraph/ui/customWidgets/mySwitchListTile.dart';
-import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/infoDisplay.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
-import 'package:Telegraph/ui/pages/login/firstPage.dart';
-import 'package:Telegraph/ui/pages/settings/info/changePhoneNumber.dart';
-import 'package:Telegraph/ui/pages/settings/info/changeUsername.dart';
-import 'package:Telegraph/ui/pages/settings/settings/chatBackground.dart';
-import 'package:Telegraph/ui/pages/settings/settings/dataAndStorage.dart';
-import 'package:Telegraph/ui/pages/settings/settings/languages.dart';
-import 'package:Telegraph/ui/pages/settings/settings/notificationAndSound.dart';
-import 'package:Telegraph/ui/pages/settings/settings/privacyAndSecurity/privacyAndSecurity.dart';
-import 'package:Telegraph/ui/pages/settings/settings/theme.dart';
 import 'package:numberpicker/numberpicker.dart' as picker;
 import 'package:Telegraph/ui/customWidgets/myImageView.dart';
 
-class SettingWindow extends StatelessWidget {
+class SettingPage extends StatelessWidget {
   final String imageURL = "assets/avatar_1.png";
   final String userName = "Miki";
   final String userString = "@MIKI_YAS";
   final String phoneNumber = "+251 941135730";
   final bool online = false;
-  final bool enableAnimation = false;
-  final ThemeData themeData;
-
-  SettingWindow({this.themeData});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SettingBloc>(
         blocFactory: () => SettingBloc(),
         builder: (BuildContext context, bloc) {
-          final instance = SharedPreferenceHandler.getInstance();
-          instance
-              .isAnimationEnabled()
-              .then((newValue) => bloc.setAnimationEnabled(newValue));
-          instance
-              .isInAppBrowser()
-              .then((newValue) => bloc.setInAppBrowser(newValue));
-          instance
-              .isDirectShare()
-              .then((newValue) => bloc.setDirectShare(newValue));
-          instance
-              .getMessageTextSize()
-              .then((newValue) => bloc.setMessageTextSize(newValue));
-          instance
-              .getRaiseToSpeak()
-              .then((newValue) => bloc.setRaiseToSpeak(newValue));
-          instance
-              .getSendByEnter()
-              .then((newValue) => bloc.setSendByEnter(newValue));
-          instance
-              .getAutoPlayGIF()
-              .then((newValue) => bloc.setAutoPlayGif(newValue));
-          instance
-              .getSaveToGallery()
-              .then((newValue) => bloc.setSaveToGallery(newValue));
-          return MaterialApp(
-              title: 'Setting',
-              home: Scaffold(
-                backgroundColor: themeData.scaffoldBackgroundColor,
-                body: NestedScrollView(
-                    headerSliverBuilder: (BuildContext context, bool) => [
-                          SliverAppBar(
-                            backgroundColor: themeData.primaryColor,
-                            expandedHeight: 150,
-                            pinned: true,
-                            leading: IconButton(
-                                icon: Icon(
-                                  Icons.arrow_back,
-                                  color: themeData.iconTheme.color,
-                                ),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                }),
-                            flexibleSpace: FlexibleSpaceBar(
-                                titlePadding: EdgeInsets.only(
-                                    top: 15, left: 70, bottom: 3),
-                                centerTitle: false,
-                                title: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Padding(
-                                        child: GestureDetector(
-                                          child: MyImageView(imageURL),
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (BuildContext
-                                                            context) =>
+          bloc.setAnimationEnabled(PreferenceHandler.getPreference(PreferenceHandler.enableAnimation));
+          bloc.setInAppBrowser(PreferenceHandler.getPreference(PreferenceHandler.inAppBrowser));
+          bloc.setDirectShare(PreferenceHandler.getPreference(PreferenceHandler.directShare));
+          bloc.setMessageTextSize(PreferenceHandler.getPreference(PreferenceHandler.messageTextSize));
+          bloc.setRaiseToSpeak(PreferenceHandler.getPreference(PreferenceHandler.raiseToSpeak));
+          bloc.setSendByEnter(PreferenceHandler.getPreference(PreferenceHandler.sendByEnter));
+          bloc.setAutoPlayGif(PreferenceHandler.getPreference(PreferenceHandler.autoPlayGIF));
+          bloc.setSaveToGallery(PreferenceHandler.getPreference(PreferenceHandler.saveToGallery));
+
+          return Scaffold(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            body: NestedScrollView(
+                headerSliverBuilder: (BuildContext context, bool) => [
+                      SliverAppBar(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        expandedHeight: 150,
+                        pinned: true,
+                        leading: IconButton(
+                            icon: Icon(
+                              Icons.arrow_back,
+                              color: Theme.of(context).iconTheme.color,
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            }),
+                        flexibleSpace: FlexibleSpaceBar(
+                            titlePadding:
+                                EdgeInsets.only(top: 15, left: 70, bottom: 3),
+                            centerTitle: false,
+                            title: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Padding(
+                                    child: GestureDetector(
+                                      child: MyImageView(imageURL),
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
                                                         MyPhotoView(imageURL)));
-                                          },
-                                        ),
-                                        padding: EdgeInsets.only(right: 5)),
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          userName,
-                                          style: themeData.textTheme.subtitle,
-                                        ),
-                                        Text(
-                                          getOnlineString(),
-                                          style: themeData.textTheme.caption,
-                                        ),
-                                      ],
-                                    )
+                                      },
+                                    ),
+                                    padding: EdgeInsets.only(right: 5)),
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      userName,
+                                      style: Theme.of(context).textTheme.subtitle,
+                                    ),
+                                    Text(
+                                      getOnlineString(),
+                                      style: Theme.of(context).textTheme.caption,
+                                    ),
                                   ],
-                                )),
-                            actions: <Widget>[
-                              PopupMenuButton(
-                                color: themeData.backgroundColor,
-                                onSelected: (selectedValue) {
-                                  onPopUpSelected(selectedValue, context);
-                                },
-                                itemBuilder: (context) {
-                                  return getMenu();
-                                },
-                              )
-                            ],
+                                )
+                              ],
+                            )),
+                        actions: <Widget>[
+                          PopupMenuButton(
+                            color: Theme.of(context).backgroundColor,
+                            onSelected: (selectedValue) {
+                              onPopUpSelected(selectedValue, context);
+                            },
+                            itemBuilder: (context) {
+                              return getMenu(context);
+                            },
                           )
                         ],
-                    body: getBody(context, bloc)),
-              ));
+                      )
+                    ],
+                body: getBody(context, bloc)),
+          );
         });
   }
 
-  List<PopupMenuEntry> getMenu() {
+  List<PopupMenuEntry> getMenu(BuildContext context) {
     List<String> menuListString = [
       'Reset to Default',
       'Edit name',
@@ -143,7 +111,7 @@ class SettingWindow extends StatelessWidget {
     int i = 1;
     for (String menu in menuListString) {
       menuList.add(new PopupMenuItem(
-          value: i, child: Text(menu, style: themeData.textTheme.body2)));
+          value: i, child: Text(menu, style: Theme.of(context).textTheme.body2)));
       i++;
     }
     return menuList;
@@ -163,24 +131,19 @@ class SettingWindow extends StatelessWidget {
         phoneNumber,
         "Phone",
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      ChangePhoneNumber(themeData: themeData)));
+          Navigator.pushNamed(
+              context,'/changePhoneNumberPage');
         },
-        themeData: themeData,
+        themeData: Theme.of(context),
       ),
       InfoDisplay(
         userString,
         "Username",
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ChangeUserName(themeData: themeData)));
+          Navigator.pushNamed(
+              context,'/changeUserNamePage');
         },
-        themeData: themeData,
+        themeData: Theme.of(context),
       ),
       SettingGroupTitle(
         "Settings",
@@ -192,83 +155,61 @@ class SettingWindow extends StatelessWidget {
       ListTile(
         title: Text(
           "Notification and Sounds",
-          style: themeData.textTheme.body2,
+          style: Theme.of(context).textTheme.body2,
         ),
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (BuildContext context) => NotificationAndSounds(
-                        themeData: themeData,
-                      )));
+          Navigator.pushNamed(
+              context,'/notificationAndSoundsPage');
         },
       ),
       ListTile(
         title: Text(
           "Privacy and Security",
-          style: themeData.textTheme.body2,
+          style: Theme.of(context).textTheme.body2,
         ),
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (BuildContext context) => PrivacyAndSecurity(
-                        themeData: themeData,
-                      )));
+          Navigator.pushNamed(
+              context,'/privacyAndSecurityPage');
         },
       ),
       ListTile(
         title: Text(
           "Data and Storage",
-          style: themeData.textTheme.body2,
+          style: Theme.of(context).textTheme.body2,
         ),
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (BuildContext context) => DataAndStorage(
-                        themeData: themeData,
-                      )));
+          Navigator.pushNamed(
+              context,'/dataAndStoragePage');
         },
       ),
       ListTile(
         title: Text(
           "Chat Background",
-          style: themeData.textTheme.body2,
+          style: Theme.of(context).textTheme.body2,
         ),
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ChatBackground(
-                        themeData: themeData,
-                      )));
+          Navigator.pushNamed(
+              context,'/chatBackgroundPage');
         },
       ),
       ListTile(
         title: Text(
           "Theme",
-          style: themeData.textTheme.body2,
+          style: Theme.of(context).textTheme.body2,
         ),
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MyTheme(
-                        themeData: themeData,
-                      )));
+          Navigator.pushNamed(
+              context,'/themePage');
         },
       ),
       ListTile(
         title: Text(
           "Language",
-          style: themeData.textTheme.body2,
+          style: Theme.of(context).textTheme.body2,
         ),
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Languages(themeData: themeData)));
+          Navigator.pushNamed(
+              context,'/languagesPage');
         },
       ),
       StreamBuilder(
@@ -277,8 +218,7 @@ class SettingWindow extends StatelessWidget {
           return MySwitchListTile(
             title: "Enable Amimation",
             onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance()
-                  .setEnableAnimation(newValue);
+              PreferenceHandler.setPreference(PreferenceHandler.enableAnimation, newValue);
               bloc.setAnimationEnabled(newValue);
             },
             value: snapshot.data == null
@@ -286,7 +226,7 @@ class SettingWindow extends StatelessWidget {
                     ? false
                     : bloc.enableAnimationStream.value)
                 : snapshot.data,
-            themeData: themeData,
+            themeData: Theme.of(context),
           );
         },
       ),
@@ -304,7 +244,7 @@ class SettingWindow extends StatelessWidget {
             title: "In-App Browser",
             subTitle: "Open External links with in app",
             onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance().setInAppBrowser(newValue);
+              PreferenceHandler.setPreference(PreferenceHandler.inAppBrowser, newValue);
               bloc.setInAppBrowser(newValue);
             },
             value: snapshot.data == null
@@ -312,7 +252,7 @@ class SettingWindow extends StatelessWidget {
                     ? false
                     : bloc.inAppBrowserStream.value)
                 : snapshot.data,
-            themeData: themeData,
+            themeData: Theme.of(context),
           );
         },
       ),
@@ -323,7 +263,7 @@ class SettingWindow extends StatelessWidget {
             title: "Direct Share",
             subTitle: "Show recent chats in share menu",
             onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance().setInAppBrowser(newValue);
+              PreferenceHandler.setPreference(PreferenceHandler.directShare, newValue);
               bloc.setDirectShare(newValue);
             },
             value: snapshot.data == null
@@ -331,14 +271,14 @@ class SettingWindow extends StatelessWidget {
                     ? false
                     : bloc.directShareStream.value)
                 : snapshot.data,
-            themeData: themeData,
+            themeData: Theme.of(context),
           );
         },
       ),
       ListTile(
         title: Text(
           "Stickers",
-          style: themeData.textTheme.body2,
+          style: Theme.of(context).textTheme.body2,
         ),
       ),
       StreamBuilder(
@@ -351,7 +291,7 @@ class SettingWindow extends StatelessWidget {
                     builder: (BuildContext context) =>
                         picker.NumberPickerDialog.integer(
                           title: Text("Message Text Size",
-                              style: themeData.textTheme.body2),
+                              style: Theme.of(context).textTheme.body2),
                           minValue: 11,
                           maxValue: 30,
                           initialIntegerValue: snapshot.data == null
@@ -363,13 +303,12 @@ class SettingWindow extends StatelessWidget {
                         )).then((num value) {
                   if (value != null) {
                     bloc.setMessageTextSize(value);
-                    SharedPreferenceHandler.getInstance()
-                        .setMessageTextSize(value);
+                    PreferenceHandler.setPreference(PreferenceHandler.messageTextSize, value);
                   }
                 });
               },
               title:
-                  Text("Message Text Size", style: themeData.textTheme.body2),
+                  Text("Message Text Size", style: Theme.of(context).textTheme.body2),
               trailing: Text(
                 "${snapshot.data}",
                 style: TextStyle(color: Colors.blue),
@@ -382,7 +321,7 @@ class SettingWindow extends StatelessWidget {
           return MySwitchListTile(
             title: "Raise to Speak",
             onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance().setRaiseToSpeak(newValue);
+              PreferenceHandler.setPreference(PreferenceHandler.raiseToSpeak, newValue);
               bloc.setRaiseToSpeak(newValue);
             },
             value: snapshot.data == null
@@ -390,7 +329,7 @@ class SettingWindow extends StatelessWidget {
                     ? false
                     : bloc.raiseToSpeakStream.value)
                 : snapshot.data,
-            themeData: themeData,
+            themeData: Theme.of(context),
           );
         },
       ),
@@ -400,7 +339,7 @@ class SettingWindow extends StatelessWidget {
           return MySwitchListTile(
             title: "Send by Enter",
             onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance().setSendByEnter(newValue);
+              PreferenceHandler.setPreference(PreferenceHandler.sendByEnter, newValue);
               bloc.setSendByEnter(newValue);
             },
             value: snapshot.data == null
@@ -408,7 +347,7 @@ class SettingWindow extends StatelessWidget {
                     ? false
                     : bloc.sendByEnterStream.value
                 : snapshot.data,
-            themeData: themeData,
+            themeData: Theme.of(context),
           );
         },
       ),
@@ -418,7 +357,7 @@ class SettingWindow extends StatelessWidget {
           return MySwitchListTile(
             title: "Autoplay GIFs",
             onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance().setAutoPlayGIF(newValue);
+              PreferenceHandler.setPreference(PreferenceHandler.autoPlayGIF, newValue);
               bloc.setAutoPlayGif(newValue);
             },
             value: snapshot.data == null
@@ -426,7 +365,7 @@ class SettingWindow extends StatelessWidget {
                     ? false
                     : bloc.autoPlayGifStream.value
                 : snapshot.data,
-            themeData: themeData,
+            themeData: Theme.of(context),
           );
         },
       ),
@@ -436,7 +375,7 @@ class SettingWindow extends StatelessWidget {
           return MySwitchListTile(
             title: "Save to Gallery",
             onChanged: (bool newValue) {
-              SharedPreferenceHandler.getInstance().setSaveToGallery(newValue);
+              PreferenceHandler.setPreference(PreferenceHandler.saveToGallery, newValue);
               bloc.setSaveToGallery(newValue);
             },
             value: snapshot.data == null
@@ -444,7 +383,7 @@ class SettingWindow extends StatelessWidget {
                     ? false
                     : bloc.saveToGalleryStream.value
                 : snapshot.data,
-            themeData: themeData,
+            themeData: Theme.of(context),
           );
         },
       ),
@@ -458,17 +397,17 @@ class SettingWindow extends StatelessWidget {
       ListTile(
           title: Text(
         "Ask a question",
-        style: themeData.textTheme.body2,
+        style: Theme.of(context).textTheme.body2,
       )),
       ListTile(
           title: Text(
         "Telegraph FAQ",
-        style: themeData.textTheme.body2,
+        style: Theme.of(context).textTheme.body2,
       )),
       ListTile(
           title: Text(
         "Privacy Policy",
-        style: themeData.textTheme.body2,
+        style: Theme.of(context).textTheme.body2,
       )),
     ]).toList());
   }
@@ -488,8 +427,10 @@ class SettingWindow extends StatelessWidget {
             return AlertDialog(
               backgroundColor: Theme.of(context).dialogBackgroundColor,
               title: Text("Information"),
-              content:
-                  Text("Are you sure you want to reset to default settings", style: themeData.textTheme.body1,),
+              content: Text(
+                "Are you sure you want to reset to default settings",
+                style: Theme.of(context).textTheme.body1,
+              ),
               actions: <Widget>[
                 FlatButton(
                     onPressed: () {
@@ -499,6 +440,7 @@ class SettingWindow extends StatelessWidget {
                 FlatButton(
                     onPressed: () {
                       Assistant.setUpDefaults();
+
                       /// Return to home page?
                       Navigator.pop(context);
                     },
@@ -508,10 +450,8 @@ class SettingWindow extends StatelessWidget {
           });
     } else if (selectedValue == 2) {
     } else if (selectedValue == 3) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (BuildContext context) => FirstPage(themeData: themeData,)));
-      //TODO Replace the Navigator with the appropriate Navigator
+      Navigator.pushReplacementNamed(
+          context,'/firstPage');
     }
   }
-// TODO Consider Using preferences library
 }

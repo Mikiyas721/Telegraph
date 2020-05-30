@@ -1,67 +1,59 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:Telegraph/ui/pages/news/newChannel.dart';
 
-class ChannelDescription extends StatelessWidget {
-  final ThemeData themeData;
-
-  ChannelDescription({this.themeData});
+class ChannelDescriptionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Channel Description",
-      home: Scaffold(
-        backgroundColor: themeData.scaffoldBackgroundColor,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: themeData.scaffoldBackgroundColor,
-          leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: themeData.iconTheme.color,
+    return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Theme.of(context).iconTheme.color,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+              child: Image.asset(
+                "assets/channel.jpg",
+                width: 180,
+                height: 180,
               ),
+              padding: EdgeInsets.only(bottom: 30, top: 30)),
+          Text(
+            "What is a Channel?",
+            style: Theme.of(context).textTheme.title,
+          ),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Text(
+              "Channels are a new tool for broadcasting your messages to large audiences",
+              style: Theme.of(context).textTheme.subtitle,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 30),
+          ),
+          FlatButton(
+              color: Theme.of(context).buttonColor,
               onPressed: () {
-                Navigator.pop(context);
-              }),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-                child: Image.asset(
-                  "assets/channel.jpg",
-                  width: 180,
-                  height: 180,
-                ),
-                padding: EdgeInsets.only(bottom: 30, top: 30)),
-            Text(
-              "What is a Channel?",
-              style: themeData.textTheme.title,
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
+                Navigator.pushNamed(
+                    context,'/newChannelPage');
+              },
               child: Text(
-                "Channels are a new tool for broadcasting your messages to large audiences",
-                style: themeData.textTheme.subtitle,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 30),
-            ),
-            FlatButton(color: themeData.buttonColor,
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => NewChannel()));
-                },
-                child: Text(
-                  "CREATE CHANNEL",
-                  style: themeData.textTheme.button,
-                ))
-          ],
-        ),
+                "CREATE CHANNEL",
+                style: Theme.of(context).textTheme.button,
+              ))
+        ],
       ),
     );
   }

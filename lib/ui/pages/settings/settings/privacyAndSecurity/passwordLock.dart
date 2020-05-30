@@ -2,15 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtual_keyboard/virtual_keyboard.dart';
 
-class PasswordLock extends StatelessWidget {
+class PasswordLockPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: Theme
             .of(context)
             .scaffoldBackgroundColor,
-
         body: Column(
           children: <Widget>[
             Padding(
@@ -45,7 +43,6 @@ class PasswordLock extends StatelessWidget {
             )
           ],
         ),
-      ),
-    );
+      );
   }
 }

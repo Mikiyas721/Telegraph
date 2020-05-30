@@ -7,9 +7,7 @@ import 'package:Telegraph/ui/pages/sharedContent.dart';
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Profile Page',
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: NestedScrollView(
           headerSliverBuilder:
@@ -135,7 +133,7 @@ class ProfilePage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => SharedContent()));
+                        builder: (BuildContext context) => SharedContentPage()));
               },
             ),
             ListTile(
@@ -149,7 +147,7 @@ class ProfilePage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => SharedContent()));
+                        builder: (BuildContext context) => SharedContentPage()));
               },
             ),
             ListTile(
@@ -163,7 +161,7 @@ class ProfilePage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => SharedContent()));
+                        builder: (BuildContext context) => SharedContentPage()));
               },
             ),
             ListTile(
@@ -177,13 +175,12 @@ class ProfilePage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => SharedContent()));
+                        builder: (BuildContext context) => SharedContentPage()));
               },
             ),
           ]),
         ),
-      ),
-    );
+      );
   }
 
   List<PopupMenuEntry> getMenu() {

@@ -1,22 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ChangePhoneNumber extends StatelessWidget {
+class ChangePhoneNumberPage extends StatelessWidget {
   final String phoneNumber = "+251 941135730";
-  final ThemeData themeData;
-
-  ChangePhoneNumber({this.themeData});
 
   @override
   Widget build(BuildContext context) {
     final key = new GlobalKey<ScaffoldState>();
-    return MaterialApp(
-      title: "Change UserName",
-      home: Scaffold(
-        backgroundColor: themeData.scaffoldBackgroundColor,
+    return  Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         key: key,
         appBar: AppBar(
-          backgroundColor: themeData.primaryColor,
+          backgroundColor: Theme.of(context).primaryColor,
           leading: FlatButton(
               textColor: Colors.white,
               onPressed: () {
@@ -24,11 +19,11 @@ class ChangePhoneNumber extends StatelessWidget {
               },
               child: Icon(
                 Icons.arrow_back,
-                color: themeData.iconTheme.color,
+                color: Theme.of(context).iconTheme.color,
               )),
           title: Text(
             phoneNumber,
-            style: themeData.textTheme.title,
+            style: Theme.of(context).textTheme.title,
           ),
         ),
         body: Column(
@@ -37,7 +32,7 @@ class ChangePhoneNumber extends StatelessWidget {
                 padding: EdgeInsets.only(top: 50),
                 child: Icon(
                   Icons.sim_card,
-                  color: themeData.iconTheme.color,
+                  color: Theme.of(context).iconTheme.color,
                   size: 80,
                 )),
             Padding(
@@ -45,7 +40,7 @@ class ChangePhoneNumber extends StatelessWidget {
                     EdgeInsets.only(left: 25, top: 30, bottom: 10, right: 25),
                 child: Text(
                   "You can change your Telegram number here. Your account and all your cloud data - messages, media, contacts, etc. will be moved to the new number.",
-                  style: themeData.textTheme.body1,
+                  style: Theme.of(context).textTheme.body1,
                   textAlign: TextAlign.center,
                 )),
             Padding(
@@ -53,19 +48,18 @@ class ChangePhoneNumber extends StatelessWidget {
                     EdgeInsets.only(left: 25, top: 5, bottom: 80, right: 25),
                 child: Text(
                   "Important: all your Telegram contact will get your new number added to their address book, provided they had your old number and you haven't blocked them in Telegram.",
-                  style: themeData.textTheme.body1,
+                  style: Theme.of(context).textTheme.body1,
                   textAlign: TextAlign.center,
                 )),
             FlatButton(
-                color: themeData.buttonColor,
+                color: Theme.of(context).buttonColor,
                 onPressed: () {},
                 child: Text(
                   "CHANGE NUMBER",
-                  style: themeData.textTheme.button,
+                  style: Theme.of(context).textTheme.button,
                 ))
           ],
         ),
-      ),
-    );
+      );
   }
 }
