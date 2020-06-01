@@ -37,34 +37,26 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  final bool loggedIn = true;
-
+  static final bool loggedIn = true;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ThemeBloc>(
-        blocFactory: () => ThemeBloc(),
-        builder: (BuildContext context, ThemeBloc bloc) {
-          bloc.setSelectedThemeData(bloc.mapStringToThemeData(
-              PreferenceHandler.getPreference(
-                  PreferenceHandler.selectedTheme)));
-          return StreamBuilder<ThemeData>(
-              stream: bloc.selectedThemeData,
-              builder:
-                  (BuildContext context, AsyncSnapshot<ThemeData> snapshot) {
-                return MaterialApp(
-                  title: 'Telegraph',
-                  initialRoute: '/',
-                  routes: routes,
-                  theme: snapshot.data == null
-                      ? MyThemeData.defaultLight
-                      : snapshot.data,
-                );
-              });
+    final ThemeRepo repo = GetIt.instance.get();
+    return StreamBuilder<ThemeData>(
+        stream: repo.themeDataStream,
+        builder: (BuildContext context, AsyncSnapshot<ThemeData> snapshot) {
+          return MaterialApp(
+            title: 'Telegraph',
+            initialRoute: '/',
+            routes: routes,
+            theme: snapshot.data == null
+                ? MyThemeData.defaultLight
+                : snapshot.data,
+          );
         });
   }
 
   final routes = {
-    '/': (BuildContext context) => HomePage(),
+    '/': (BuildContext context) => loggedIn ? HomePage() : FirstPage(),
     'firstPage': (BuildContext context) => FirstPage(),
     '/phoneNumberInputPage': (BuildContext context) => PhoneNumberInputPage(
           themeData: Theme.of(context),
@@ -94,21 +86,28 @@ class MyApp extends StatelessWidget {
     '/themePage': (BuildContext context) => ThemePage(),
     '/languagesPage': (BuildContext context) => LanguagesPage(),
   };
-}
-
-/* @override
+/*
+  @override
   Widget build(BuildContext context) {
-    //final ThemeRepo repo = GetIt.instance.get();
-    return StreamBuilder<ThemeData>(
-        stream: ,
-        builder: (BuildContext context, AsyncSnapshot<ThemeData> snapshot) {
-          return MaterialApp(
-            title: 'Telegraph',
-            initialRoute: loggedIn ? '/homePage' : '/firstPage',
-            routes: routes,
-            theme: snapshot.data == null
-                ? MyThemeData.defaultLight
-                : snapshot.data,
-          );
+    return BlocProvider<ThemeBloc>(
+        blocFactory: () => ThemeBloc(),
+        builder: (BuildContext context, ThemeBloc bloc) {
+          bloc.setSelectedThemeData(bloc.mapStringToThemeData(
+              PreferenceHandler.getPreference(
+                  PreferenceHandler.selectedTheme)));
+          return StreamBuilder<ThemeData>(
+              stream: bloc.selectedThemeData,
+              builder:
+                  (BuildContext context, AsyncSnapshot<ThemeData> snapshot) {
+                return MaterialApp(
+                  title: 'Telegraph',
+                  initialRoute: '/',
+                  routes: routes,
+                  theme: snapshot.data == null
+                      ? MyThemeData.defaultLight
+                      : snapshot.data,
+                );
+              });
         });
   }*/
+}

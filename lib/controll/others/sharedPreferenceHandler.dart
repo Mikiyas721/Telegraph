@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-//this class could be static, no need to create an object
 class PreferenceHandler {
   static final String messageAlert = 'MessageAlert';
   static final String messagePreview = 'MessagePreview';
@@ -44,11 +43,11 @@ class PreferenceHandler {
 
   static Future<bool> setPreference<T>(String key, value) async {
     SharedPreferences instance = GetIt.instance.get();
-    if(T.runtimeType==String) return await instance.setString(key,value);
-    else if(T.runtimeType==bool) return await instance.setBool(key,value);
-    else if(T.runtimeType==int) return await instance.setInt(key,value);
-    else if(T.runtimeType==double) return await instance.setDouble(key,value);
-    else if(T.runtimeType==List) return await instance.setStringList(key,value);
+    if(T==String) return await instance.setString(key,value);
+    else if(T==bool) return await instance.setBool(key,value);
+    else if(T==int) return await instance.setInt(key,value);
+    else if(T==double) return await instance.setDouble(key,value);
+    else if(T==List) return await instance.setStringList(key,value);
     else return null;
   }
 }

@@ -1,6 +1,5 @@
 import 'package:simple_permissions/simple_permissions.dart';
 import 'package:contacts_service/contacts_service.dart';
-import 'dart:async';
 
 getContacts() async {
   Iterable<Contact> contacts;

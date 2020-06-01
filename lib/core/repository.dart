@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'datasource.dart';
+import 'dataSource.dart';
 import 'json_model.dart';
 import 'utils/disposable.dart';
 
@@ -55,14 +55,14 @@ class ItemRepo<T extends Mappable, V extends CRUDSource<T>>
   }
 
   FutureOr<T> onValueAdded(FutureOr<T> future) => manager.onValueAdded(
-        future,
-        options: {'key', key},
-      );
+    future,
+    options: {'key', key},
+  );
 
   FutureOr onValueRemoved(FutureOr future) => manager.onValueRemoved(
-        future,
-        options: {'key', key},
-      );
+    future,
+    options: {'key', key},
+  );
 
   @override
   void dispose() {
@@ -122,14 +122,14 @@ class ReadOnlyListRepo<T extends JSONModel, V extends ReadOnlyListSource<T>>
       );
 
   FutureOr<T> onValueAdded(FutureOr<T> future) => manager.onValueAdded(
-        future,
-        options: {'key': key},
-      );
+    future,
+    options: {'key': key},
+  );
 
   FutureOr onValueRemoved(FutureOr future, String id) => manager.onValueRemoved(
-        future,
-        id,
-      );
+    future,
+    id,
+  );
 
   @override
   void dispose() {

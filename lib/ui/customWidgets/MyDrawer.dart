@@ -1,3 +1,5 @@
+import 'package:Telegraph/controll/blocs/provider/provider.dart';
+import 'package:Telegraph/controll/blocs/themeBloc.dart';
 import 'package:Telegraph/ui/customWidgets/myPhotoView.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/pages/news/channelDescription.dart';
@@ -15,12 +17,19 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
         child: Container(
-            color: Theme.of(context).scaffoldBackgroundColor,
+            color: Theme
+                .of(context)
+                .scaffoldBackgroundColor,
             child: ListView(
               children: <Widget>[
                 UserAccountsDrawerHeader(
+                  onDetailsPressed: () {
+                    // Add multiple account here
+                  },
                   decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme
+                        .of(context)
+                        .primaryColor,
                   ),
                   otherAccountsPictures: <Widget>[
                     Container(
@@ -28,17 +37,32 @@ class MyDrawer extends StatelessWidget {
                         width: 30,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Theme.of(context).primaryColorDark,
+                          color: Theme
+                              .of(context)
+                              .primaryColorDark,
                         ),
                         child: IconButton(
-                            icon: Icon(
-                              Icons.cloud,
-                                color:Theme.of(context).iconTheme.color
-                            ),
-                            onPressed: () {}))
+                            icon: Icon(Icons.cloud,
+                                color: Theme
+                                    .of(context)
+                                    .iconTheme
+                                    .color),
+                            onPressed: () {})),
                   ],
-                  accountName: Text('$userName', style: Theme.of(context).textTheme.title,),
-                  accountEmail: Text('$countryCode $phoneNumber',style: Theme.of(context).textTheme.subtitle,),
+                  accountName: Text(
+                    '$userName',
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .title,
+                  ),
+                  accountEmail: Text(
+                    '$countryCode $phoneNumber',
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .subtitle,
+                  ),
                   currentAccountPicture: GestureDetector(
                     child: MyImageView(profilePictureURL),
                     onTap: () {
@@ -51,9 +75,16 @@ class MyDrawer extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.people,color:Theme.of(context).iconTheme.color),
+                  leading: Icon(Icons.people,
+                      color: Theme
+                          .of(context)
+                          .iconTheme
+                          .color),
                   title: Text('New Group',
-                      style: Theme.of(context).textTheme.body2),
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .body2),
                   onTap: () {
                     Navigator.push(
                         context,
@@ -63,8 +94,18 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.lock,color:Theme.of(context).iconTheme.color),
-                  title: Text('New Secret Chat',style: Theme.of(context).textTheme.body2,),
+                  leading: Icon(Icons.lock,
+                      color: Theme
+                          .of(context)
+                          .iconTheme
+                          .color),
+                  title: Text(
+                    'New Secret Chat',
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .body2,
+                  ),
                   onTap: () {
                     Navigator.push(
                         context,
@@ -74,8 +115,18 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.volume_up,color:Theme.of(context).iconTheme.color),
-                  title: Text('New Channel',style: Theme.of(context).textTheme.body2,),
+                  leading: Icon(Icons.volume_up,
+                      color: Theme
+                          .of(context)
+                          .iconTheme
+                          .color),
+                  title: Text(
+                    'New Channel',
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .body2,
+                  ),
                   onTap: () {
                     Navigator.push(
                         context,
@@ -85,38 +136,99 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
                 Divider(
-                  thickness: 2,color: Theme.of(context).primaryColor,
+                  thickness: 2,
+                  color: Theme
+                      .of(context)
+                      .primaryColor,
                 ),
                 ListTile(
-                  leading: Icon(Icons.contacts,color:Theme.of(context).iconTheme.color),
-                  title: Text('Contacts',style: Theme.of(context).textTheme.body2,),
+                  leading: Icon(Icons.contacts,
+                      color: Theme
+                          .of(context)
+                          .iconTheme
+                          .color),
+                  title: Text(
+                    'Contacts',
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .body2,
+                  ),
                   onTap: () {},
                 ),
                 ListTile(
-                  leading: Icon(Icons.call,color:Theme.of(context).iconTheme.color),
-                  title: Text('Calls',style: Theme.of(context).textTheme.body2,),
+                  leading: Icon(Icons.call,
+                      color: Theme
+                          .of(context)
+                          .iconTheme
+                          .color),
+                  title: Text(
+                    'Calls',
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .body2,
+                  ),
                   onTap: () {},
                 ),
                 ListTile(
-                  leading: Icon(Icons.person_add,color:Theme.of(context).iconTheme.color),
-                  title: Text('Invite Friends',style: Theme.of(context).textTheme.body2,),
+                  leading: Icon(Icons.person_add,
+                      color: Theme
+                          .of(context)
+                          .iconTheme
+                          .color),
+                  title: Text(
+                    'Invite Friends',
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .body2,
+                  ),
                   onTap: () {},
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings,color:Theme.of(context).iconTheme.color),
-                  title: Text('Settings',style: Theme.of(context).textTheme.body2,),
+                  leading: Icon(Icons.settings,
+                      color: Theme
+                          .of(context)
+                          .iconTheme
+                          .color),
+                  title: Text(
+                    'Settings',
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .body2,
+                  ),
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SettingPage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SettingPage()));
                   },
                 ),
-                ListTile(
-                  leading: Icon(Icons.help,color:Theme.of(context).iconTheme.color),
-                  title: Text('Telegraph FAQ',style: Theme.of(context).textTheme.body2,),
-                  onTap: () {},
-                ),
+                BlocProvider<ThemeBloc>(blocFactory: () => ThemeBloc(),
+                  builder: (BuildContext context, ThemeBloc bloc) {
+                    return StreamBuilder(
+                        stream: bloc.themeRepo.themeDataStream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot snapshot) {
+                          return ListTile(
+                            leading: Icon(Icons.brush,
+                                color: Theme
+                                    .of(context)
+                                    .iconTheme
+                                    .color),
+                            title: Text(
+                              'Change Theme',
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .body2,
+                            ),
+                            onTap: () async{
+                                await bloc.nextTheme();
+                            },
+                          );
+                        });
+                  },)
               ],
             )));
   }

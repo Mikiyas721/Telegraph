@@ -1,4 +1,4 @@
-import 'package:Telegraph/controll/blocs/provider/provider.dart';
+import 'package:Telegraph/core/utils/disposable.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ChatBackgroundBloc extends Disposable {

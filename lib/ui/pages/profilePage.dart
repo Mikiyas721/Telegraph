@@ -8,179 +8,165 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: NestedScrollView(
-          headerSliverBuilder:
-              (BuildContext context, bool innerBoxIsScrolled) => <Widget>[
-            SliverAppBar(backgroundColor: Theme.of(context).primaryColorDark,
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              actions: <Widget>[
-                PopupMenuButton(
-                    itemBuilder: (BuildContext context) => getMenu())
-              ],
-              expandedHeight: 150,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                  titlePadding: EdgeInsets.only(top: 15,left: 70,bottom: 3),
-                  centerTitle: false,
-                  title: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Padding(
-                          child: GestureDetector(
-                            child: MyImageView("assets/avatar_1.png"),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          MyPhotoView("assets/avatar_1.png")));
-                            },
-                          ),
-                          padding: EdgeInsets.only(right: 5)),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Kebede",
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          Text(
-                            "last seen at 12:27 AM",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w200),
-                          ),
-                        ],
-                      )
-                    ],
-                  ) /*ListTile(
-                  contentPadding: EdgeInsets.all(0),
-                  leading: Image.asset(
-                    "assets/avatar_1.png",width: 20,
-                  ),
-                  title: Text(
-                    "Kebede",
-                    style: TextStyle(color: Colors.white, fontSize: 14),
-                  ),
-                  subtitle: Text(
-                    "last seen at 12:27 AM",
-                    style: TextStyle(color: Colors.white, fontSize: 10),
-                  ),
-                ),*/
-                  ),
-            )
-          ],
-          body: ListView(children: <Widget>[
-            SettingGroupTitle("Info", true, left: 18),
-            ListTile(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) => getDialogs(true));
-              },
-              leading: Icon(Icons.phone),
-              title: Text("+251 941135730"),
-              subtitle: Text(
-                "Mobile",
-                style: TextStyle(color: Colors.grey, fontSize: 14),
-              ),
-            ),
-            ListTile(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) => getDialogs(false));
-              },
-              leading: Icon(Icons.supervised_user_circle),
-              title: Text("@MIKI_YAS"),
-              subtitle: Text(
-                "Username",
-                style: TextStyle(color: Colors.grey, fontSize: 14),
-              ),
-            ),
-            Divider(
-              thickness: 1,
-              indent: 20,
-            ),
-            SwitchListTile(
-              title: Text("Notification"),
-              value: true,
-              onChanged: (bool value) {},
-            ),
-            SettingGroupTitle(
-              "Shared Content",
-              true,
-              left: 18,
-              top: 5,
-              bottom: 5,
-            ),
-            ListTile(
-              leading: Icon(Icons.perm_media),
-              title: Text("Shared Media"),
-              trailing: Text(
-                "0",
-                style: TextStyle(color: Colors.blue),
-              ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => SharedContentPage()));
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) =>
+            <Widget>[
+          SliverAppBar(
+            backgroundColor: Theme.of(context).primaryColorDark,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context);
               },
             ),
-            ListTile(
-              leading: Icon(Icons.folder),
-              title: Text("Shared File"),
-              trailing: Text(
-                "0",
-                style: TextStyle(color: Colors.blue),
-              ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => SharedContentPage()));
-              },
+            actions: <Widget>[
+              PopupMenuButton(itemBuilder: (BuildContext context) => getMenu())
+            ],
+            expandedHeight: 150,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+                titlePadding: EdgeInsets.only(top: 15, left: 70, bottom: 3),
+                centerTitle: false,
+                title: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                        child: GestureDetector(
+                          child: MyImageView("assets/avatar_1.png"),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        MyPhotoView("assets/avatar_1.png")));
+                          },
+                        ),
+                        padding: EdgeInsets.only(right: 5)),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Kebede",
+                          style: TextStyle(color: Colors.white, fontSize: 14),
+                        ),
+                        Text(
+                          "last seen at 12:27 AM",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w200),
+                        ),
+                      ],
+                    )
+                  ],
+                )),
+          )
+        ],
+        body: ListView(children: <Widget>[
+          SettingGroupTitle("Info", true, left: 18),
+          ListTile(
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => getDialogs(true));
+            },
+            leading: Icon(Icons.phone),
+            title: Text("+251 941135730"),
+            subtitle: Text(
+              "Mobile",
+              style: TextStyle(color: Colors.grey, fontSize: 14),
             ),
-            ListTile(
-              leading: Icon(Icons.music_note),
-              title: Text("Shared Music"),
-              trailing: Text(
-                "0",
-                style: TextStyle(color: Colors.blue),
-              ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => SharedContentPage()));
-              },
+          ),
+          ListTile(
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => getDialogs(false));
+            },
+            leading: Icon(Icons.supervised_user_circle),
+            title: Text("@MIKI_YAS"),
+            subtitle: Text(
+              "Username",
+              style: TextStyle(color: Colors.grey, fontSize: 14),
             ),
-            ListTile(
-              leading: Icon(Icons.link),
-              title: Text("Shared Link"),
-              trailing: Text(
-                "0",
-                style: TextStyle(color: Colors.blue),
-              ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => SharedContentPage()));
-              },
+          ),
+          Divider(
+            thickness: 1,
+            indent: 20,
+          ),
+          SwitchListTile(
+            title: Text("Notification"),
+            value: true,
+            onChanged: (bool value) {},
+          ),
+          SettingGroupTitle(
+            "Shared Content",
+            true,
+            left: 18,
+            top: 5,
+            bottom: 5,
+          ),
+          ListTile(
+            leading: Icon(Icons.perm_media),
+            title: Text("Shared Media"),
+            trailing: Text(
+              "0",
+              style: TextStyle(color: Colors.blue),
             ),
-          ]),
-        ),
-      );
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => SharedContentPage()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.folder),
+            title: Text("Shared File"),
+            trailing: Text(
+              "0",
+              style: TextStyle(color: Colors.blue),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => SharedContentPage()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.music_note),
+            title: Text("Shared Music"),
+            trailing: Text(
+              "0",
+              style: TextStyle(color: Colors.blue),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => SharedContentPage()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.link),
+            title: Text("Shared Link"),
+            trailing: Text(
+              "0",
+              style: TextStyle(color: Colors.blue),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => SharedContentPage()));
+            },
+          ),
+        ]),
+      ),
+    );
   }
 
   List<PopupMenuEntry> getMenu() {

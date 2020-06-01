@@ -8,9 +8,9 @@ class RestClient {
 
   RestClient(String baseUrl, bool enableCache)
       : dio = Dio(
-          BaseOptions(
-              connectTimeout: 5000, receiveTimeout: 60000, baseUrl: baseUrl),
-        ) {
+    BaseOptions(
+        connectTimeout: 5000, receiveTimeout: 60000, baseUrl: baseUrl),
+  ) {
     if (enableCache)
       dio.interceptors.add(
         DioCacheManager(
@@ -56,7 +56,7 @@ class RestClient {
           break;
         case DioErrorType.DEFAULT:
           errorDescription =
-              "Connection to server failed due to internet connection";
+          "Connection to server failed due to internet connection";
           break;
         case DioErrorType.RECEIVE_TIMEOUT:
           errorDescription = "Receive timeout in connection with API server";
@@ -67,7 +67,7 @@ class RestClient {
             print(errorDescription);
           } catch (e) {
             errorDescription =
-                "Received invalid status code: ${error.response.statusCode}";
+            "Received invalid status code: ${error.response.statusCode}";
           }
           break;
         case DioErrorType.SEND_TIMEOUT:

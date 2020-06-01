@@ -1,39 +1,41 @@
-import 'package:Telegraph/controll/blocs/provider/provider.dart';
 import 'package:Telegraph/controll/others/myThemeData.dart';
+import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
+import 'package:Telegraph/core/utils/disposable.dart';
 import 'package:Telegraph/data/theme_datasouce.dart';
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:rxdart/subjects.dart';
 
 class ThemeBloc extends Disposable {
-  //ThemeRepo get themeRepo=>GetIt.instance.get<ThemeRepo>();
+  ThemeRepo get themeRepo => GetIt.instance.get<ThemeRepo>();
 
-  final BehaviorSubject<ThemeData> selectedThemeStream = BehaviorSubject<ThemeData>();
-
-  Stream<ThemeData> get selectedThemeData => selectedThemeStream.map((selectedValue)=>selectedValue);
-  Function(ThemeData themeData) get setSelectedThemeData => selectedThemeStream.add;
-
-  Stream<String> get selectedThemeDataString => selectedThemeStream.map(mapThemeDataToString);
-
-  String mapThemeDataToString(ThemeData themeData){
-    if(themeData == MyThemeData.defaultDark) return "DefaultDark";
-    else if(themeData == MyThemeData.defaultLerp) return "DefaultLerp";
-    else if(themeData == MyThemeData.darkBlue) return "DarkBlue";
-    else return "DefaultLight";
-  }
-  ThemeData mapStringToThemeData(String themeDataString){
-    if(themeDataString=="DefaultDark") return MyThemeData.defaultDark;
-    else if(themeDataString=="DefaultLerp") return MyThemeData.defaultLerp;
-    else if(themeDataString=="DarkBlue") return MyThemeData.darkBlue;
-    else return MyThemeData.defaultLight;
+  changeTheme(String name) async {
+    themeRepo.update(MyTheme(name: name));
+    await PreferenceHandler.setPreference<String>(
+        PreferenceHandler.selectedTheme, name);
   }
 
- /* changeTheme(String name){
-    themeRepo.update(MyTheme(name:name));
-  }*/
+  nextTheme() async {
+    String currentTheme =
+        PreferenceHandler.getPreference(PreferenceHandler.selectedTheme);
+    print(currentTheme);
+    if (currentTheme == "DefaultLight") {
+      themeRepo.update(MyTheme(name: "DefaultDark"));
+      await PreferenceHandler.setPreference<String>(
+          PreferenceHandler.selectedTheme, "DefaultDark");
+    } else if (currentTheme == "DefaultDark") {
+      themeRepo.update(MyTheme(name: "DarkBlue"));
+      await PreferenceHandler.setPreference<String>(
+          PreferenceHandler.selectedTheme, "DarkBlue");
+    } else if (currentTheme == "DarkBlue") {
+      themeRepo.update(MyTheme(name: "DefaultLerp"));
+      await PreferenceHandler.setPreference<String>(
+          PreferenceHandler.selectedTheme, "DefaultLerp");
+    } else {
+      themeRepo.update(MyTheme(name: "DefaultLight"));
+      await PreferenceHandler.setPreference<String>(
+          PreferenceHandler.selectedTheme, "DefaultLight");
+    }
+  }
 
   @override
-  void dispose() {
-    selectedThemeStream.close();
-  }
+  void dispose() {}
 }

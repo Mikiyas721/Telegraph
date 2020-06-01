@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:Telegraph/controll/blocs/provider/provider.dart';
+import 'package:Telegraph/core/utils/disposable.dart';
 import 'package:flutter/services.dart';
 
 class EventChannelProvider {

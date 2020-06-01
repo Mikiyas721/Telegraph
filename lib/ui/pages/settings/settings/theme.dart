@@ -6,8 +6,6 @@ import 'package:Telegraph/ui/customWidgets/circularContainer.dart';
 import 'package:flutter/material.dart';
 
 class ThemePage extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ThemeBloc>(
@@ -52,7 +50,7 @@ class ThemePage extends StatelessWidget {
                       )),
                 ),
                 StreamBuilder(
-                    stream: bloc.selectedThemeData,
+                    stream: bloc.themeRepo.themeDataStream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       return ListTile(
                         leading: CircularContainer(
@@ -65,20 +63,13 @@ class ThemePage extends StatelessWidget {
                         trailing: snapshot.data == MyThemeData.defaultLight
                             ? getMarkedIcon()
                             : null,
-                        onTap: () {
-                          bloc.setSelectedThemeData(
-                              bloc.mapStringToThemeData("DefaultLight"));
-                          PreferenceHandler.setPreference<String>(
-                              PreferenceHandler.selectedTheme, "DefaultLight");
-                          Navigator.pushReplacementNamed(
-                            context,
-                            '/',
-                          );
+                        onTap: () async{
+                          await bloc.changeTheme("DefaultLight");
                         },
                       );
                     }),
                 StreamBuilder(
-                    stream: bloc.selectedThemeStream,
+                    stream: bloc.themeRepo.themeDataStream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       return ListTile(
                         leading: CircularContainer(
@@ -91,20 +82,13 @@ class ThemePage extends StatelessWidget {
                         trailing: snapshot.data == MyThemeData.defaultDark
                             ? getMarkedIcon()
                             : null,
-                        onTap: () {
-                          bloc.setSelectedThemeData(
-                              bloc.mapStringToThemeData("DefaultDark"));
-                          PreferenceHandler.setPreference<String>(
-                              PreferenceHandler.selectedTheme, "DefaultDark");
-                          Navigator.pushReplacementNamed(
-                            context,
-                            '/',
-                          );
+                        onTap: () async{
+                          await bloc.changeTheme("DefaultDark");
                         },
                       );
                     }),
                 StreamBuilder(
-                    stream: bloc.selectedThemeStream,
+                    stream: bloc.themeRepo.themeDataStream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       return ListTile(
                         leading: CircularContainer(
@@ -116,20 +100,13 @@ class ThemePage extends StatelessWidget {
                         trailing: snapshot.data == MyThemeData.darkBlue
                             ? getMarkedIcon()
                             : null,
-                        onTap: () {
-                          bloc.setSelectedThemeData(
-                              bloc.mapStringToThemeData("DarkBlue"));
-                          PreferenceHandler.setPreference<String>(
-                              PreferenceHandler.selectedTheme, "DarkBlue");
-                          Navigator.pushReplacementNamed(
-                            context,
-                            '/',
-                          );
+                        onTap: () async{
+                          await bloc.changeTheme("DarkBlue");
                         },
                       );
                     }),
                 StreamBuilder(
-                    stream: bloc.selectedThemeStream,
+                    stream: bloc.themeRepo.themeDataStream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       return ListTile(
                         leading: CircularContainer(
@@ -142,15 +119,8 @@ class ThemePage extends StatelessWidget {
                         trailing: snapshot.data == MyThemeData.defaultLerp
                             ? getMarkedIcon()
                             : null,
-                        onTap: () {
-                          bloc.setSelectedThemeData(
-                              bloc.mapStringToThemeData("DefaultLerp"));
-                          PreferenceHandler.setPreference<String>(
-                              PreferenceHandler.selectedTheme, "DefaultLerp");
-                          Navigator.pushReplacementNamed(
-                            context,
-                            '/',
-                          );
+                        onTap: () async{
+                          await bloc.changeTheme("DefaultLerp");
                         },
                       );
                     }),

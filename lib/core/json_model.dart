@@ -4,7 +4,6 @@ abstract class Mappable {
   Map<String, dynamic> toMap();
 }
 
-
 abstract class JSONModel extends Equatable implements Mappable {
   final String id;
 

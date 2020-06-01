@@ -1,3 +1,4 @@
+import 'package:Telegraph/core/utils/disposable.dart';
 import 'package:flutter/material.dart';
 class Provider<T> extends InheritedWidget {
   final T value;
@@ -16,9 +17,6 @@ class Provider<T> extends InheritedWidget {
     context.dependOnInheritedWidgetOfExactType<Provider<T>>();
     return widget?.value;
   }
-}
-abstract class Disposable {
-  void dispose();
 }
 
 class BlocProvider<T extends Disposable> extends StatefulWidget {
