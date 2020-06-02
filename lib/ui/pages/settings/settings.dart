@@ -1,9 +1,9 @@
+import 'package:Telegraph/blocs/provider/provider.dart';
+import 'package:Telegraph/blocs/setting/settingBloc.dart';
+import 'package:Telegraph/others/assistant.dart';
+import 'package:Telegraph/others/preferenceKeys.dart';
 import 'package:flutter/material.dart';
-import 'package:Telegraph/controll/blocs/provider/provider.dart';
-import 'package:Telegraph/controll/blocs/settingBloc.dart';
-import 'package:Telegraph/controll/others/assistant.dart';
-import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
-import 'package:Telegraph/ui/customWidgets/myPhotoView.dart';
+import 'package:Telegraph/ui/pages/photoViewPage.dart';
 import 'package:Telegraph/ui/customWidgets/mySwitchListTile.dart';
 import 'package:Telegraph/ui/customWidgets/infoDisplay.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
@@ -22,14 +22,14 @@ class SettingPage extends StatelessWidget {
     return BlocProvider<SettingBloc>(
         blocFactory: () => SettingBloc(),
         builder: (BuildContext context, bloc) {
-          bloc.setAnimationEnabled(PreferenceHandler.getPreference(PreferenceHandler.enableAnimation));
-          bloc.setInAppBrowser(PreferenceHandler.getPreference(PreferenceHandler.inAppBrowser));
-          bloc.setDirectShare(PreferenceHandler.getPreference(PreferenceHandler.directShare));
-          bloc.setMessageTextSize(PreferenceHandler.getPreference(PreferenceHandler.messageTextSize));
-          bloc.setRaiseToSpeak(PreferenceHandler.getPreference(PreferenceHandler.raiseToSpeak));
-          bloc.setSendByEnter(PreferenceHandler.getPreference(PreferenceHandler.sendByEnter));
-          bloc.setAutoPlayGif(PreferenceHandler.getPreference(PreferenceHandler.autoPlayGIF));
-          bloc.setSaveToGallery(PreferenceHandler.getPreference(PreferenceHandler.saveToGallery));
+          bloc.setAnimationEnabled(PreferenceKeys.getPreference(PreferenceKeys.enableAnimation));
+          bloc.setInAppBrowser(PreferenceKeys.getPreference(PreferenceKeys.inAppBrowser));
+          bloc.setDirectShare(PreferenceKeys.getPreference(PreferenceKeys.directShare));
+          bloc.setMessageTextSize(PreferenceKeys.getPreference(PreferenceKeys.messageTextSize));
+          bloc.setRaiseToSpeak(PreferenceKeys.getPreference(PreferenceKeys.raiseToSpeak));
+          bloc.setSendByEnter(PreferenceKeys.getPreference(PreferenceKeys.sendByEnter));
+          bloc.setAutoPlayGif(PreferenceKeys.getPreference(PreferenceKeys.autoPlayGIF));
+          bloc.setSaveToGallery(PreferenceKeys.getPreference(PreferenceKeys.saveToGallery));
 
           return Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -58,12 +58,8 @@ class SettingPage extends StatelessWidget {
                                     child: GestureDetector(
                                       child: MyImageView(imageURL),
                                       onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        MyPhotoView(imageURL)));
+                                        Navigator.pushNamed(
+                                            context,'/photoViewPage');
                                       },
                                     ),
                                     padding: EdgeInsets.only(right: 5)),
@@ -218,7 +214,7 @@ class SettingPage extends StatelessWidget {
           return MySwitchListTile(
             title: "Enable Amimation",
             onChanged: (bool newValue) {
-              PreferenceHandler.setPreference(PreferenceHandler.enableAnimation, newValue);
+              PreferenceKeys.setPreference(PreferenceKeys.enableAnimation, newValue);
               bloc.setAnimationEnabled(newValue);
             },
             value: snapshot.data == null
@@ -244,7 +240,7 @@ class SettingPage extends StatelessWidget {
             title: "In-App Browser",
             subTitle: "Open External links with in app",
             onChanged: (bool newValue) {
-              PreferenceHandler.setPreference(PreferenceHandler.inAppBrowser, newValue);
+              PreferenceKeys.setPreference(PreferenceKeys.inAppBrowser, newValue);
               bloc.setInAppBrowser(newValue);
             },
             value: snapshot.data == null
@@ -263,7 +259,7 @@ class SettingPage extends StatelessWidget {
             title: "Direct Share",
             subTitle: "Show recent chats in share menu",
             onChanged: (bool newValue) {
-              PreferenceHandler.setPreference(PreferenceHandler.directShare, newValue);
+              PreferenceKeys.setPreference(PreferenceKeys.directShare, newValue);
               bloc.setDirectShare(newValue);
             },
             value: snapshot.data == null
@@ -303,7 +299,7 @@ class SettingPage extends StatelessWidget {
                         )).then((num value) {
                   if (value != null) {
                     bloc.setMessageTextSize(value);
-                    PreferenceHandler.setPreference(PreferenceHandler.messageTextSize, value);
+                    PreferenceKeys.setPreference(PreferenceKeys.messageTextSize, value);
                   }
                 });
               },
@@ -321,7 +317,7 @@ class SettingPage extends StatelessWidget {
           return MySwitchListTile(
             title: "Raise to Speak",
             onChanged: (bool newValue) {
-              PreferenceHandler.setPreference(PreferenceHandler.raiseToSpeak, newValue);
+              PreferenceKeys.setPreference(PreferenceKeys.raiseToSpeak, newValue);
               bloc.setRaiseToSpeak(newValue);
             },
             value: snapshot.data == null
@@ -339,7 +335,7 @@ class SettingPage extends StatelessWidget {
           return MySwitchListTile(
             title: "Send by Enter",
             onChanged: (bool newValue) {
-              PreferenceHandler.setPreference(PreferenceHandler.sendByEnter, newValue);
+              PreferenceKeys.setPreference(PreferenceKeys.sendByEnter, newValue);
               bloc.setSendByEnter(newValue);
             },
             value: snapshot.data == null
@@ -357,7 +353,7 @@ class SettingPage extends StatelessWidget {
           return MySwitchListTile(
             title: "Autoplay GIFs",
             onChanged: (bool newValue) {
-              PreferenceHandler.setPreference(PreferenceHandler.autoPlayGIF, newValue);
+              PreferenceKeys.setPreference(PreferenceKeys.autoPlayGIF, newValue);
               bloc.setAutoPlayGif(newValue);
             },
             value: snapshot.data == null
@@ -375,7 +371,7 @@ class SettingPage extends StatelessWidget {
           return MySwitchListTile(
             title: "Save to Gallery",
             onChanged: (bool newValue) {
-              PreferenceHandler.setPreference(PreferenceHandler.saveToGallery, newValue);
+              PreferenceKeys.setPreference(PreferenceKeys.saveToGallery, newValue);
               bloc.setSaveToGallery(newValue);
             },
             value: snapshot.data == null

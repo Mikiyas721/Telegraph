@@ -1,6 +1,6 @@
-import 'package:Telegraph/controll/blocs/notificationBloc.dart';
-import 'package:Telegraph/controll/blocs/provider/provider.dart';
-import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
+import 'package:Telegraph/blocs/provider/provider.dart';
+import 'package:Telegraph/blocs/setting/notificationBloc.dart';
+import 'package:Telegraph/others/preferenceKeys.dart';
 import 'package:Telegraph/ui/customWidgets/mySwitchListTile.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/notificationList.dart';
@@ -14,15 +14,15 @@ class NotificationAndSoundsPage extends StatelessWidget {
         blocFactory: () => NotificationBloc(),
         builder: (BuildContext context, bloc) {
           bloc.setInAppSounds(
-              PreferenceHandler.getPreference(PreferenceHandler.inAppSound));
+              PreferenceKeys.getPreference(PreferenceKeys.inAppSound));
           bloc.setInAppVibrate(
-              PreferenceHandler.getPreference(PreferenceHandler.inAppVibrate));
+              PreferenceKeys.getPreference(PreferenceKeys.inAppVibrate));
           bloc.setInAppPreview(
-              PreferenceHandler.getPreference(PreferenceHandler.inAppPreview));
+              PreferenceKeys.getPreference(PreferenceKeys.inAppPreview));
           bloc.setInChatSounds(
-              PreferenceHandler.getPreference(PreferenceHandler.inChatSound));
+              PreferenceKeys.getPreference(PreferenceKeys.inChatSound));
           bloc.setInAppPriority(
-              PreferenceHandler.getPreference(PreferenceHandler.inAppPriority));
+              PreferenceKeys.getPreference(PreferenceKeys.inAppPriority));
           return Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             appBar: AppBar(
@@ -60,10 +60,10 @@ class NotificationAndSoundsPage extends StatelessWidget {
                   popUpNotificationSink: bloc.setMessagePopup,
                   soundSink: bloc.setMessageSound,
                   prioritySink: bloc.setMessagePriority,
-                  vibrateString: PreferenceHandler.messageVibrate,
-                  popUpString: PreferenceHandler.messagePopup,
-                  soundString: PreferenceHandler.messageSound,
-                  priorityString: PreferenceHandler.messagePriority,
+                  vibrateString: PreferenceKeys.messageVibrate,
+                  popUpString: PreferenceKeys.messagePopup,
+                  soundString: PreferenceKeys.messageSound,
+                  priorityString: PreferenceKeys.messagePriority,
                   onAlertChanged: (bool newValue) {
                     bloc.setMessageAlert(newValue);
                     /*SharedPreferenceHandler.getInstance()
@@ -71,50 +71,50 @@ class NotificationAndSoundsPage extends StatelessWidget {
                   },
                   onMessagePreviewChanged: (bool newValue) {
                     bloc.setMessagePreview(newValue);
-                    PreferenceHandler.setPreference(
-                        PreferenceHandler.messagePreview, newValue);
+                    PreferenceKeys.setPreference(
+                        PreferenceKeys.messagePreview, newValue);
                   },
                   onVibrateTypeSelected: (String newValue) {
                     if (newValue != null) {
                       bloc.setMessageVibrate(newValue);
-                      PreferenceHandler.setPreference(
-                          PreferenceHandler.messageVibrate, newValue);
+                      PreferenceKeys.setPreference(
+                          PreferenceKeys.messageVibrate, newValue);
                     }
                   },
                   onPopUpNotificationSelected: (String newValue) {
                     if (newValue != null) {
                       bloc.setMessagePopup(newValue);
-                      PreferenceHandler.setPreference(
-                          PreferenceHandler.messagePopup, newValue);
+                      PreferenceKeys.setPreference(
+                          PreferenceKeys.messagePopup, newValue);
                     }
                   },
                   onSoundSelected: (String newValue) {
                     if (newValue != null) {
                       bloc.setMessageSound(newValue);
-                      PreferenceHandler.setPreference(
-                          PreferenceHandler.messageSound, newValue);
+                      PreferenceKeys.setPreference(
+                          PreferenceKeys.messageSound, newValue);
                     }
                   },
                   onPrioritySelected: (String newValue) {
                     if (newValue != null) {
                       bloc.setMessagePriority(newValue);
-                      PreferenceHandler.setPreference(
-                          PreferenceHandler.messagePriority, newValue);
+                      PreferenceKeys.setPreference(
+                          PreferenceKeys.messagePriority, newValue);
                     }
                   },
                   readSharedPreferences: () {
-                    bloc.setMessageAlert(PreferenceHandler.getPreference(
-                        PreferenceHandler.messageAlert));
-                    bloc.setMessagePreview(PreferenceHandler.getPreference(
-                        PreferenceHandler.messagePreview));
-                    bloc.setMessageVibrate(PreferenceHandler.getPreference(
-                        PreferenceHandler.messageVibrate));
-                    bloc.setMessagePopup(PreferenceHandler.getPreference(
-                        PreferenceHandler.messagePopup));
-                    bloc.setMessageSound(PreferenceHandler.getPreference(
-                        PreferenceHandler.messageSound));
-                    bloc.setMessagePriority(PreferenceHandler.getPreference(
-                        PreferenceHandler.messagePriority));
+                    bloc.setMessageAlert(PreferenceKeys.getPreference(
+                        PreferenceKeys.messageAlert));
+                    bloc.setMessagePreview(PreferenceKeys.getPreference(
+                        PreferenceKeys.messagePreview));
+                    bloc.setMessageVibrate(PreferenceKeys.getPreference(
+                        PreferenceKeys.messageVibrate));
+                    bloc.setMessagePopup(PreferenceKeys.getPreference(
+                        PreferenceKeys.messagePopup));
+                    bloc.setMessageSound(PreferenceKeys.getPreference(
+                        PreferenceKeys.messageSound));
+                    bloc.setMessagePriority(PreferenceKeys.getPreference(
+                        PreferenceKeys.messagePriority));
                   },
                   themeData: Theme.of(context),
                 ),
@@ -135,61 +135,61 @@ class NotificationAndSoundsPage extends StatelessWidget {
                   popUpNotificationSink: bloc.setGroupPopup,
                   soundSink: bloc.setGroupSound,
                   prioritySink: bloc.setGroupPriority,
-                  vibrateString: PreferenceHandler.groupVibrate,
-                  popUpString: PreferenceHandler.groupPopup,
-                  soundString: PreferenceHandler.groupSound,
-                  priorityString: PreferenceHandler.groupPriority,
+                  vibrateString: PreferenceKeys.groupVibrate,
+                  popUpString: PreferenceKeys.groupPopup,
+                  soundString: PreferenceKeys.groupSound,
+                  priorityString: PreferenceKeys.groupPriority,
                   onAlertChanged: (bool newValue) {
                     bloc.setGroupAlert(newValue);
-                    PreferenceHandler.setPreference(
-                        PreferenceHandler.groupAlert, newValue);
+                    PreferenceKeys.setPreference(
+                        PreferenceKeys.groupAlert, newValue);
                   },
                   onMessagePreviewChanged: (bool newValue) {
                     bloc.setGroupPreview(newValue);
-                    PreferenceHandler.setPreference(
-                        PreferenceHandler.groupPreview, newValue);
+                    PreferenceKeys.setPreference(
+                        PreferenceKeys.groupPreview, newValue);
                   },
                   onVibrateTypeSelected: (String newValue) {
                     if (newValue != null) {
                       bloc.setGroupVibrate(newValue);
-                      PreferenceHandler.setPreference(
-                          PreferenceHandler.groupVibrate, newValue);
+                      PreferenceKeys.setPreference(
+                          PreferenceKeys.groupVibrate, newValue);
                     }
                   },
                   onPopUpNotificationSelected: (String newValue) {
                     if (newValue != null) {
                       bloc.setGroupPopup(newValue);
-                      PreferenceHandler.setPreference(
-                          PreferenceHandler.groupPopup, newValue);
+                      PreferenceKeys.setPreference(
+                          PreferenceKeys.groupPopup, newValue);
                     }
                   },
                   onSoundSelected: (String newValue) {
                     if (newValue != null) {
                       bloc.setGroupSound(newValue);
-                      PreferenceHandler.setPreference(
-                          PreferenceHandler.groupSound, newValue);
+                      PreferenceKeys.setPreference(
+                          PreferenceKeys.groupSound, newValue);
                     }
                   },
                   onPrioritySelected: (String newValue) {
                     if (newValue != null) {
                       bloc.setGroupPriority(newValue);
-                      PreferenceHandler.setPreference(
-                          PreferenceHandler.groupPriority, newValue);
+                      PreferenceKeys.setPreference(
+                          PreferenceKeys.groupPriority, newValue);
                     }
                   },
                   readSharedPreferences: () {
-                    bloc.setGroupAlert(PreferenceHandler.getPreference(
-                        PreferenceHandler.groupAlert));
-                    bloc.setGroupPreview(PreferenceHandler.getPreference(
-                        PreferenceHandler.groupPreview));
-                    bloc.setGroupVibrate(PreferenceHandler.getPreference(
-                        PreferenceHandler.groupVibrate));
-                    bloc.setGroupPopup(PreferenceHandler.getPreference(
-                        PreferenceHandler.groupPopup));
-                    bloc.setGroupSound(PreferenceHandler.getPreference(
-                        PreferenceHandler.groupSound));
-                    bloc.setGroupPriority(PreferenceHandler.getPreference(
-                        PreferenceHandler.groupPriority));
+                    bloc.setGroupAlert(PreferenceKeys.getPreference(
+                        PreferenceKeys.groupAlert));
+                    bloc.setGroupPreview(PreferenceKeys.getPreference(
+                        PreferenceKeys.groupPreview));
+                    bloc.setGroupVibrate(PreferenceKeys.getPreference(
+                        PreferenceKeys.groupVibrate));
+                    bloc.setGroupPopup(PreferenceKeys.getPreference(
+                        PreferenceKeys.groupPopup));
+                    bloc.setGroupSound(PreferenceKeys.getPreference(
+                        PreferenceKeys.groupSound));
+                    bloc.setGroupPriority(PreferenceKeys.getPreference(
+                        PreferenceKeys.groupPriority));
                   },
                   themeData: Theme.of(context),
                 ),

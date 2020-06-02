@@ -1,5 +1,5 @@
-import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
 import 'package:Telegraph/core/utils/disposable.dart';
+import 'package:Telegraph/others/preferenceKeys.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SecurityBloc extends Disposable {
@@ -20,7 +20,7 @@ class SecurityBloc extends Disposable {
   bool savePassword() {
     final password = passwordStream.value;
     if (validatePassword(password) == null) {
-      PreferenceHandler.setPreference<int>(PreferenceHandler.userPassword,int.parse(password));
+      PreferenceKeys.setPreference<int>(PreferenceKeys.userPassword,int.parse(password));
       return true;
     }
     return false;

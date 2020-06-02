@@ -22,8 +22,8 @@ abstract class CacheSource {
 
   const CacheSource(this.preference);
 
-  setObject(String key, Map<String, dynamic> map) =>
-      (preference).setString(key, jsonEncode(map));
+  Future<bool> setObject(String key, Map<String, dynamic> map) async =>
+      await (preference).setString(key, jsonEncode(map));
 
   Map<String, dynamic> getObject(String key) {
     final json = (preference).getString(key);
@@ -38,8 +38,8 @@ abstract class CacheSource {
     return x == null
         ? null
         : (jsonDecode(x) as List)
-        .map<Map<String, dynamic>>((e) => e as Map<String, dynamic>)
-        .toList();
+            .map<Map<String, dynamic>>((e) => e as Map<String, dynamic>)
+            .toList();
   }
 }
 
@@ -168,12 +168,12 @@ class RemoteCRUDSource<T extends JSONModel> extends APIDataSource
   final Duration maxStale;
 
   RemoteCRUDSource(
-      RestClient client,
-      this.path,
-      this.factory, {
-        this.maxAge = Duration.zero,
-        this.maxStale = const Duration(days: 2),
-      }) : super(client);
+    RestClient client,
+    this.path,
+    this.factory, {
+    this.maxAge = Duration.zero,
+    this.maxStale = const Duration(days: 2),
+  }) : super(client);
 
   Options getCacheOptions([bool refresh = false]) {
     return buildCacheOptions(
@@ -190,7 +190,7 @@ class RemoteCRUDSource<T extends JSONModel> extends APIDataSource
         queryParameters: filter == null ? null : {'filter': jsonEncode(filter)},
         options: getCacheOptions(forceRefresh),
       ),
-          (map) => factory(map as Map<String, dynamic>),
+      (map) => factory(map as Map<String, dynamic>),
     );
   }
 
@@ -201,19 +201,19 @@ class RemoteCRUDSource<T extends JSONModel> extends APIDataSource
         queryParameters: filter == null ? null : {'filter': jsonEncode(filter)},
         options: getCacheOptions(forceRefresh),
       ),
-          (res) => res.map<T>((d) => factory(d as Map<String, dynamic>)).toList(),
+      (res) => res.map<T>((d) => factory(d as Map<String, dynamic>)).toList(),
     );
   }
 
   Future<T> create(T t) {
     return client.request<T>(dio.post('/$path', data: t.toMap()),
-            (map) => factory(map as Map<String, dynamic>));
+        (map) => factory(map as Map<String, dynamic>));
   }
 
   Future<T> update(T t) {
     return client.request<T>(
       dio.patch('/$path', data: t.toMap()),
-          (map) => factory(map as Map<String, dynamic>),
+      (map) => factory(map as Map<String, dynamic>),
     );
   }
 
@@ -233,7 +233,7 @@ class RemoteCRUDSource<T extends JSONModel> extends APIDataSource
         queryParameters: where == null ? null : {'where': jsonEncode(where)},
         options: getCacheOptions(forceRefresh),
       ),
-          (res) => res['count'] as int,
+      (res) => res['count'] as int,
     );
   }
 }
@@ -244,23 +244,23 @@ class PlatformDataSource {
   PlatformDataSource(this.channel);
 
   call(
-      String methodName, [
-        Map<String, dynamic> arguments,
-      ]) {
+    String methodName, [
+    Map<String, dynamic> arguments,
+  ]) {
     channel.invokeMethod(methodName, arguments);
   }
 
   Future<Map<String, dynamic>> callMap(
-      String methodName, [
-        Map<String, dynamic> arguments,
-      ]) {
+    String methodName, [
+    Map<String, dynamic> arguments,
+  ]) {
     return channel.invokeMapMethod(methodName, arguments);
   }
 
   Future<List<dynamic>> callList(
-      String methodName, [
-        Map<String, dynamic> arguments,
-      ]) {
+    String methodName, [
+    Map<String, dynamic> arguments,
+  ]) {
     return channel.invokeListMethod(methodName, arguments);
   }
 }
@@ -276,10 +276,10 @@ class PlatformReadOnlySource<T extends JSONModel> extends PlatformDataSource
   @override
   Future<List<T>> get({filter, bool forceRefresh}) async {
     final result =
-    await callList('get', {if (filter != null) 'filter': filter});
+        await callList('get', {if (filter != null) 'filter': filter});
 
     final res =
-    result.map((map) => factory(map.cast<String, dynamic>())).toList();
+        result.map((map) => factory(map.cast<String, dynamic>())).toList();
     return res;
   }
 
@@ -296,10 +296,10 @@ class PlatformReadOnlySource<T extends JSONModel> extends PlatformDataSource
 class PlatformCRUDSource<T extends JSONModel> extends PlatformReadOnlySource<T>
     implements CRUDListSource<T> {
   PlatformCRUDSource(
-      MethodChannel channel,
-      String name,
-      T Function(Map<String, dynamic>) factory,
-      ) : super(channel, name, factory);
+    MethodChannel channel,
+    String name,
+    T Function(Map<String, dynamic>) factory,
+  ) : super(channel, name, factory);
 
   @override
   Future<T> create(T t) async {

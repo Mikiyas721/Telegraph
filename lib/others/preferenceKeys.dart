@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PreferenceHandler {
+class PreferenceKeys {
   static final String messageAlert = 'MessageAlert';
   static final String messagePreview = 'MessagePreview';
   static final String messageVibrate = 'MessageVibrate';

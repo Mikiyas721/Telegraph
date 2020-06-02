@@ -1,9 +1,3 @@
-import 'package:Telegraph/controll/blocs/provider/provider.dart';
-import 'package:Telegraph/controll/blocs/themeBloc.dart';
-import 'package:Telegraph/controll/others/assistant.dart';
-import 'package:Telegraph/controll/others/chatType.dart';
-import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
-import 'package:Telegraph/controll/others/myThemeData.dart';
 import 'package:Telegraph/injector.dart';
 import 'package:Telegraph/ui/pages/chattingPage.dart';
 import 'package:Telegraph/ui/pages/contactsPage.dart';
@@ -12,6 +6,7 @@ import 'package:Telegraph/ui/pages/login/phoneVerification.dart';
 import 'package:Telegraph/ui/pages/news/channelDescription.dart';
 import 'package:Telegraph/ui/pages/news/newChannel.dart';
 import 'package:Telegraph/ui/pages/news/newGroup.dart';
+import 'package:Telegraph/ui/pages/photoViewPage.dart';
 import 'package:Telegraph/ui/pages/searchPage.dart';
 import 'package:Telegraph/ui/pages/settings/info/changePhoneNumber.dart';
 import 'package:Telegraph/ui/pages/settings/info/changeUsername.dart';
@@ -26,7 +21,9 @@ import 'package:Telegraph/ui/pages/settings/settings/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/pages/login/firstPage.dart';
 import 'package:get_it/get_it.dart';
-import 'data/theme_datasouce.dart';
+import 'data/themeDatasouce.dart';
+import 'others/chatType.dart';
+import 'others/myThemeData.dart';
 import 'ui/pages/homepage.dart';
 
 void main() async {
@@ -68,7 +65,7 @@ class MyApp extends StatelessWidget {
     '/chattingPage': (BuildContext context) =>
         ChattingPage('Kebede', '', ChatType.SINGLE),
     '/searchPage': (BuildContext context) => SearchPage(),
-    '/contactsPage': (BuildContext context) => ContactsPage(null),
+    '/contactsPage': (BuildContext context) => ContactsPage(),
     '/newGroupPage': (BuildContext context) => NewGroupPage(''),
     '/newChannelPage': (BuildContext context) => NewChannelPage(),
     '/channelDescriptionPage': (BuildContext context) =>
@@ -85,29 +82,6 @@ class MyApp extends StatelessWidget {
     '/chatBackgroundPage': (BuildContext context) => ChatBackgroundPage(),
     '/themePage': (BuildContext context) => ThemePage(),
     '/languagesPage': (BuildContext context) => LanguagesPage(),
+    '/photoViewPage':(BuildContext context)=>PhotoViewPage()
   };
-/*
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider<ThemeBloc>(
-        blocFactory: () => ThemeBloc(),
-        builder: (BuildContext context, ThemeBloc bloc) {
-          bloc.setSelectedThemeData(bloc.mapStringToThemeData(
-              PreferenceHandler.getPreference(
-                  PreferenceHandler.selectedTheme)));
-          return StreamBuilder<ThemeData>(
-              stream: bloc.selectedThemeData,
-              builder:
-                  (BuildContext context, AsyncSnapshot<ThemeData> snapshot) {
-                return MaterialApp(
-                  title: 'Telegraph',
-                  initialRoute: '/',
-                  routes: routes,
-                  theme: snapshot.data == null
-                      ? MyThemeData.defaultLight
-                      : snapshot.data,
-                );
-              });
-        });
-  }*/
 }

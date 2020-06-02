@@ -1,6 +1,6 @@
-import 'package:Telegraph/controll/blocs/chatBackgroundBloc.dart';
-import 'package:Telegraph/controll/blocs/provider/provider.dart';
-import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
+import 'package:Telegraph/blocs/provider/provider.dart';
+import 'package:Telegraph/blocs/setting/chatBackgroundBloc.dart';
+import 'package:Telegraph/others/preferenceKeys.dart';
 import 'package:flutter/material.dart';
 
 class ChatBackgroundPage extends StatelessWidget {
@@ -21,7 +21,7 @@ class ChatBackgroundPage extends StatelessWidget {
     return BlocProvider<ChatBackgroundBloc>(
         blocFactory: () => ChatBackgroundBloc(),
         builder: (BuildContext context, ChatBackgroundBloc bloc) {
-          bloc.setChatBackground(PreferenceHandler.getPreference(PreferenceHandler.chatBackground));
+          bloc.setChatBackground(PreferenceKeys.getPreference(PreferenceKeys.chatBackground));
           return Scaffold(
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               appBar: AppBar(

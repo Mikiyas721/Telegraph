@@ -1,9 +1,7 @@
-import 'package:Telegraph/controll/contact.dart';
 import 'package:flutter/material.dart';
 import '../pages/searchPage.dart';
-import '../customWidgets/MyDrawer.dart';
+import '../customWidgets/myDrawer.dart';
 import 'contactsPage.dart';
-import 'package:contacts_service/contacts_service.dart';
 
 class HomePage extends StatelessWidget {
   final String title = 'Telegraph';
@@ -36,10 +34,8 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor:
             Theme.of(context).floatingActionButtonTheme.backgroundColor,
-        onPressed: () async {
-          Iterable<Contact> contacts = await getContacts();
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ContactsPage(contacts)));
+        onPressed: () {
+          Navigator.pushNamed(context, '/contactsPage');
         },
         child: Icon(
           Icons.create,

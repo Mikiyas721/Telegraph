@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:Telegraph/controll/blocs/customWidgetBloc.dart';
-import 'package:Telegraph/controll/blocs/provider/provider.dart';
-import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
+import 'package:Telegraph/blocs/customWidgetBloc.dart';
+import 'package:Telegraph/blocs/provider/provider.dart';
+import 'package:Telegraph/others/preferenceKeys.dart';
 import 'package:flutter/material.dart';
 
 class DialogMenu extends StatelessWidget {
@@ -71,7 +71,7 @@ class DialogMenu extends StatelessWidget {
                 onChanged: (String newValue) {
                   bloc.setDialogMenuString(newValue);
                   parentSink(newValue);
-                  PreferenceHandler.setPreference(preferenceKey,newValue);
+                  PreferenceKeys.setPreference(preferenceKey,newValue);
                   Timer(Duration(milliseconds: 300), () {
                     Navigator.pop(context);
                   });

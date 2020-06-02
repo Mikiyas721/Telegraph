@@ -1,6 +1,6 @@
-import 'package:Telegraph/controll/blocs/provider/provider.dart';
-import 'package:Telegraph/controll/blocs/securityBloc.dart';
-import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
+import 'package:Telegraph/blocs/provider/provider.dart';
+import 'package:Telegraph/blocs/setting/securityBloc.dart';
+import 'package:Telegraph/others/preferenceKeys.dart';
 import 'package:Telegraph/ui/customWidgets/dialogMenu.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +14,9 @@ class PrivacyAndSecurityPage extends StatelessWidget {
       blocFactory: () => SecurityBloc(),
       builder: (BuildContext context, SecurityBloc bloc) {
         bloc.setLastSeen(
-            PreferenceHandler.getPreference(PreferenceHandler.whoViewLastSeen));
+            PreferenceKeys.getPreference(PreferenceKeys.whoViewLastSeen));
         bloc.setCalls(
-            PreferenceHandler.getPreference(PreferenceHandler.whoCanCallMe));
+            PreferenceKeys.getPreference(PreferenceKeys.whoCanCallMe));
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
@@ -71,7 +71,7 @@ class PrivacyAndSecurityPage extends StatelessWidget {
                                       : snapShot.data,
                                   parentSink: bloc.setLastSeen,
                                   preferenceKey:
-                                      PreferenceHandler.whoViewLastSeen,
+                                      PreferenceKeys.whoViewLastSeen,
                                   themeData: Theme.of(context),
                                 )).then((selectedValue) {
                           if (selectedValue != null) {
@@ -104,7 +104,7 @@ class PrivacyAndSecurityPage extends StatelessWidget {
                                           : bloc.callStream.value)
                                       : snapShot.data,
                                   parentSink: bloc.setCalls,
-                                  preferenceKey: PreferenceHandler.whoCanCallMe,
+                                  preferenceKey: PreferenceKeys.whoCanCallMe,
                                   themeData: Theme.of(context),
                                 )).then((selectedValue) async {
                           if (selectedValue != null) {

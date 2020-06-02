@@ -1,7 +1,6 @@
-import 'package:Telegraph/controll/blocs/provider/provider.dart';
-import 'package:Telegraph/controll/blocs/themeBloc.dart';
-import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
-import 'package:Telegraph/controll/others/myThemeData.dart';
+import 'package:Telegraph/blocs/provider/provider.dart';
+import 'package:Telegraph/blocs/setting/themeBloc.dart';
+import 'package:Telegraph/others/myThemeData.dart';
 import 'package:Telegraph/ui/customWidgets/circularContainer.dart';
 import 'package:flutter/material.dart';
 

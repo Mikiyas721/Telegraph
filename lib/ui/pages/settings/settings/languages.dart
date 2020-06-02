@@ -1,4 +1,4 @@
-import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
+import 'package:Telegraph/others/preferenceKeys.dart';
 import 'package:flutter/material.dart';
 
 class LanguagesPage extends StatelessWidget {
@@ -41,7 +41,7 @@ class LanguagesPage extends StatelessWidget {
           style: Theme.of(context).textTheme.body2,
         ),
         onTap: () async {
-          bool languageUpdated = await PreferenceHandler.setPreference(PreferenceHandler.language, language);
+          bool languageUpdated = await PreferenceKeys.setPreference(PreferenceKeys.language, language);
           if (languageUpdated) {
             SnackBar snackBar = SnackBar(
                 backgroundColor: Theme.of(context).backgroundColor,

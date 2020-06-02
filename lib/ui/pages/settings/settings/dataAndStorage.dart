@@ -1,7 +1,7 @@
-import 'package:Telegraph/controll/blocs/customWidgetBloc.dart';
-import 'package:Telegraph/controll/blocs/provider/provider.dart';
-import 'package:Telegraph/controll/blocs/storageBloc.dart';
-import 'package:Telegraph/controll/others/sharedPreferenceHandler.dart';
+import 'package:Telegraph/blocs/customWidgetBloc.dart';
+import 'package:Telegraph/blocs/provider/provider.dart';
+import 'package:Telegraph/blocs/setting/storageBloc.dart';
+import 'package:Telegraph/others/preferenceKeys.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
 
@@ -13,9 +13,9 @@ class DataAndStoragePage extends StatelessWidget {
         blocFactory: () => StorageBloc(),
         builder: (BuildContext context, StorageBloc bloc) {
           bloc.setWhenOnData(
-              PreferenceHandler.getPreference(PreferenceHandler.onMobileData));
+              PreferenceKeys.getPreference(PreferenceKeys.onMobileData));
           bloc.setWhenOnWifi(
-              PreferenceHandler.getPreference(PreferenceHandler.onWifi));
+              PreferenceKeys.getPreference(PreferenceKeys.onWifi));
           return Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             appBar: AppBar(
@@ -59,7 +59,7 @@ class DataAndStoragePage extends StatelessWidget {
                                   bloc.whenOnDataStream.value == null
                                       ? []
                                       : bloc.whenOnDataStream.value.split(", "),
-                                  PreferenceHandler.setPreference,PreferenceHandler.onMobileData));
+                                  PreferenceKeys.setPreference,PreferenceKeys.onMobileData));
                         },
                       );
                     }),
@@ -81,7 +81,7 @@ class DataAndStoragePage extends StatelessWidget {
                                   bloc.whenOnWifiStream.value == null
                                       ? []
                                       : bloc.whenOnWifiStream.value.split(", "),
-                                  PreferenceHandler.setPreference, PreferenceHandler.onWifi));
+                                  PreferenceKeys.setPreference, PreferenceKeys.onWifi));
                         },
                       );
                     })

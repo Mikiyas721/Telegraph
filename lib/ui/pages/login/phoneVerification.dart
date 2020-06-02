@@ -1,4 +1,4 @@
-import 'package:Telegraph/controll/others/assistant.dart';
+import 'package:Telegraph/others/assistant.dart';
 import 'package:flutter/material.dart';
 
 class PhoneVerificationPage extends StatelessWidget {

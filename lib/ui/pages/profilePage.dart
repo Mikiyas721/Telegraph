@@ -1,4 +1,3 @@
-import 'package:Telegraph/ui/customWidgets/myPhotoView.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/myImageView.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
@@ -35,11 +34,8 @@ class ProfilePage extends StatelessWidget {
                         child: GestureDetector(
                           child: MyImageView("assets/avatar_1.png"),
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        MyPhotoView("assets/avatar_1.png")));
+                            Navigator.pushNamed(
+                                context,'/photoViewPage');
                           },
                         ),
                         padding: EdgeInsets.only(right: 5)),

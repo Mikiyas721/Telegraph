@@ -1,4 +1,4 @@
-import 'package:Telegraph/controll/others/assistant.dart';
+import 'package:Telegraph/others/assistant.dart';
 
 class User {
   String _firstName;
