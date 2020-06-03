@@ -7,7 +7,6 @@ import 'package:simple_permissions/simple_permissions.dart';
 class ContactBloc extends Disposable{
   ContactRepo get contactRepo => GetIt.instance.get();
 
-
   Future<Iterable<Contact>> getContacts() async {
     Iterable<Contact> contacts;
     bool hasPermission =

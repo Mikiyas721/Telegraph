@@ -1,6 +1,6 @@
 import 'package:Telegraph/others/assistant.dart';
 
-class Message {
+class MessageModel {
   String _chatId;
   String _senderId;
   String _text;
@@ -16,7 +16,7 @@ class Message {
     }''';
   }
 
-  Message(this._chatId, this._senderId, this._text, this._dateTime, this._id);
+  MessageModel(this._chatId, this._senderId, this._text, this._dateTime, this._id);
 
   String get getChatId => _chatId;
 
@@ -28,8 +28,8 @@ class Message {
 
   String get getId => _id;
 
-  factory Message.fromJson(Map<String, dynamic> json) {
-    return Message(json['chat_id'], json['senderid'], json['text'],
+  factory MessageModel.fromJson(Map<String, dynamic> json) {
+    return MessageModel(json['chat_id'], json['senderid'], json['text'],
         Assistant.getDateTime(json['date']), json['id']);
   }
 }

@@ -1,7 +1,7 @@
 
 import 'package:Telegraph/others/chatType.dart';
 
-class Chat {
+class ChatModel {
   List<String> _usersId;
   String _title;
   String _chatImageURL;
@@ -18,7 +18,7 @@ class Chat {
     }''';
   }
 
-  Chat(
+  ChatModel(
       this._usersId, this._title, this._chatImageURL, this._chatType, this._id);
 
   List<String> get getUsers => _usersId;
@@ -37,13 +37,13 @@ class Chat {
 
   set chatType(ChatType chatType) => _chatType = chatType;
 
-  factory Chat.fromJson(Map<String, dynamic> json) {
+  factory ChatModel.fromJson(Map<String, dynamic> json) {
     if (ChatTypeMethods.getChatType(json['chattype']) == ChatType.SINGLE) {
       //TODO parse title and imageurl from the secondUser
-      return Chat(json['usersid'], json['title'], json['imageUrl'],
+      return ChatModel(json['usersid'], json['title'], json['imageUrl'],
           ChatType.SINGLE, json['id']);
     } else {
-      return Chat(json['usersid'], json['title'], json['imageUrl'],
+      return ChatModel(json['usersid'], json['title'], json['imageUrl'],
           ChatTypeMethods.getChatType(json['chattype']), json['id']);
     }
   }

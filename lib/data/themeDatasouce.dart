@@ -4,13 +4,13 @@ import 'package:Telegraph/models/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class ThemeDataSource implements CRUDSource<MyTheme>{}
+abstract class ThemeDataSource implements CRUDSource<ThemeModel>{}
 
-class CacheThemeDataSource extends CacheCRUDSource<MyTheme> implements ThemeDataSource{
-  CacheThemeDataSource(SharedPreferences preference) : super(preference, 'theme', (map)=>MyTheme.fromMap(map));
+class CacheThemeDataSource extends CacheCRUDSource<ThemeModel> implements ThemeDataSource{
+  CacheThemeDataSource(SharedPreferences preference) : super(preference, 'theme', (map)=>ThemeModel.fromMap(map));
 }
 
-class ThemeRepo extends ItemRepo<MyTheme,ThemeDataSource>{
+class ThemeRepo extends ItemRepo<ThemeModel,ThemeDataSource>{
   ThemeRepo(String key) : super(key){
     get();
   }

@@ -1,6 +1,6 @@
 import 'package:Telegraph/others/assistant.dart';
 
-class User {
+class UserModel {
   String _firstName;
   String _lastName;
   String _phone;
@@ -9,7 +9,7 @@ class User {
   DateTime _lastSeen;
   String _id;
 
-  User(this._firstName, this._phone, this._online, this._lastSeen, this._id,
+  UserModel(this._firstName, this._phone, this._online, this._lastSeen, this._id,
       {lastName, this.profilePictureURL})
       : _lastName = lastName;
 
@@ -45,12 +45,12 @@ class User {
     return '${dateTime.day} ${dateTime.month} ${dateTime.year}';
   }
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(json['firstName'], json['phone'], json['online'],
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(json['firstName'], json['phone'], json['online'],
         json['lastSeen'], json['id'],
         lastName: Assistant.getDateTime(json['lastName']),
         profilePictureURL: json['imageURLs']);
   }
 
-  User.toJson();
+  UserModel.toJson();
 }

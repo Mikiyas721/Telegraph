@@ -1,14 +1,10 @@
 import 'package:Telegraph/blocs/contactBloc.dart';
 import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/others/chatType.dart';
-import 'package:Telegraph/ui/customWidgets/contactsList.dart';
 import 'package:Telegraph/ui/pages/news/newAccount.dart';
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:Telegraph/ui/pages/news/channelDescription.dart';
 import '../customWidgets/chatListItem.dart';
 import 'chattingPage.dart';
-import 'news/newGroup.dart';
 
 class ContactsPage extends StatelessWidget {
   final String title = 'New Message';

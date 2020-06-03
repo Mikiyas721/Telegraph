@@ -2,10 +2,10 @@ import 'package:Telegraph/core/json_model.dart';
 import 'package:Telegraph/others/myThemeData.dart';
 import 'package:flutter/material.dart';
 
-class MyTheme extends JSONModel{
+class ThemeModel extends JSONModel{
   final String name;
 
-  MyTheme({this.name}):super(name);
+  ThemeModel({this.name}):super(name);
 
   @override
   Map<String, dynamic> toMap() {
@@ -14,8 +14,8 @@ class MyTheme extends JSONModel{
     };
   }
 
-  factory MyTheme.fromMap(Map<String,dynamic> map){
-    return MyTheme(name:map['name']);
+  factory ThemeModel.fromMap(Map<String,dynamic> map){
+    return ThemeModel(name:map['name']);
   }
 
   ThemeData get generateTheme{

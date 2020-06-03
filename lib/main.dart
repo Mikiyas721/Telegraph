@@ -1,4 +1,6 @@
+import 'package:Telegraph/blocs/callBloc.dart';
 import 'package:Telegraph/injector.dart';
+import 'package:Telegraph/ui/pages/callsPage.dart';
 import 'package:Telegraph/ui/pages/chattingPage.dart';
 import 'package:Telegraph/ui/pages/contactsPage.dart';
 import 'package:Telegraph/ui/pages/login/phoneNumberInput.dart';
@@ -70,6 +72,7 @@ class MyApp extends StatelessWidget {
     '/newChannelPage': (BuildContext context) => NewChannelPage(),
     '/channelDescriptionPage': (BuildContext context) =>
         ChannelDescriptionPage(),
+    '/callsPage': (BuildContext context)=>CallsPage(),
     '/settingPage': (BuildContext context) => SettingPage(),
     '/changePhoneNumberPage': (BuildContext context) => ChangePhoneNumberPage(),
     '/changeUserNamePage': (BuildContext context) => ChangeUserNamePage(),

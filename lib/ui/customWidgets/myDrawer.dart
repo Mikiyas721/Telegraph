@@ -125,7 +125,9 @@ class MyDrawer extends StatelessWidget {
                     'Calls',
                     style: Theme.of(context).textTheme.body2,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/callsPage');
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.person_add,
