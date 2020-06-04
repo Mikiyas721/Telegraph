@@ -7,7 +7,7 @@ class CallBloc extends Disposable {
   CallRepo get callRepo => GetIt.instance.get();
 
   void fetchCalls(String userId) async {
-    List<CallModel> data = await callRepo.get(filter: userId);
+    List<CallModel> data = await callRepo.getCallModels(userId: userId);
     callRepo.setCall(data);
   }
 

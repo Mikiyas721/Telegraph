@@ -39,9 +39,9 @@ class HomePage extends StatelessWidget {
             stream: bloc.chatRepo.chatStream,
             builder: (BuildContext context,
                 AsyncSnapshot<List<ChatModel>> snapShot) {
-              if (snapShot.hasData)
+              if (!snapShot.hasData) {
                 return Center(child: CircularProgressIndicator());
-              else {
+              } else {
                 if (snapShot.data.isEmpty)
                   return Center(
                     child: Text("You have no chats"),

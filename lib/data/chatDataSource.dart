@@ -1,38 +1,32 @@
 import 'dart:async';
 import 'package:Telegraph/core/dataSource.dart';
 import 'package:Telegraph/core/repository.dart';
+import 'package:Telegraph/core/restClient.dart';
 import 'package:Telegraph/data/http.dart';
 import 'package:Telegraph/models/chat.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ChatDataSource extends CRUDListSource<ChatModel> {
-  @override
-  Future<int> count({where, bool forceRefresh}) {
-    // TODO: implement count
-    return null;
-  }
+abstract class ChatDataSource extends CRUDListSource<ChatModel> {
 
-  @override
-  FutureOr<ChatModel> create(ChatModel t) {
-    // TODO: implement create
-    return null;
-  }
+}
 
-  @override
-  FutureOr<void> delete(String id) {
-    // TODO: implement delete
-    return null;
-  }
+class CacheChatDataSource extends CacheCRUDListSource<ChatModel>
+    implements ChatDataSource {
+  CacheChatDataSource(SharedPreferences preference)
+      : super(preference, 'chat', (call) => ChatModel.fromMap(call));
+}
+class ChatRemoteDataSource extends RemoteCRUDSource<ChatModel> implements ChatDataSource{
+  ChatRemoteDataSource(RestClient client) : super(client, '', (map)=>ChatModel.fromMap(map));
 
-  @override
-  FutureOr<void> deleteAll() {
-    // TODO: implement deleteAll
-    return null;
-  }
+}
 
-  @override
-  FutureOr<List<ChatModel>> get({filter, bool forceRefresh}) async {
-    List<dynamic> responseList = await Http.getChatsForUser(filter);
+class ChatRepo extends ListRepo<ChatModel, ChatDataSource> {
+  ChatRepo(String key) : super(key);
+
+  Stream<List<ChatModel>> get chatStream => items.map((chat) => chat);
+
+  FutureOr<List<ChatModel>> getChatModel({String userId}) async {
+    List<dynamic> responseList = await Http.getChatsForUser(userId);
     if (responseList.isNotEmpty) {
       List<ChatModel> chatModelList = List();
       for (Map<String, dynamic> chat in responseList) {
@@ -43,7 +37,7 @@ class ChatDataSource extends CRUDListSource<ChatModel> {
         else {
           dynamic secondUser;
           for (String id in chat['usersid'])
-            if (id != filter) {
+            if (id != userId) {
               secondUser = await Http.getUserById(id);
             }
           secondUser['lastName'] == null
@@ -63,30 +57,6 @@ class ChatDataSource extends CRUDListSource<ChatModel> {
     }
     return [];
   }
-
-  @override
-  FutureOr<ChatModel> getById(String id, {filter, bool forceRefresh}) {
-    // TODO: implement getById
-    return null;
-  }
-
-  @override
-  FutureOr<ChatModel> update(ChatModel t) {
-    // TODO: implement update
-    return null;
-  }
-}
-
-class CacheChatDataSource extends CacheCRUDListSource<ChatModel>
-    implements ChatDataSource {
-  CacheChatDataSource(SharedPreferences preference)
-      : super(preference, 'chat', (call) => ChatModel.fromMap(call));
-}
-
-class ChatRepo extends ListRepo<ChatModel, ChatDataSource> {
-  ChatRepo(String key) : super(key);
-
-  Stream<List<ChatModel>> get chatStream => items.map((chat) => chat);
 
   Function(List<ChatModel> chatModel) get setChat => items.add;
 }

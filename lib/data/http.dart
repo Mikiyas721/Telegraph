@@ -12,16 +12,16 @@ class Http {
   static final String apiBasePath = 'http://192.168.1.103:3000/api';
 
   static void addUser(UserModel user) async {
-    await http.post('http://localhost:3000/api/users', body: user.toString());
+    await http.post('$apiBasePath/users', body: user.toString());
   }
 
   static void addMessage(MessageModel message) async {
-    await http.post('http://localhost:3000/api/users',
+    await http.post('$apiBasePath/users',
         body: message.toString());
   }
 
   static void addChat(ChatModel chat) async {
-    await http.post('http://localhost:3000/api/users', body: chat.toString());
+    await http.post('$apiBasePath/users', body: chat.toString());
   }
   static Future<dynamic> addContact(ContactModel contactModel)async{
     await http.post('$apiBasePath/contact', body: contactModel.toMap());
@@ -31,13 +31,13 @@ class Http {
 
   static Future<dynamic> getChatsForUser(String userId) async {
     String chats = await http.read(
-        'http://localhost:3000/api/chats?filter={"where":{"usersid":{"inq":["$userId"]}}}');
+        '$apiBasePath/chats?filter={"where":{"usersid":{"inq":["$userId"]}}}');
     return json.decode(chats);
   }
 
   static Future<Map<String, dynamic>> getMessagesOfChat(String chatId) async {
     String messages =
-        await http.read('http://localhost:3000/api/chats/$chatId/messages');
+        await http.read('$apiBasePath/api/chats/$chatId/messages');
     return json.decode(messages);
   }
 
@@ -56,7 +56,8 @@ class Http {
     String user = await http
         .read('$apiBasePath/users?filter[where][id]=$userId');
     final responseList = json.decode(user);
-    return responseList[0];
+    if(responseList.isNotEmpty) return responseList[0];
+    else return {};
   }
   static Future<List<dynamic>> getUserByNumber(String phoneNumber) async {
     String user = await http
@@ -66,13 +67,13 @@ class Http {
 
   static Future<MessageModel> getMessage(String messageId) async {
     String user = await http.read(
-        'http://localhost:3000/api/messages?filter[where][id]=$messageId');
+        '$apiBasePath/messages?filter[where][id]=$messageId');
     return MessageModel.fromJson(json.decode(user));
   }
 
   static Future<List<dynamic>> getChat(String chatId) async {
     String chat = await http
-        .read('http://localhost:3000/api/chats?filter[where][id]=$chatId');
+        .read('$apiBasePath/chats?filter[where][id]=$chatId');
     return json.decode(chat);
   }
 
@@ -131,17 +132,17 @@ class Http {
   /// DELETE requests
 
   static Future<String> deleteChat(String chatId) async {
-    var x = await http.delete('http://localhost:3000/api/chats/$chatId');
+    var x = await http.delete('$apiBasePath/chats/$chatId');
     return jsonDecode(json.encode(x));
   }
 
   static Future<String> deleteMessage(String messageId) async {
-    var x = await http.delete('http://localhost:3000/api/messages/$messageId');
+    var x = await http.delete('$apiBasePath/messages/$messageId');
     return jsonDecode(json.encode(x));
   }
 
   static Future<Map<String, dynamic>> deleteUser(String userId) async {
-    var x = await http.delete('http://localhost:3000/api/users/$userId');
+    var x = await http.delete('$apiBasePath/users/$userId');
     return jsonDecode(json.encode(x));
   }
 }
