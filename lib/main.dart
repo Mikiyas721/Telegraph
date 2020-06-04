@@ -1,11 +1,13 @@
-import 'package:Telegraph/blocs/callBloc.dart';
+import './models/chat.dart';
 import 'package:Telegraph/injector.dart';
 import 'package:Telegraph/ui/pages/callsPage.dart';
 import 'package:Telegraph/ui/pages/chattingPage.dart';
+import 'package:Telegraph/ui/pages/allContactsPage.dart';
 import 'package:Telegraph/ui/pages/contactsPage.dart';
 import 'package:Telegraph/ui/pages/login/phoneNumberInput.dart';
 import 'package:Telegraph/ui/pages/login/phoneVerification.dart';
 import 'package:Telegraph/ui/pages/news/channelDescription.dart';
+import 'package:Telegraph/ui/pages/news/newAccount.dart';
 import 'package:Telegraph/ui/pages/news/newChannel.dart';
 import 'package:Telegraph/ui/pages/news/newGroup.dart';
 import 'package:Telegraph/ui/pages/photoViewPage.dart';
@@ -24,7 +26,6 @@ import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/pages/login/firstPage.dart';
 import 'package:get_it/get_it.dart';
 import 'data/themeDatasouce.dart';
-import 'others/chatType.dart';
 import 'others/myThemeData.dart';
 import 'ui/pages/homepage.dart';
 
@@ -68,8 +69,10 @@ class MyApp extends StatelessWidget {
         ChattingPage('Kebede', '', ChatType.SINGLE),
     '/searchPage': (BuildContext context) => SearchPage(),
     '/contactsPage': (BuildContext context) => ContactsPage(),
+    '/allContactsPage': (BuildContext context) => AllContactsPage(),
     '/newGroupPage': (BuildContext context) => NewGroupPage(''),
     '/newChannelPage': (BuildContext context) => NewChannelPage(),
+    '/newContactPage': (BuildContext context)=> NewContactPage(),
     '/channelDescriptionPage': (BuildContext context) =>
         ChannelDescriptionPage(),
     '/callsPage': (BuildContext context)=>CallsPage(),

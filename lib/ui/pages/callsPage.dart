@@ -37,8 +37,7 @@ class CallsPage extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     );
                   } else {
-                    if (snapShot.data.isNotEmpty &&
-                        snapShot.data[0].userName == null) {
+                    if (snapShot.data.isEmpty) {
                       return Center(
                           child: Text(
                         "You haven't made any calls yet",

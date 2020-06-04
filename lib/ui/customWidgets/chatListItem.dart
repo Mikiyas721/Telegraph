@@ -1,22 +1,26 @@
-import 'package:Telegraph/others/chatType.dart';
+import 'package:Telegraph/models/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/myImageView.dart';
 
 class ChatListItem extends StatelessWidget {
   final String imageURL;
   final String title;
-  final int hour;
-  final int minute;
-  final String meridian;
+  final DateTime lastChatDateTime;
   final String lastChatString;
   final Function onTap;
   final Function onLongPress;
-  final ChatType chatType = ChatType.SINGLE;
+  final ChatType chatType;
   final String messageStatus = "Sent";
-  final ThemeData themeData;
 
-  ChatListItem(this.imageURL, this.title, this.hour, this.minute, this.meridian,
-      this.lastChatString, this.onTap, this.onLongPress,{this.themeData});
+  ChatListItem({
+    @required this.imageURL,
+    @required this.title,
+    @required this.lastChatDateTime,
+    @required this.lastChatString,
+    @required this.chatType,
+    this.onTap,
+    this.onLongPress,
+  });
 
   /*chatType = type;*/
 
@@ -56,11 +60,14 @@ class ChatListItem extends StatelessWidget {
       leading: MyImageView(imageURL),
       title:
           Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-        Icon(getIcon(), color: themeData.iconTheme.color,),
+        Icon(
+          getIcon(),
+          color: Theme.of(context).iconTheme.color,
+        ),
         Padding(
           child: Text(
             "$title",
-            style: themeData.textTheme.body2,
+            style: Theme.of(context).textTheme.body2,
           ),
           padding: EdgeInsets.only(left: 7, bottom: 5),
         ),
@@ -75,14 +82,15 @@ class ChatListItem extends StatelessWidget {
           ),
           Padding(padding: EdgeInsets.only(left: 5)),
           Text(
-            '$hour :$minute $meridian',
+            '${lastChatDateTime.hour} :${lastChatDateTime.minute} PM',
+            //TODO needs correction
             style: TextStyle(color: Colors.grey),
           )
         ],
       ),
       subtitle: Text(
         "$lastChatString",
-        style: themeData.textTheme.caption,
+        style: Theme.of(context).textTheme.caption,
       ),
       onTap: onTap,
       onLongPress: onLongPress,

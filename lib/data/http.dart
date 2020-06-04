@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'Package:http/http.dart' as http;
 import 'package:Telegraph/models/chat.dart';
+import 'package:Telegraph/models/contact.dart';
 import 'package:Telegraph/models/message.dart';
 import 'package:Telegraph/models/user.dart';
 
@@ -22,10 +23,13 @@ class Http {
   static void addChat(ChatModel chat) async {
     await http.post('http://localhost:3000/api/users', body: chat.toString());
   }
+  static Future<dynamic> addContact(ContactModel contactModel)async{
+    await http.post('$apiBasePath/contact', body: contactModel.toMap());
+  }
 
   /// GET requests
 
-  static Future<Map<String, dynamic>> getChatsForUser(String userId) async {
+  static Future<dynamic> getChatsForUser(String userId) async {
     String chats = await http.read(
         'http://localhost:3000/api/chats?filter={"where":{"usersid":{"inq":["$userId"]}}}');
     return json.decode(chats);
@@ -37,15 +41,26 @@ class Http {
     return json.decode(messages);
   }
 
-  static Future<List<dynamic>> getCallForUser(String userId) async {
+  static Future<List<dynamic>> getCallsForUser(String userId) async {
     String chat = await http.read(
         '$apiBasePath/calls?filter={"where":{"or":[{"callerId":{"inq":["$userId"]}},{"receiverId":{"inq":["$userId"]}}]}}');
     return json.decode(chat);
   }
+  static Future<List<dynamic>> getContactsForUser(String userId) async {
+    String chat = await http.read(
+        '$apiBasePath/contacts?filter[where][userId]=$userId');
+    return json.decode(chat);
+  }
 
-  static Future<List<dynamic>> getUser(String userId) async {
+  static Future<dynamic> getUserById(String userId) async {
     String user = await http
         .read('$apiBasePath/users?filter[where][id]=$userId');
+    final responseList = json.decode(user);
+    return responseList[0];
+  }
+  static Future<List<dynamic>> getUserByNumber(String phoneNumber) async {
+    String user = await http
+        .read('$apiBasePath/users?filter[where][phoneNumber]=$phoneNumber');
     return json.decode(user);
   }
 
@@ -55,17 +70,17 @@ class Http {
     return MessageModel.fromJson(json.decode(user));
   }
 
-  static Future<ChatModel> getChat(String chatId) async {
+  static Future<List<dynamic>> getChat(String chatId) async {
     String chat = await http
         .read('http://localhost:3000/api/chats?filter[where][id]=$chatId');
-    return ChatModel.fromJson(json.decode(chat));
+    return json.decode(chat);
   }
 
   /// UPDATE requests
 
   static void editUserName(String firstName, String userId,
       {String lastName}) async {
-    var user = await getUser(userId);
+    var user = await getUserById(userId);
     UserModel newUser;
       newUser = UserModel(
           firstName,
@@ -82,7 +97,7 @@ class Http {
     String phoneNumber,
     String userId,
   ) async {
-    var user = await getUser(userId);
+    var user = await getUserById(userId);
     UserModel newUser;
       newUser = UserModel(
           user[0]['firstName'],

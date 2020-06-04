@@ -2,10 +2,11 @@ import 'package:Telegraph/data/callDataSource.dart';
 import 'package:Telegraph/data/contactDatasource.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'core/repository.dart';
+import 'data/chatDataSource.dart';
 import 'data/themeDatasouce.dart';
 import 'models/call.dart';
+import 'models/chat.dart';
 import 'models/contact.dart';
 import 'models/theme.dart';
 
@@ -22,15 +23,24 @@ inject() async {
     () => SingleItemRepoManager<ThemeModel>(),
   );
 
-  GetIt.instance.registerLazySingleton<ContactDataSource>(()=>CacheContactDataSource(GetIt.instance.get()));
-  GetIt.instance.registerLazySingleton<ContactRepo>(()=>ContactRepo('main'));
-  GetIt.instance.registerLazySingleton<ItemRepoManager<ContactModel>>(
-        () => SingleItemRepoManager<ContactModel>(),
+  GetIt.instance.registerLazySingleton<ContactDataSource>(
+      () => CacheContactDataSource(GetIt.instance.get()));
+  GetIt.instance.registerLazySingleton<ContactRepo>(() => ContactRepo('main'));
+  GetIt.instance.registerLazySingleton<ListRepoManager<ContactModel>>(
+    () => SingleListRepoManager<ContactModel>(),
   );
 
-  GetIt.instance.registerLazySingleton<CallDataSource>(()=>CacheCallDataSource(GetIt.instance.get()));
-  GetIt.instance.registerLazySingleton<CallRepo>(()=>CallRepo('main'));
+  GetIt.instance.registerLazySingleton<CallDataSource>(
+      () => CacheCallDataSource(GetIt.instance.get()));
+  GetIt.instance.registerLazySingleton<CallRepo>(() => CallRepo('main'));
   GetIt.instance.registerLazySingleton<ListRepoManager<CallModel>>(
-        () => SingleListRepoManager<CallModel>(),
+    () => SingleListRepoManager<CallModel>(),
+  );
+
+  GetIt.instance.registerLazySingleton<ChatDataSource>(
+          () => CacheChatDataSource(GetIt.instance.get()));
+  GetIt.instance.registerLazySingleton<ChatRepo>(() => ChatRepo('main'));
+  GetIt.instance.registerLazySingleton<ListRepoManager<ChatModel>>(
+        () => SingleListRepoManager<ChatModel>(),
   );
 }
