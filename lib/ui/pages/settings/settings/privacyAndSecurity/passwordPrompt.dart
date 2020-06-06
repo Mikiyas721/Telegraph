@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/blocs/setting/securityBloc.dart';
+import 'package:Telegraph/blocs/setting/passwordBloc.dart';
+import 'package:Telegraph/models/password.dart';
 import 'package:flutter/material.dart';
 
 class PasswordEnteringPage extends StatelessWidget {
   final snackBarKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SecurityBloc>(
-        blocFactory: () => SecurityBloc(),
-        builder: (BuildContext context, SecurityBloc bloc) {
+    return BlocProvider<PasswordBloc>(
+        blocFactory: () => PasswordBloc(),
+        builder: (BuildContext context, PasswordBloc bloc) {
           return Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             key: snackBarKey,
@@ -67,7 +67,9 @@ class PasswordEnteringPage extends StatelessWidget {
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       return TextField(
                         cursorColor: Theme.of(context).cursorColor,
-                        onChanged: bloc.addPassword,
+                        onChanged: (String password){
+                          bloc.passwordRepo.setPassword(PasswordModel(password: password));
+                        },
                         style: TextStyle(
                             color: Theme.of(context).textTheme.body2.color,
                             fontSize: 24),

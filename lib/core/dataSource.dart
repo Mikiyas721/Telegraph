@@ -34,7 +34,7 @@ abstract class CacheSource {
       (preference).setString(key, jsonEncode(list));
 
   List<Map<String, dynamic>> getList(String key) {
-    final x = (preference).getString(key);
+    final x = (preference).get(key);
     return x == null
         ? null
         : (jsonDecode(x) as List)

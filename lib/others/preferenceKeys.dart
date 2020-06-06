@@ -22,6 +22,7 @@ class PreferenceKeys {
   static final String whoViewLastSeen = 'WhoViewLastSeen';
   static final String whoCanCallMe = 'WhoCanCallMe';
   static final String userPassword = 'UserPassword';
+  static final String isLocked = 'IsLocked';
   static final String onMobileData = 'MediaDownloadOnMobileData';
   static final String onWifi = 'MediaDownloadOnWifi';
   static final String chatBackground = 'ChatBackground';

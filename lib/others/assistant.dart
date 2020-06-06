@@ -71,6 +71,8 @@ class Assistant {
     PreferenceKeys.setPreference<bool>(PreferenceKeys.sendByEnter, true);
     PreferenceKeys.setPreference<bool>(PreferenceKeys.autoPlayGIF, false);
     PreferenceKeys.setPreference<bool>(PreferenceKeys.saveToGallery, false);
+
+    PreferenceKeys.setPreference<bool>(PreferenceKeys.isLocked, false);
   }
 
   static Future<Map<Permission, PermissionStatus>> getPermissions() async {

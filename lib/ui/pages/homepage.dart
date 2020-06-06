@@ -1,7 +1,9 @@
 import 'package:Telegraph/blocs/chatBloc.dart';
 import 'package:Telegraph/blocs/provider/provider.dart';
+import 'package:Telegraph/blocs/setting/passwordBloc.dart';
 import 'package:Telegraph/models/chat.dart';
 import 'package:Telegraph/others/assistant.dart';
+import 'package:Telegraph/others/preferenceKeys.dart';
 import 'package:Telegraph/ui/customWidgets/chatListItem.dart';
 import 'package:flutter/material.dart';
 import '../pages/searchPage.dart';
@@ -25,6 +27,29 @@ class HomePage extends StatelessWidget {
             backgroundColor: Theme.of(context).primaryColor,
             title: Text("$title", style: Theme.of(context).textTheme.title),
             actions: <Widget>[
+              BlocProvider<PasswordBloc>(
+                blocFactory: () => PasswordBloc(),
+                builder: (BuildContext context, PasswordBloc bloc) {
+                  return StreamBuilder(
+                      stream: bloc.passwordRepo.passwordStream,
+                      builder: (BuildContext context, AsyncSnapshot snapShot) {
+                        bool isSet;
+                        bool isLocked;
+                        bloc.passwordCache.get() == null
+                            ? isSet = false
+                            : isSet = true;
+                        if (isSet) {
+                          isLocked = (bloc.isLockedCache.get()) as bool;
+                        }
+                        if(isSet) return IconButton(
+                            icon: Icon(isLocked ? Icons.lock : Icons.lock_open),
+                            onPressed: () {
+                              bloc.isLockedCache.setObject('', {'isLocked': !isLocked});
+                            });
+                        else return null;
+                      });
+                },
+              ),
               IconButton(
                   onPressed: () {
                     Navigator.push(context,
@@ -70,7 +95,7 @@ class HomePage extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             backgroundColor:
                 Theme.of(context).floatingActionButtonTheme.backgroundColor,
-            onPressed: () async{
+            onPressed: () async {
               await Assistant.getPermissions();
               Navigator.pushNamed(context, '/allContactsPage');
             },
