@@ -37,7 +37,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  static final bool loggedIn = true;
+  static final bool loggedIn = false;
   @override
   Widget build(BuildContext context) {
     final ThemeRepo repo = GetIt.instance.get();
@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
 
   final routes = {
     '/': (BuildContext context) => loggedIn ? HomePage() : FirstPage(),
+    '/homePage':(BuildContext context)=>HomePage(),
     'firstPage': (BuildContext context) => FirstPage(),
     '/phoneNumberInputPage': (BuildContext context) => PhoneNumberInputPage(
           themeData: Theme.of(context),

@@ -1,5 +1,5 @@
+import 'package:Telegraph/others/assistant.dart';
 import 'package:flutter/material.dart';
-import 'package:Telegraph/ui/pages/allContactsPage.dart';
 
 class NewGroupPage extends StatelessWidget {
   final String title;
@@ -43,7 +43,7 @@ class NewGroupPage extends StatelessWidget {
                 hintStyle: Theme.of(context).textTheme.body1),
           ),
           Column(
-            children: getPlaceHolderContacts(),
+            children: Assistant.getPlaceHolderContacts(),
           )
         ],
       ),

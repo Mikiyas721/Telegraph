@@ -31,7 +31,7 @@ class PhoneVerificationPage extends StatelessWidget {
                 Icons.check,
                 color: themeData.iconTheme.color,
               ),
-              onPressed: () {
+              onPressed: () async{
                 Assistant.setUpDefaults();
                 Navigator.pushReplacementNamed(
                     context,'/homePage');
@@ -79,3 +79,4 @@ class PhoneVerificationPage extends StatelessWidget {
     );
   }
 }
+

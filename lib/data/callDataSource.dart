@@ -24,7 +24,10 @@ class CallRepo extends ListRepo<CallModel, CallDataSource> {
     List<dynamic> responseBody = await Http.getCallsForUser(userId);
     if (responseBody.isNotEmpty) {
       List<CallModel> callsList = List<CallModel>();
-      for (Map<String, dynamic> call in responseBody) {
+      responseBody.forEach((call) {
+        String x = call['callerId'];
+      });
+      responseBody.forEach((call) async{
         CallModel currentCall = CallModel();
         String secondPersonId;
         call['callerId'] == userId
@@ -44,7 +47,8 @@ class CallRepo extends ListRepo<CallModel, CallDataSource> {
           currentCall.key = secondPersonList['firstName'];
         }
         callsList.add(currentCall);
-      }
+      });
+
       return callsList;
     }
     return [];

@@ -1,10 +1,11 @@
 import 'package:Telegraph/blocs/contactBloc.dart';
 import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/models/chat.dart';
+import 'package:Telegraph/models/contact.dart';
+import 'package:Telegraph/ui/customWidgets/contactItem.dart';
 import 'package:Telegraph/ui/pages/news/newAccount.dart';
 import 'package:flutter/material.dart';
 import '../customWidgets/chatListItem.dart';
-import 'chattingPage.dart';
 
 class AllContactsPage extends StatelessWidget {
   final String title = 'New Message';
@@ -14,6 +15,7 @@ class AllContactsPage extends StatelessWidget {
     return BlocProvider<ContactBloc>(
         blocFactory: () => ContactBloc(),
         builder: (BuildContext context, ContactBloc bloc) {
+          bloc.getContact();
           return Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             appBar: AppBar(
@@ -88,14 +90,23 @@ class AllContactsPage extends StatelessWidget {
                 ),
                 StreamBuilder(
                     stream: bloc.contactRepo.contactStream,
-                    builder: (BuildContext context, AsyncSnapshot snapShot) {
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<ContactModel>> snapShot) {
                       if (snapShot.data == null) {
                         return Center(
                             child: CircularProgressIndicator(
                           backgroundColor: Theme.of(context).iconTheme.color,
                         ));
                       } else {
+                        if (snapShot.data.isEmpty) {
+                          return Center(
+                              child: Text(
+                            "None of you're contacts have Telegraph",
+                            style: Theme.of(context).textTheme.body2,
+                          ));
+                        }
                         return Column(
+                          mainAxisSize: MainAxisSize.max,
                           children: <Widget>[
                             Card(
                               margin: EdgeInsets.all(0),
@@ -106,8 +117,22 @@ class AllContactsPage extends StatelessWidget {
                                 padding: EdgeInsets.only(
                                     left: 10, top: 7, bottom: 7),
                               ),
-                              color: Color.fromRGBO(250, 0, 0, 230),
+                              color: Theme.of(context).primaryColorLight,
                             ),
+                            ListView.separated(
+                                itemCount: snapShot.data.length,
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return Divider(
+                                      color: Theme.of(context).dividerColor);
+                                },
+                                itemBuilder: (BuildContext context, int index) {
+                                  return ContactItem(
+                                    imageUrl: 'assets/avatar_1.png',
+                                    userName: snapShot.data[index].firstName,
+                                    lastSeen: snapShot.data[index].lastSeen,
+                                  );
+                                })
                           ],
                         );
                       }
@@ -123,20 +148,4 @@ class AllContactsPage extends StatelessWidget {
           );
         });
   }
-}
-
-List<Widget> getPlaceHolderContacts() {
-  List<Widget> widgets = List<Widget>();
-  for (int i = 0; i < 20; i++) {
-    widgets.add(
-      ChatListItem(
-        imageURL: "assets/avatar_1.png",
-        title: "Rotractors",
-        lastChatDateTime: DateTime.now(),
-        lastChatString: "Hi,How are you",
-        chatType: ChatType.SINGLE,
-      ),
-    );
-  }
-  return widgets;
 }

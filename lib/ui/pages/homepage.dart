@@ -1,6 +1,7 @@
 import 'package:Telegraph/blocs/chatBloc.dart';
 import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/models/chat.dart';
+import 'package:Telegraph/others/assistant.dart';
 import 'package:Telegraph/ui/customWidgets/chatListItem.dart';
 import 'package:flutter/material.dart';
 import '../pages/searchPage.dart';
@@ -50,7 +51,7 @@ class HomePage extends StatelessWidget {
                   itemCount: snapShot.data.length,
                   separatorBuilder: (BuildContext context, int index) {
                     return Divider(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Theme.of(context).dividerColor,
                     );
                   },
                   itemBuilder: (BuildContext context, int index) {
@@ -69,7 +70,8 @@ class HomePage extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             backgroundColor:
                 Theme.of(context).floatingActionButtonTheme.backgroundColor,
-            onPressed: () {
+            onPressed: () async{
+              await Assistant.getPermissions();
               Navigator.pushNamed(context, '/allContactsPage');
             },
             child: Icon(

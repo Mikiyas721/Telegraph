@@ -30,6 +30,7 @@ class Http {
   /// GET requests
 
   static Future<dynamic> getChatsForUser(String userId) async {
+    /// Add try catch
     String chats = await http.read(
         '$apiBasePath/chats?filter={"where":{"usersid":{"inq":["$userId"]}}}');
     return json.decode(chats);
@@ -59,10 +60,12 @@ class Http {
     if(responseList.isNotEmpty) return responseList[0];
     else return {};
   }
-  static Future<List<dynamic>> getUserByNumber(String phoneNumber) async {
+  static Future<dynamic> getUserByNumber(String phoneNumber) async {
     String user = await http
         .read('$apiBasePath/users?filter[where][phoneNumber]=$phoneNumber');
-    return json.decode(user);
+    final responseList = json.decode(user);
+    if(responseList.isNotEmpty) return responseList[0];
+    else return {};
   }
 
   static Future<MessageModel> getMessage(String messageId) async {

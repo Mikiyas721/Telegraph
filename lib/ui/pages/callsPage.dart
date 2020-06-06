@@ -44,8 +44,11 @@ class CallsPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.body2,
                       ));
                     }
-                    return ListView.builder(
+                    return ListView.separated(
                         itemCount: snapShot.data.length,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return Divider(color: Theme.of(context).dividerColor,);
+                        },
                         itemBuilder: (BuildContext context, int index) {
                           return CallItem(
                             imageUrl: 'assets/avatar_1.png',
@@ -53,7 +56,7 @@ class CallsPage extends StatelessWidget {
                             callType: snapShot.data[index].callType,
                             callTime: snapShot.data[index].dateTime,
                           );
-                        });
+                        },);
                   }
                 }),
           );

@@ -3,10 +3,12 @@ import 'package:Telegraph/core/json_model.dart';
 class ContactModel extends JSONModel {
   final String firstName;
   final String lastName;
+  final String lastSeen;
   final String phoneNumber;
   final String userId;
 
-  ContactModel({String key, this.firstName, this.lastName, this.userId})
+  ContactModel(
+      {String key, this.firstName, this.lastSeen, this.lastName, this.userId})
       : phoneNumber = key,
         super(key);
 

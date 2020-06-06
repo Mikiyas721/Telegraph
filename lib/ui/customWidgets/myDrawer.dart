@@ -1,6 +1,7 @@
 import 'package:Telegraph/blocs/photoViewBloc.dart';
 import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/blocs/setting/themeBloc.dart';
+import 'package:Telegraph/others/assistant.dart';
 import 'package:Telegraph/ui/pages/photoViewPage.dart';
 import 'package:Telegraph/ui/pages/profilePage.dart';
 import 'package:flutter/material.dart';
@@ -116,7 +117,10 @@ class MyDrawer extends StatelessWidget {
                     'Contacts',
                     style: Theme.of(context).textTheme.body2,
                   ),
-                  onTap: () {},
+                  onTap: () async {
+                    await Assistant.getPermissions();
+                    Navigator.pushNamed(context, '/contactsPage');
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.call,

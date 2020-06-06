@@ -6,15 +6,15 @@ import 'package:get_it/get_it.dart';
 
 class ThemeBloc extends Disposable {
   ThemeRepo get themeRepo => GetIt.instance.get<ThemeRepo>();
-  CacheThemeDataSource themeCache = CacheThemeDataSource(GetIt.instance.get());
+  CacheThemeDataSource themeCache = CacheThemeDataSource(GetIt.instance.get());/// Is this right?
 
-  changeTheme(String name) async {
+  void changeTheme(String name) async {
     themeRepo.update(ThemeModel(name: name));
     await themeCache.setObject(
         PreferenceKeys.selectedTheme, ThemeModel(name: name).toMap());
   }
 
-  nextTheme() async {
+  void nextTheme() async {
     ThemeModel currentTheme =
         ThemeModel.fromMap(themeCache.getObject(PreferenceKeys.selectedTheme));
     if (currentTheme.id == "DefaultLight") {

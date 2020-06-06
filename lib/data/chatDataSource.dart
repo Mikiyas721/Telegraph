@@ -6,18 +6,18 @@ import 'package:Telegraph/data/http.dart';
 import 'package:Telegraph/models/chat.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class ChatDataSource extends CRUDListSource<ChatModel> {
-
-}
+abstract class ChatDataSource extends CRUDListSource<ChatModel> {}
 
 class CacheChatDataSource extends CacheCRUDListSource<ChatModel>
     implements ChatDataSource {
   CacheChatDataSource(SharedPreferences preference)
       : super(preference, 'chat', (call) => ChatModel.fromMap(call));
 }
-class ChatRemoteDataSource extends RemoteCRUDSource<ChatModel> implements ChatDataSource{
-  ChatRemoteDataSource(RestClient client) : super(client, '', (map)=>ChatModel.fromMap(map));
 
+class ChatRemoteDataSource extends RemoteCRUDSource<ChatModel>
+    implements ChatDataSource {
+  ChatRemoteDataSource(RestClient client)
+      : super(client, '', (map) => ChatModel.fromMap(map));
 }
 
 class ChatRepo extends ListRepo<ChatModel, ChatDataSource> {
@@ -29,7 +29,8 @@ class ChatRepo extends ListRepo<ChatModel, ChatDataSource> {
     List<dynamic> responseList = await Http.getChatsForUser(userId);
     if (responseList.isNotEmpty) {
       List<ChatModel> chatModelList = List();
-      for (Map<String, dynamic> chat in responseList) {
+
+      responseList.forEach((chat) async {
         ChatType chatType = ChatTypeMethods.getChatType(chat['chattype']);
         String title;
         if (chatType != ChatType.SINGLE)
@@ -52,7 +53,7 @@ class ChatRepo extends ListRepo<ChatModel, ChatDataSource> {
             lastMessageTime: lastMessageDateTime,
             chatType: chatType,
             chatTitle: title));
-      }
+      });
       return chatModelList;
     }
     return [];
