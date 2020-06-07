@@ -1,9 +1,8 @@
 import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/blocs/setting/settingBloc.dart';
 import 'package:Telegraph/others/assistant.dart';
-import 'package:Telegraph/others/preferenceKeys.dart';
+import 'package:Telegraph/core/utils/preferenceKeys.dart';
 import 'package:flutter/material.dart';
-import 'package:Telegraph/ui/pages/photoViewPage.dart';
 import 'package:Telegraph/ui/customWidgets/mySwitchListTile.dart';
 import 'package:Telegraph/ui/customWidgets/infoDisplay.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';

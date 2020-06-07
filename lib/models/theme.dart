@@ -1,4 +1,4 @@
-import 'package:Telegraph/core/json_model.dart';
+import 'package:Telegraph/core/jsonModel.dart';
 import 'package:Telegraph/others/myThemeData.dart';
 import 'package:flutter/material.dart';
 

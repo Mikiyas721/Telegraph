@@ -1,7 +1,7 @@
 import 'package:Telegraph/blocs/customWidgetBloc.dart';
 import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/blocs/setting/storageBloc.dart';
-import 'package:Telegraph/others/preferenceKeys.dart';
+import 'package:Telegraph/core/utils/preferenceKeys.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
 

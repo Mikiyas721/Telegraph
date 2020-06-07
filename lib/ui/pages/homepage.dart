@@ -1,9 +1,10 @@
 import 'package:Telegraph/blocs/chatBloc.dart';
 import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/blocs/setting/passwordBloc.dart';
+import 'package:Telegraph/core/utils/preferenceKeys.dart';
 import 'package:Telegraph/models/chat.dart';
+import 'package:Telegraph/models/password.dart';
 import 'package:Telegraph/others/assistant.dart';
-import 'package:Telegraph/others/preferenceKeys.dart';
 import 'package:Telegraph/ui/customWidgets/chatListItem.dart';
 import 'package:flutter/material.dart';
 import '../pages/searchPage.dart';
@@ -33,20 +34,26 @@ class HomePage extends StatelessWidget {
                   return StreamBuilder(
                       stream: bloc.passwordRepo.passwordStream,
                       builder: (BuildContext context, AsyncSnapshot snapShot) {
-                        bool isSet;
-                        bool isLocked;
-                        bloc.passwordCache.get() == null
-                            ? isSet = false
-                            : isSet = true;
-                        if (isSet) {
-                          isLocked = (bloc.isLockedCache.get()) as bool;
+                        if (bloc.passwordRepo.getPreference<int>(
+                                PreferenceKeys.userPassword) !=
+                            null) {
+                          bool isLocked = bloc.passwordRepo
+                              .getPreference<bool>(PreferenceKeys.isLocked);
+                          return IconButton(
+                              icon:
+                                  Icon(isLocked ? Icons.lock : Icons.lock_open),
+                              onPressed: () {
+                                bloc.passwordRepo.setPassword(PasswordModel(
+                                    password: bloc.passwordRepo
+                                        .getPreference<int>(
+                                            PreferenceKeys.userPassword)
+                                        .toString(),
+                                    isLocked: !isLocked));
+                                bloc.passwordRepo.setPreference(
+                                    PreferenceKeys.isLocked, !isLocked);
+                              });
                         }
-                        if(isSet) return IconButton(
-                            icon: Icon(isLocked ? Icons.lock : Icons.lock_open),
-                            onPressed: () {
-                              bloc.isLockedCache.setObject('', {'isLocked': !isLocked});
-                            });
-                        else return null;
+                        return null;
                       });
                 },
               ),

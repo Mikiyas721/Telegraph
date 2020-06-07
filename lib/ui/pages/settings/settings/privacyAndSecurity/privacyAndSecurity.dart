@@ -1,6 +1,6 @@
 import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/blocs/setting/securityBloc.dart';
-import 'package:Telegraph/others/preferenceKeys.dart';
+import 'package:Telegraph/core/utils/preferenceKeys.dart';
 import 'package:Telegraph/ui/customWidgets/dialogMenu.dart';
 import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
 import 'package:flutter/material.dart';

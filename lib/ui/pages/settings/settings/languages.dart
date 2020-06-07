@@ -1,4 +1,4 @@
-import 'package:Telegraph/others/preferenceKeys.dart';
+import 'package:Telegraph/core/utils/preferenceKeys.dart';
 import 'package:flutter/material.dart';
 
 class LanguagesPage extends StatelessWidget {

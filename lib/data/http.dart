@@ -16,24 +16,25 @@ class Http {
   }
 
   static void addMessage(MessageModel message) async {
-    await http.post('$apiBasePath/users',
-        body: message.toString());
+    await http.post('$apiBasePath/users', body: message.toString());
   }
 
   static void addChat(ChatModel chat) async {
     await http.post('$apiBasePath/users', body: chat.toString());
   }
-  static Future<dynamic> addContact(ContactModel contactModel)async{
+
+  static Future<dynamic> addContact(ContactModel contactModel) async {
     await http.post('$apiBasePath/contact', body: contactModel.toMap());
   }
 
   /// GET requests
 
   static Future<dynamic> getChatsForUser(String userId) async {
-    /// Add try catch
-    String chats = await http.read(
-        '$apiBasePath/chats?filter={"where":{"usersid":{"inq":["$userId"]}}}');
-    return json.decode(chats);
+    try {
+      String chats = await http.read(
+          '$apiBasePath/chats?filter={"where":{"usersid":{"inq":["$userId"]}}}');
+      return json.decode(chats);
+    } catch (SocketException) {}
   }
 
   static Future<Map<String, dynamic>> getMessagesOfChat(String chatId) async {
@@ -47,36 +48,42 @@ class Http {
         '$apiBasePath/calls?filter={"where":{"or":[{"callerId":{"inq":["$userId"]}},{"receiverId":{"inq":["$userId"]}}]}}');
     return json.decode(chat);
   }
+
   static Future<List<dynamic>> getContactsForUser(String userId) async {
-    String chat = await http.read(
-        '$apiBasePath/contacts?filter[where][userId]=$userId');
+    String chat =
+        await http.read('$apiBasePath/contacts?filter[where][userId]=$userId');
     return json.decode(chat);
   }
 
   static Future<dynamic> getUserById(String userId) async {
-    String user = await http
-        .read('$apiBasePath/users?filter[where][id]=$userId');
+    String user =
+        await http.read('$apiBasePath/users?filter[where][id]=$userId');
     final responseList = json.decode(user);
-    if(responseList.isNotEmpty) return responseList[0];
-    else return {};
+    if (responseList.isNotEmpty)
+      return responseList[0];
+    else
+      return {};
   }
+
   static Future<dynamic> getUserByNumber(String phoneNumber) async {
     String user = await http
         .read('$apiBasePath/users?filter[where][phoneNumber]=$phoneNumber');
     final responseList = json.decode(user);
-    if(responseList.isNotEmpty) return responseList[0];
-    else return {};
+    if (responseList.isNotEmpty)
+      return responseList[0];
+    else
+      return {};
   }
 
   static Future<MessageModel> getMessage(String messageId) async {
-    String user = await http.read(
-        '$apiBasePath/messages?filter[where][id]=$messageId');
+    String user =
+        await http.read('$apiBasePath/messages?filter[where][id]=$messageId');
     return MessageModel.fromJson(json.decode(user));
   }
 
   static Future<List<dynamic>> getChat(String chatId) async {
-    String chat = await http
-        .read('$apiBasePath/chats?filter[where][id]=$chatId');
+    String chat =
+        await http.read('$apiBasePath/chats?filter[where][id]=$chatId');
     return json.decode(chat);
   }
 
@@ -86,14 +93,14 @@ class Http {
       {String lastName}) async {
     var user = await getUserById(userId);
     UserModel newUser;
-      newUser = UserModel(
-          firstName,
-          user[0]['phoneNumber'],
-          user[0]['online'] == "true" ? true : false,
-          Assistant.getDateTime(user[0]['']),
-          userId,
-          lastName: user[0][''],
-          profilePictureURL: user[0]['']);
+    newUser = UserModel(
+        firstName,
+        user[0]['phoneNumber'],
+        user[0]['online'] == "true" ? true : false,
+        Assistant.getDateTime(user[0]['']),
+        userId,
+        lastName: user[0][''],
+        profilePictureURL: user[0]['']);
     await http.put('http://localhost:3000/api/users', body: newUser.toString());
   }
 
@@ -103,14 +110,14 @@ class Http {
   ) async {
     var user = await getUserById(userId);
     UserModel newUser;
-      newUser = UserModel(
-          user[0]['firstName'],
-          phoneNumber,
-          user[0]['online'] == "true" ? true : false,
-          Assistant.getDateTime(user[0]['lastSeen']),
-          userId,
-          lastName: user[0]['lastName'],
-          profilePictureURL: user[0]['imageURLs']);
+    newUser = UserModel(
+        user[0]['firstName'],
+        phoneNumber,
+        user[0]['online'] == "true" ? true : false,
+        Assistant.getDateTime(user[0]['lastSeen']),
+        userId,
+        lastName: user[0]['lastName'],
+        profilePictureURL: user[0]['imageURLs']);
     await http.put('http://localhost:3000/api/users', body: newUser.toString());
   }
 

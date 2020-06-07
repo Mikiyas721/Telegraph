@@ -1,3 +1,4 @@
+
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,17 +39,24 @@ class PreferenceKeys {
   static final String autoPlayGIF = 'AutoPlayGIF';
 
   static getPreference(String key) {
-    SharedPreferences instance = GetIt.instance.get();
+    SharedPreferences instance  = GetIt.instance.get();
     return instance.get(key);
   }
 
   static Future<bool> setPreference<T>(String key, value) async {
-    SharedPreferences instance = GetIt.instance.get();
-    if(T==String) return await instance.setString(key,value);
-    else if(T==bool) return await instance.setBool(key,value);
-    else if(T==int) return await instance.setInt(key,value);
-    else if(T==double) return await instance.setDouble(key,value);
-    else if(T==List) return await instance.setStringList(key,value);
-    else return null;
+    SharedPreferences instance  = GetIt.instance.get();
+    if (T == String)
+      return await instance.setString(key, value);
+    else if (T == bool)
+      return await instance.setBool(key, value);
+    else if (T == int)
+      return await instance.setInt(key, value);
+    else if (T == double)
+      return await instance.setDouble(key, value);
+    else if (T == List)
+      return await instance.setStringList(key, value);
+    else
+      return null;
   }
+
 }

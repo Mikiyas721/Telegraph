@@ -1,24 +1,17 @@
 import 'dart:async';
+import 'package:Telegraph/core/jsonModel.dart';
 import 'package:Telegraph/data/http.dart';
-import 'package:Telegraph/core/dataSource.dart';
 import 'package:Telegraph/core/repository.dart';
 import 'package:Telegraph/models/call.dart';
 import 'package:Telegraph/others/assistant.dart';
 import 'package:Telegraph/ui/customWidgets/callItem.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rxdart/src/subjects/behavior_subject.dart';
 
-abstract class CallDataSource extends CRUDListSource<CallModel> {}
+class CallRepo extends ListRepo {
+  CallRepo(BehaviorSubject<List<JSONModel>> subject) : super(subject);
 
-class CacheCallDataSource extends CacheCRUDListSource<CallModel>
-    implements CallDataSource {
-  CacheCallDataSource(SharedPreferences preference)
-      : super(preference, 'call', (call) => CallModel.fromMap(call));
-}
 
-class CallRepo extends ListRepo<CallModel, CallDataSource> {
-  CallRepo(String key) : super(key);
-
-  Stream<List<CallModel>> get callStream => items.map((call) => call);
+  Stream<List<CallModel>> get callStream => dataStream.map((call) => call);
 
   FutureOr<List<CallModel>> getCallModels({String userId}) async {
     List<dynamic> responseBody = await Http.getCallsForUser(userId);
@@ -54,5 +47,5 @@ class CallRepo extends ListRepo<CallModel, CallDataSource> {
     return [];
   }
 
-  Function(List<CallModel> callModel) get setCall => items.add;
+  Function(List<CallModel> callModel) get setCall => dataStream.add;
 }

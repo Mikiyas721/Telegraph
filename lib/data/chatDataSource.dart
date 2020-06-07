@@ -1,29 +1,15 @@
 import 'dart:async';
-import 'package:Telegraph/core/dataSource.dart';
+import 'package:Telegraph/core/jsonModel.dart';
 import 'package:Telegraph/core/repository.dart';
-import 'package:Telegraph/core/restClient.dart';
 import 'package:Telegraph/data/http.dart';
 import 'package:Telegraph/models/chat.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rxdart/src/subjects/behavior_subject.dart';
 
-abstract class ChatDataSource extends CRUDListSource<ChatModel> {}
+class ChatRepo extends ListRepo {
+  ChatRepo(BehaviorSubject<List<JSONModel>> subject) : super(subject);
 
-class CacheChatDataSource extends CacheCRUDListSource<ChatModel>
-    implements ChatDataSource {
-  CacheChatDataSource(SharedPreferences preference)
-      : super(preference, 'chat', (call) => ChatModel.fromMap(call));
-}
 
-class ChatRemoteDataSource extends RemoteCRUDSource<ChatModel>
-    implements ChatDataSource {
-  ChatRemoteDataSource(RestClient client)
-      : super(client, '', (map) => ChatModel.fromMap(map));
-}
-
-class ChatRepo extends ListRepo<ChatModel, ChatDataSource> {
-  ChatRepo(String key) : super(key);
-
-  Stream<List<ChatModel>> get chatStream => items.map((chat) => chat);
+  Stream<List<ChatModel>> get chatStream => dataStream.map((chat) => chat);
 
   FutureOr<List<ChatModel>> getChatModel({String userId}) async {
     List<dynamic> responseList = await Http.getChatsForUser(userId);
@@ -59,5 +45,5 @@ class ChatRepo extends ListRepo<ChatModel, ChatDataSource> {
     return [];
   }
 
-  Function(List<ChatModel> chatModel) get setChat => items.add;
+  Function(List<ChatModel> chatModel) get setChat => dataStream.add;
 }

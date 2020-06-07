@@ -2,14 +2,10 @@ import 'package:Telegraph/core/utils/disposable.dart';
 import 'package:Telegraph/data/passwordDataSource.dart';
 import 'package:get_it/get_it.dart';
 import 'package:Telegraph/models/password.dart';
-import 'package:Telegraph/others/preferenceKeys.dart';
+import 'package:Telegraph/core/utils/preferenceKeys.dart';
 
 class PasswordBloc extends Disposable {
   PasswordRepo passwordRepo = GetIt.instance.get();
-  CachePasswordDataSource passwordCache =
-      CachePasswordDataSource(GetIt.instance.get());
-  CacheIsLocked isLockedCache =
-      CacheIsLocked(GetIt.instance.get());
 
   Stream<String> get passwordErrorStream {
     return passwordRepo.passwordSubject
@@ -19,7 +15,7 @@ class PasswordBloc extends Disposable {
   bool savePassword() {
     final password = passwordRepo.passwordSubject.value.password;
     if (validatePassword(password) == null) {
-      PreferenceKeys.setPreference<int>(
+      passwordRepo.setPreference<int>(
           PreferenceKeys.userPassword, int.parse(password));
       return true;
     }

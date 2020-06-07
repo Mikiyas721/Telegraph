@@ -37,5 +37,5 @@ class MyThemeData {
               fontSize: 14)),
       buttonColor: Color(0xff5EA3DE),
       dialogBackgroundColor: Color(0x881F2D3A),
-      dividerColor: Colors.grey);
+      dividerColor: Colors.blueGrey);
 }

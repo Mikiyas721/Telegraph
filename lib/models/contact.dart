@@ -1,4 +1,4 @@
-import 'package:Telegraph/core/json_model.dart';
+import 'package:Telegraph/core/jsonModel.dart';
 
 class ContactModel extends JSONModel {
   final String firstName;

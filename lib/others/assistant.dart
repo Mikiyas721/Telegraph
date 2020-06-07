@@ -1,5 +1,5 @@
 import 'package:Telegraph/models/chat.dart';
-import 'package:Telegraph/others/preferenceKeys.dart';
+import 'package:Telegraph/core/utils/preferenceKeys.dart';
 import 'package:Telegraph/ui/customWidgets/chatListItem.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -74,7 +74,6 @@ class Assistant {
 
     PreferenceKeys.setPreference<bool>(PreferenceKeys.isLocked, false);
   }
-
   static Future<Map<Permission, PermissionStatus>> getPermissions() async {
     return await [
       Permission.contacts,

@@ -1,58 +1,26 @@
 import 'package:Telegraph/data/callDataSource.dart';
 import 'package:Telegraph/data/contactDatasource.dart';
+import 'package:Telegraph/models/call.dart';
+import 'package:Telegraph/models/chat.dart';
+import 'package:Telegraph/models/contact.dart';
+import 'package:Telegraph/models/password.dart';
 import 'package:get_it/get_it.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'core/repository.dart';
 import 'data/chatDataSource.dart';
 import 'data/passwordDataSource.dart';
 import 'data/themeDatasouce.dart';
-import 'models/call.dart';
-import 'models/chat.dart';
-import 'models/contact.dart';
-import 'models/password.dart';
 import 'models/theme.dart';
 
 inject() async {
   final pref = await SharedPreferences.getInstance();
   GetIt.instance.registerSingleton(pref);
 
-  GetIt.instance
-      .registerLazySingleton<ThemeDataSource>(() => CacheThemeDataSource(
-            GetIt.instance.get(),
-          ));
-  GetIt.instance.registerLazySingleton<ThemeRepo>(() => ThemeRepo('main'));
-  GetIt.instance.registerLazySingleton<ItemRepoManager<ThemeModel>>(
-    () => SingleItemRepoManager<ThemeModel>(),
-  );
+  GetIt.instance.registerLazySingleton<ThemeRepo>(() => ThemeRepo(BehaviorSubject<ThemeModel>()));
+  GetIt.instance.registerLazySingleton<PasswordRepo>(() => PasswordRepo(BehaviorSubject<PasswordModel>()));
 
-  GetIt.instance
-      .registerLazySingleton<PasswordDataSource>(() => CachePasswordDataSource(
-            GetIt.instance.get(),
-          ));
-  GetIt.instance
-      .registerLazySingleton<PasswordRepo>(() => PasswordRepo('main'));
-  GetIt.instance.registerLazySingleton<ItemRepoManager<PasswordModel>>(
-    () => SingleItemRepoManager<PasswordModel>(),
-  );
+  GetIt.instance.registerLazySingleton<ContactRepo>(() => ContactRepo(BehaviorSubject<List<ContactModel>>()));
 
-  GetIt.instance.registerLazySingleton<ContactDataSource>(
-      () => CacheContactDataSource(GetIt.instance.get()));
-  GetIt.instance.registerLazySingleton<ContactRepo>(() => ContactRepo('main'));
-  GetIt.instance.registerLazySingleton<ListRepoManager<ContactModel>>(
-    () => SingleListRepoManager<ContactModel>(),
-  );
-
-  GetIt.instance.registerLazySingleton<CallDataSource>(
-      () => CacheCallDataSource(GetIt.instance.get()));
-  GetIt.instance.registerLazySingleton<CallRepo>(() => CallRepo('main'));
-  GetIt.instance.registerLazySingleton<ListRepoManager<CallModel>>(
-    () => SingleListRepoManager<CallModel>(),
-  );
-
-  GetIt.instance.registerLazySingleton<ChatDataSource>(
-      () => CacheChatDataSource(GetIt.instance.get()));
-  GetIt.instance.registerLazySingleton<ChatRepo>(() => ChatRepo('main'));
-  GetIt.instance.registerLazySingleton<ListRepoManager<ChatModel>>(
-    () => SingleListRepoManager<ChatModel>(),
-  );
+  GetIt.instance.registerLazySingleton<CallRepo>(() => CallRepo(BehaviorSubject<List<CallModel>>()));
+  GetIt.instance.registerLazySingleton<ChatRepo>(() => ChatRepo(BehaviorSubject<List<ChatModel>>()));
 }

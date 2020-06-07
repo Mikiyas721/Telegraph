@@ -1,28 +1,20 @@
 import 'package:Telegraph/core/dataSource.dart';
+import 'package:Telegraph/core/jsonModel.dart';
 import 'package:Telegraph/core/repository.dart';
 import 'package:Telegraph/data/http.dart';
 import 'package:Telegraph/models/contact.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:rxdart/src/subjects/behavior_subject.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class ContactDataSource extends CRUDListSource<ContactModel> {}
+class ContactRepo extends ListRepo {
+  ContactRepo(BehaviorSubject<List<JSONModel>> subject) : super(subject);
 
-class CacheContactDataSource extends CacheCRUDListSource<ContactModel>
-    implements ContactDataSource {
-  CacheContactDataSource(
-    SharedPreferences preference,
-  ) : super(preference, 'contact', (map) => ContactModel.fromMap(map));
-}
-
-class ContactRepo extends ListRepo<ContactModel, ContactDataSource> {
-  ContactRepo(String key) : super(key) {
-    get();
-  }
 
   Stream<List<ContactModel>> get contactStream =>
-      items.map((contact) => contact);
+      dataStream.map((contact) => contact);
 
-  Function(List<ContactModel>) get setContacts => items.add;
+  Function(List<ContactModel>) get setContacts => dataStream.add;
 
   Future<List<ContactModel>> getPhoneContacts() async {
     List<ContactModel> contactsList = List<ContactModel>();
