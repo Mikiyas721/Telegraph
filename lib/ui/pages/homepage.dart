@@ -43,12 +43,6 @@ class HomePage extends StatelessWidget {
                               icon:
                                   Icon(isLocked ? Icons.lock : Icons.lock_open),
                               onPressed: () {
-                                bloc.passwordRepo.setPassword(PasswordModel(
-                                    password: bloc.passwordRepo
-                                        .getPreference<int>(
-                                            PreferenceKeys.userPassword)
-                                        .toString(),
-                                    isLocked: !isLocked));
                                 bloc.passwordRepo.setPreference(
                                     PreferenceKeys.isLocked, !isLocked);
                               });

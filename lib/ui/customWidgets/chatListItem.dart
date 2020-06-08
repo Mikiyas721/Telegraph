@@ -57,7 +57,7 @@ class ChatListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       dense: true,
-      leading: MyImageView(imageURL),
+      leading: MyImageView(imageURL: imageURL),
       title:
           Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
         Icon(

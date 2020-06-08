@@ -55,7 +55,7 @@ class SettingPage extends StatelessWidget {
                               children: <Widget>[
                                 Padding(
                                     child: GestureDetector(
-                                      child: MyImageView(imageURL),
+                                      child: MyImageView(imageURL:imageURL),
                                       onTap: () {
                                         Navigator.pushNamed(
                                             context,'/photoViewPage');

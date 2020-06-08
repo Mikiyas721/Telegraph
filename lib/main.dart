@@ -1,3 +1,6 @@
+import 'package:Telegraph/core/utils/preferenceKeys.dart';
+import 'package:Telegraph/ui/pages/login/userInformationPage.dart';
+import 'package:Telegraph/ui/pages/settings/settings/privacyAndSecurity/passwordLock.dart';
 import './models/chat.dart';
 import 'package:Telegraph/injector.dart';
 import 'package:Telegraph/ui/pages/callsPage.dart';
@@ -36,11 +39,47 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  static final bool loggedIn = false;
   @override
   Widget build(BuildContext context) {
     final ThemeRepo repo = GetIt.instance.get();
+    final loggedIn = repo.getPreference<bool>(PreferenceKeys.isLoggedIn)==null?false:true;
+    final isLocked = repo.getPreference<bool>(PreferenceKeys.isLocked);
+
+    final routes = {
+      '/': (BuildContext context) =>
+          loggedIn ? (isLocked ? PasswordLockPage() : HomePage()) : FirstPage(),
+      '/homePage': (BuildContext context) => HomePage(),
+      'firstPage': (BuildContext context) => FirstPage(),
+      '/phoneNumberInputPage': (BuildContext context) => PhoneNumberInputPage(),
+      '/phoneVerificationPage': (BuildContext context) =>
+          PhoneVerificationPage(),
+      '/userInformationPage':(BuildContext context)=>UserInformationPage(),
+      '/chattingPage': (BuildContext context) =>
+          ChattingPage('Kebede', '', ChatType.SINGLE),
+      '/searchPage': (BuildContext context) => SearchPage(),
+      '/contactsPage': (BuildContext context) => ContactsPage(),
+      '/allContactsPage': (BuildContext context) => AllContactsPage(),
+      '/newGroupPage': (BuildContext context) => NewGroupPage(''),
+      '/newChannelPage': (BuildContext context) => NewChannelPage(),
+      '/newContactPage': (BuildContext context) => NewContactPage(),
+      '/channelDescriptionPage': (BuildContext context) =>
+          ChannelDescriptionPage(),
+      '/callsPage': (BuildContext context) => CallsPage(),
+      '/settingPage': (BuildContext context) => SettingPage(),
+      '/changePhoneNumberPage': (BuildContext context) =>
+          ChangePhoneNumberPage(),
+      '/changeUserNamePage': (BuildContext context) => ChangeUserNamePage(),
+      '/notificationAndSoundsPage': (BuildContext context) =>
+          NotificationAndSoundsPage(),
+      '/privacyAndSecurityPage': (BuildContext context) =>
+          PrivacyAndSecurityPage(),
+      '/passwordEnteringPage': (BuildContext context) => PasswordEnteringPage(),
+      '/dataAndStoragePage': (BuildContext context) => DataAndStoragePage(),
+      '/chatBackgroundPage': (BuildContext context) => ChatBackgroundPage(),
+      '/themePage': (BuildContext context) => ThemePage(),
+      '/languagesPage': (BuildContext context) => LanguagesPage(),
+      '/photoViewPage': (BuildContext context) => PhotoViewPage()
+    };
     return StreamBuilder<ThemeData>(
         stream: repo.themeDataStream,
         builder: (BuildContext context, AsyncSnapshot<ThemeData> snapshot) {
@@ -54,41 +93,4 @@ class MyApp extends StatelessWidget {
           );
         });
   }
-
-  final routes = {
-    '/': (BuildContext context) => loggedIn ? HomePage() : FirstPage(),
-    '/homePage':(BuildContext context)=>HomePage(),
-    'firstPage': (BuildContext context) => FirstPage(),
-    '/phoneNumberInputPage': (BuildContext context) => PhoneNumberInputPage(
-          themeData: Theme.of(context),
-        ),
-    '/phoneVerificationPage': (BuildContext context) => PhoneVerificationPage(
-          '',
-          themeData: Theme.of(context),
-        ),
-    '/chattingPage': (BuildContext context) =>
-        ChattingPage('Kebede', '', ChatType.SINGLE),
-    '/searchPage': (BuildContext context) => SearchPage(),
-    '/contactsPage': (BuildContext context) => ContactsPage(),
-    '/allContactsPage': (BuildContext context) => AllContactsPage(),
-    '/newGroupPage': (BuildContext context) => NewGroupPage(''),
-    '/newChannelPage': (BuildContext context) => NewChannelPage(),
-    '/newContactPage': (BuildContext context)=> NewContactPage(),
-    '/channelDescriptionPage': (BuildContext context) =>
-        ChannelDescriptionPage(),
-    '/callsPage': (BuildContext context)=>CallsPage(),
-    '/settingPage': (BuildContext context) => SettingPage(),
-    '/changePhoneNumberPage': (BuildContext context) => ChangePhoneNumberPage(),
-    '/changeUserNamePage': (BuildContext context) => ChangeUserNamePage(),
-    '/notificationAndSoundsPage': (BuildContext context) =>
-        NotificationAndSoundsPage(),
-    '/privacyAndSecurityPage': (BuildContext context) =>
-        PrivacyAndSecurityPage(),
-    '/passwordEnteringPage': (BuildContext context) => PasswordEnteringPage(),
-    '/dataAndStoragePage': (BuildContext context) => DataAndStoragePage(),
-    '/chatBackgroundPage': (BuildContext context) => ChatBackgroundPage(),
-    '/themePage': (BuildContext context) => ThemePage(),
-    '/languagesPage': (BuildContext context) => LanguagesPage(),
-    '/photoViewPage':(BuildContext context)=>PhotoViewPage()
-  };
 }

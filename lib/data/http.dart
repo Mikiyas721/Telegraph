@@ -94,13 +94,13 @@ class Http {
     var user = await getUserById(userId);
     UserModel newUser;
     newUser = UserModel(
-        firstName,
-        user[0]['phoneNumber'],
-        user[0]['online'] == "true" ? true : false,
-        Assistant.getDateTime(user[0]['']),
-        userId,
         lastName: user[0][''],
-        profilePictureURL: user[0]['']);
+        phone: user[0]['phoneNumber'],
+        lastSeen: Assistant.getDateTime(user[0]['']),
+        id: userId,
+        firstName: firstName,
+    );
+
     await http.put('http://localhost:3000/api/users', body: newUser.toString());
   }
 
@@ -111,13 +111,13 @@ class Http {
     var user = await getUserById(userId);
     UserModel newUser;
     newUser = UserModel(
-        user[0]['firstName'],
-        phoneNumber,
-        user[0]['online'] == "true" ? true : false,
-        Assistant.getDateTime(user[0]['lastSeen']),
-        userId,
-        lastName: user[0]['lastName'],
-        profilePictureURL: user[0]['imageURLs']);
+        lastName: user[0][''],
+        phone: phoneNumber,
+        lastSeen: Assistant.getDateTime(user[0]['lastSeen']),
+        id: userId,
+        firstName: user[0]['firstName'],
+    );
+
     await http.put('http://localhost:3000/api/users', body: newUser.toString());
   }
 

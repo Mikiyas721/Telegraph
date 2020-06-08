@@ -32,7 +32,7 @@ class ProfilePage extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                         child: GestureDetector(
-                          child: MyImageView("assets/avatar_1.png"),
+                          child: MyImageView(imageURL:"assets/avatar_1.png"),
                           onTap: () {
                             Navigator.pushNamed(
                                 context,'/photoViewPage');

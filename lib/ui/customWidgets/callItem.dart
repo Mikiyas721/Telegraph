@@ -13,7 +13,7 @@ class CallItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: MyImageView(imageUrl),
+      leading: MyImageView(imageURL: imageUrl),
       title: Text(
         '$title',
         style: Theme.of(context).textTheme.title,

@@ -1,28 +1,31 @@
+import 'package:Telegraph/core/jsonModel.dart';
 import 'package:Telegraph/others/assistant.dart';
 
-class UserModel {
-  String _firstName;
-  String _lastName;
-  String _phone;
-  List<String> profilePictureURL;
-  bool _online;
-  DateTime _lastSeen;
-  String _id;
+class UserModel extends JSONModel {
+  final String _firstName;
+  final String _lastName;
+  final String _phoneNumber;
 
-  UserModel(this._firstName, this._phone, this._online, this._lastSeen, this._id,
-      {lastName, this.profilePictureURL})
-      : _lastName = lastName;
+  /* final List<String> _profilePictureURL;*/
+  final DateTime _lastSeen;
+  final String _id;
+  final String _countryCode;
+
+  UserModel({firstName, phone, lastSeen, id, lastName, countryCode})
+      : _firstName = firstName,
+        _phoneNumber = phone,
+        _lastName = lastName,
+        _lastSeen = lastSeen,
+        _countryCode = countryCode,
+        _id = id,
+        super(phone);
 
   @override
   String toString() {
     return '''{
       "firstName": "$_firstName",
       "lastName": "$_lastName",
-      "imageURLs": 
-         ${profilePictureURL.toString()}
-      ,
-      "online": "$_online",
-      "phoneNumber": "$_phone",
+      "phoneNumber": "$_phoneNumber",
       "lastSeen": "${Assistant.getDateString(_lastSeen)}"/// NOTE didn't add id because it causes error in post request      
     }''';
   }
@@ -33,9 +36,9 @@ class UserModel {
 
   String get getLastName => '$_lastName';
 
-  String get getPhoneNumber => '$_phone';
+  String get getPhoneNumber => '$_phoneNumber';
 
-  String get isOnline => '$_online';
+  String get getCountryCode => '$_countryCode';
 
   String get getLastSeen => '$_lastSeen';
 
@@ -46,11 +49,32 @@ class UserModel {
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(json['firstName'], json['phone'], json['online'],
-        json['lastSeen'], json['id'],
-        lastName: Assistant.getDateTime(json['lastName']),
-        profilePictureURL: json['imageURLs']);
+    return UserModel(
+        firstName: json['firstName'],
+        id: json['id'],
+        lastSeen: Assistant.getDateTime(json['lastName']),
+        phone: json['phone'],
+        countryCode: json['countryCode'],
+        lastName: json['lastName']);
   }
 
-  UserModel.toJson();
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'firstName': _firstName,
+      'lastName': _lastName,
+      'lastSeen': _lastSeen,
+      'countryCode': _countryCode,
+      'countryCode': _id,
+      'countryCode': _phoneNumber, //TODO add Profile Picture URL
+    };
+  }
+
+  String getPhoneNumberString() {
+    if (_phoneNumber.startsWith('0')) {
+      String number = _phoneNumber.substring(1);
+      return '$_countryCode$number';
+    } else
+      return '$_countryCode$_phoneNumber';
+  }
 }

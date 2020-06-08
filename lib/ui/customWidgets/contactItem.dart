@@ -12,7 +12,7 @@ class ContactItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: MyImageView(imageUrl),
+      leading: MyImageView(imageURL: imageUrl),
       title: Text(
         '$userName',
         style: Theme.of(context).textTheme.subtitle,

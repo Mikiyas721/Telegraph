@@ -1,4 +1,3 @@
-
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,6 +36,7 @@ class PreferenceKeys {
   static final String sendByEnter = 'SendByEnter';
   static final String saveToGallery = 'SaveToGallery';
   static final String autoPlayGIF = 'AutoPlayGIF';
+  static final String isLoggedIn = "LoggedIn";
 
   static getPreference(String key) {
     SharedPreferences instance  = GetIt.instance.get();

@@ -2,8 +2,6 @@ import 'package:Telegraph/blocs/photoViewBloc.dart';
 import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/blocs/setting/themeBloc.dart';
 import 'package:Telegraph/others/assistant.dart';
-import 'package:Telegraph/ui/pages/photoViewPage.dart';
-import 'package:Telegraph/ui/pages/profilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/pages/news/channelDescription.dart';
 import 'package:Telegraph/ui/pages/news/newGroup.dart';
@@ -54,8 +52,8 @@ class MyDrawer extends StatelessWidget {
                     currentAccountPicture: BlocProvider<PhotoViewBloc>(
                       blocFactory: () => PhotoViewBloc(),
                       builder: (BuildContext context, PhotoViewBloc bloc) {
-                        return GestureDetector(
-                          child: MyImageView(profilePictureURL),
+                        return MyImageView(
+                          imageURL: profilePictureURL,
                           onTap: () {
                             bloc.setPhotoViewUrl(profilePictureURL);
                             Navigator.pushNamed(context, '/photoViewPage');

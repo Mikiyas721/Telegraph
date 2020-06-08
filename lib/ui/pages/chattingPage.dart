@@ -68,7 +68,7 @@ class ChattingPage extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(right: 10, top: 7, bottom: 7),
-                    child: MyImageView(imageURL),
+                    child: MyImageView(imageURL:imageURL),
                   ),
                   Text(chatTitle)
                 ],

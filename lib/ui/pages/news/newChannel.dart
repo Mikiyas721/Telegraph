@@ -38,7 +38,7 @@ class NewChannelPage extends StatelessWidget {
             onTap: () {},
             child: Padding(
                 padding: EdgeInsets.all(10),
-                child: MyImageView(
+                child: MyImageView(imageURL:
                   "assets/avatar_1.png",
                 )),
           ),
