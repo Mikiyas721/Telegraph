@@ -1,4 +1,4 @@
-import 'package:Telegraph/blocs/phoneBloc.dart';
+import 'package:Telegraph/blocs/userBloc.dart';
 import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/models/user.dart';
 import 'package:Telegraph/others/assistant.dart';
@@ -60,15 +60,13 @@ class UserInformationPage extends StatelessWidget {
               RaisedButton(
                 onPressed: () async {
                   bool isAdded = await bloc.addNewUser(UserModel(
-                          firstName:
-                              bloc.userRepo.dataStream.value.getFirstName,
-                          lastName: bloc.userRepo.dataStream.value.getLastName,
-                          phone: bloc.userRepo.dataStream.value.getPhoneNumber,
-                          id: bloc.userRepo.dataStream.value.getId,
-                          countryCode:
-                              bloc.userRepo.dataStream.value.getCountryCode,
-                          lastSeen: bloc.userRepo.dataStream.value.getLastSeen)
-                      .toMap());
+                      firstName: bloc.userRepo.dataStream.value.getFirstName,
+                      lastName: bloc.userRepo.dataStream.value.getLastName,
+                      phone: bloc.userRepo.dataStream.value.getPhoneNumber,
+                      id: bloc.userRepo.dataStream.value.getId,
+                      countryCode:
+                          bloc.userRepo.dataStream.value.getCountryCode,
+                      lastSeen: bloc.userRepo.dataStream.value.getLastSeen));
                   if (isAdded) {
                     Navigator.pushReplacementNamed(context, '/homePage');
                     Assistant.setUpDefaults();

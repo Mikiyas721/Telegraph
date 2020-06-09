@@ -4,7 +4,9 @@ import 'package:Telegraph/core/utils/preferenceKeys.dart';
 import 'package:Telegraph/core/utils/smsHandler.dart';
 import 'package:Telegraph/data/http.dart';
 import 'package:Telegraph/data/userDataSource.dart';
+import 'package:Telegraph/models/user.dart';
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart';
 import 'package:validators/validators.dart';
 
 class UserBloc extends Disposable {
@@ -35,7 +37,11 @@ class UserBloc extends Disposable {
 
   setIsLoggedIn() => userRepo.setPreference(PreferenceKeys.isLoggedIn, true);
 
-  Future<bool> addNewUser(Map<String, dynamic> userData) async {}
+  Future<bool> addNewUser(UserModel newUser) async {
+    Response response = await userRepo.addUser(newUser);
+    if (response.statusCode == 200) return true;
+    return false;
+  }
 
   Future<bool> isUserNew() async {
     dynamic user =

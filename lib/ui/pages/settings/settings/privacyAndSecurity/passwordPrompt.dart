@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 class PasswordEnteringPage extends StatelessWidget {
   final snackBarKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<PasswordBloc>(
@@ -66,9 +67,25 @@ class PasswordEnteringPage extends StatelessWidget {
                     stream: bloc.passwordErrorStream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       return TextField(
+                        onSubmitted: (String enteredValue) {
+                          bool saved = bloc.savePassword();
+                          if (saved) {
+                            snackBarKey.currentState.showSnackBar(SnackBar(
+                                backgroundColor:
+                                    Theme.of(context).backgroundColor,
+                                content: Text(
+                                  'Password Saved',
+                                  style: Theme.of(context).textTheme.body2,
+                                )));
+                            Timer(Duration(milliseconds: 400), () {
+                              Navigator.pop(context);
+                            });
+                          }
+                        },
                         cursorColor: Theme.of(context).cursorColor,
-                        onChanged: (String password){
-                          bloc.passwordRepo.setPassword(PasswordModel(password: password));
+                        onChanged: (String password) {
+                          bloc.passwordRepo
+                              .setPassword(PasswordModel(password: password));
                         },
                         style: TextStyle(
                             color: Theme.of(context).textTheme.body2.color,
@@ -76,7 +93,8 @@ class PasswordEnteringPage extends StatelessWidget {
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
-                          errorStyle: TextStyle(color: Theme.of(context).errorColor),
+                          errorStyle:
+                              TextStyle(color: Theme.of(context).errorColor),
                           errorText: snapshot.data,
                           contentPadding: EdgeInsets.only(top: 20, bottom: 3),
                         ),

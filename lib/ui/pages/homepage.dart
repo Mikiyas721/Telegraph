@@ -40,12 +40,20 @@ class HomePage extends StatelessWidget {
                           bool isLocked = bloc.passwordRepo
                               .getPreference<bool>(PreferenceKeys.isLocked);
                           return IconButton(
-                              icon:
-                                  Icon(isLocked ? Icons.lock : Icons.lock_open),
-                              onPressed: () {
-                                bloc.passwordRepo.setPreference(
-                                    PreferenceKeys.isLocked, !isLocked);
-                              });
+                            icon: Icon(isLocked ? Icons.lock : Icons.lock_open),
+                            onPressed: () {
+                              bloc.passwordRepo.updateStream(PasswordModel(
+                                  password:
+                                      bloc.passwordRepo.dataStream.value == null
+                                          ? null
+                                          : bloc.passwordRepo.dataStream.value
+                                              .password,
+                                  isLocked: !isLocked));
+                              bloc.passwordRepo.setPreference(
+                                  PreferenceKeys.isLocked, !isLocked);
+                            },
+                            color: Theme.of(context).iconTheme.color,
+                          );
                         }
                         return null;
                       });

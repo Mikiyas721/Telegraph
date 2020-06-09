@@ -11,13 +11,16 @@ import 'data/chatDataSource.dart';
 import 'data/passwordDataSource.dart';
 import 'data/userDataSource.dart';
 import 'data/themeDatasouce.dart';
+import 'data/valueDataSource.dart';
 import 'models/theme.dart';
 import 'models/user.dart';
+import 'models/value.dart';
 
 inject() async {
   final pref = await SharedPreferences.getInstance();
   GetIt.instance.registerSingleton(pref);
 
+  GetIt.instance.registerLazySingleton<ValueRepo>(() => ValueRepo(BehaviorSubject<ValueModel>()));
   GetIt.instance.registerLazySingleton<UserRepo>(() => UserRepo(BehaviorSubject<UserModel>()));
   GetIt.instance.registerLazySingleton<ThemeRepo>(() => ThemeRepo(BehaviorSubject<ThemeModel>()));
   GetIt.instance.registerLazySingleton<PasswordRepo>(() => PasswordRepo(BehaviorSubject<PasswordModel>()));

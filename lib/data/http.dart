@@ -4,6 +4,7 @@ import 'package:Telegraph/models/chat.dart';
 import 'package:Telegraph/models/contact.dart';
 import 'package:Telegraph/models/message.dart';
 import 'package:Telegraph/models/user.dart';
+import 'package:http/http.dart';
 
 import '../others/assistant.dart';
 
@@ -11,8 +12,8 @@ class Http {
   /// POST requests
   static final String apiBasePath = 'http://192.168.1.103:3000/api';
 
-  static void addUser(UserModel user) async {
-    await http.post('$apiBasePath/users', body: user.toString());
+  static Future<Response> addUser(UserModel user) async {
+    return await http.post('$apiBasePath/users', body: user.toMap());
   }
 
   static void addMessage(MessageModel message) async {
@@ -94,11 +95,11 @@ class Http {
     var user = await getUserById(userId);
     UserModel newUser;
     newUser = UserModel(
-        lastName: user[0][''],
-        phone: user[0]['phoneNumber'],
-        lastSeen: Assistant.getDateTime(user[0]['']),
-        id: userId,
-        firstName: firstName,
+      lastName: user[0][''],
+      phone: user[0]['phoneNumber'],
+      lastSeen: Assistant.getDateTime(user[0]['']),
+      id: userId,
+      firstName: firstName,
     );
 
     await http.put('http://localhost:3000/api/users', body: newUser.toString());
@@ -111,11 +112,11 @@ class Http {
     var user = await getUserById(userId);
     UserModel newUser;
     newUser = UserModel(
-        lastName: user[0][''],
-        phone: phoneNumber,
-        lastSeen: Assistant.getDateTime(user[0]['lastSeen']),
-        id: userId,
-        firstName: user[0]['firstName'],
+      lastName: user[0][''],
+      phone: phoneNumber,
+      lastSeen: Assistant.getDateTime(user[0]['lastSeen']),
+      id: userId,
+      firstName: user[0]['firstName'],
     );
 
     await http.put('http://localhost:3000/api/users', body: newUser.toString());
