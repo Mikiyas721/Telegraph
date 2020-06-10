@@ -2,6 +2,7 @@ import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/blocs/setting/settingBloc.dart';
 import 'package:Telegraph/others/assistant.dart';
 import 'package:Telegraph/core/utils/preferenceKeys.dart';
+import 'package:Telegraph/ui/customWidgets/checkingAlertDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/customWidgets/mySwitchListTile.dart';
 import 'package:Telegraph/ui/customWidgets/infoDisplay.dart';
@@ -21,14 +22,22 @@ class SettingPage extends StatelessWidget {
     return BlocProvider<SettingBloc>(
         blocFactory: () => SettingBloc(),
         builder: (BuildContext context, bloc) {
-          bloc.setAnimationEnabled(PreferenceKeys.getPreference(PreferenceKeys.enableAnimation));
-          bloc.setInAppBrowser(PreferenceKeys.getPreference(PreferenceKeys.inAppBrowser));
-          bloc.setDirectShare(PreferenceKeys.getPreference(PreferenceKeys.directShare));
-          bloc.setMessageTextSize(PreferenceKeys.getPreference(PreferenceKeys.messageTextSize));
-          bloc.setRaiseToSpeak(PreferenceKeys.getPreference(PreferenceKeys.raiseToSpeak));
-          bloc.setSendByEnter(PreferenceKeys.getPreference(PreferenceKeys.sendByEnter));
-          bloc.setAutoPlayGif(PreferenceKeys.getPreference(PreferenceKeys.autoPlayGIF));
-          bloc.setSaveToGallery(PreferenceKeys.getPreference(PreferenceKeys.saveToGallery));
+          bloc.setAnimationEnabled(
+              PreferenceKeys.getPreference(PreferenceKeys.enableAnimation));
+          bloc.setInAppBrowser(
+              PreferenceKeys.getPreference(PreferenceKeys.inAppBrowser));
+          bloc.setDirectShare(
+              PreferenceKeys.getPreference(PreferenceKeys.directShare));
+          bloc.setMessageTextSize(
+              PreferenceKeys.getPreference(PreferenceKeys.messageTextSize));
+          bloc.setRaiseToSpeak(
+              PreferenceKeys.getPreference(PreferenceKeys.raiseToSpeak));
+          bloc.setSendByEnter(
+              PreferenceKeys.getPreference(PreferenceKeys.sendByEnter));
+          bloc.setAutoPlayGif(
+              PreferenceKeys.getPreference(PreferenceKeys.autoPlayGIF));
+          bloc.setSaveToGallery(
+              PreferenceKeys.getPreference(PreferenceKeys.saveToGallery));
 
           return Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -55,10 +64,10 @@ class SettingPage extends StatelessWidget {
                               children: <Widget>[
                                 Padding(
                                     child: GestureDetector(
-                                      child: MyImageView(imageURL:imageURL),
+                                      child: MyImageView(imageURL: imageURL),
                                       onTap: () {
                                         Navigator.pushNamed(
-                                            context,'/photoViewPage');
+                                            context, '/photoViewPage');
                                       },
                                     ),
                                     padding: EdgeInsets.only(right: 5)),
@@ -68,11 +77,13 @@ class SettingPage extends StatelessWidget {
                                   children: <Widget>[
                                     Text(
                                       userName,
-                                      style: Theme.of(context).textTheme.subtitle,
+                                      style:
+                                          Theme.of(context).textTheme.subtitle,
                                     ),
                                     Text(
                                       getOnlineString(),
-                                      style: Theme.of(context).textTheme.caption,
+                                      style:
+                                          Theme.of(context).textTheme.caption,
                                     ),
                                   ],
                                 )
@@ -106,7 +117,8 @@ class SettingPage extends StatelessWidget {
     int i = 1;
     for (String menu in menuListString) {
       menuList.add(new PopupMenuItem(
-          value: i, child: Text(menu, style: Theme.of(context).textTheme.body2)));
+          value: i,
+          child: Text(menu, style: Theme.of(context).textTheme.body2)));
       i++;
     }
     return menuList;
@@ -126,8 +138,7 @@ class SettingPage extends StatelessWidget {
         phoneNumber,
         "Phone",
         onTap: () {
-          Navigator.pushNamed(
-              context,'/changePhoneNumberPage');
+          Navigator.pushNamed(context, '/changePhoneNumberPage');
         },
         themeData: Theme.of(context),
       ),
@@ -135,8 +146,7 @@ class SettingPage extends StatelessWidget {
         userString,
         "Username",
         onTap: () {
-          Navigator.pushNamed(
-              context,'/changeUserNamePage');
+          Navigator.pushNamed(context, '/changeUserNamePage');
         },
         themeData: Theme.of(context),
       ),
@@ -153,8 +163,7 @@ class SettingPage extends StatelessWidget {
           style: Theme.of(context).textTheme.body2,
         ),
         onTap: () {
-          Navigator.pushNamed(
-              context,'/notificationAndSoundsPage');
+          Navigator.pushNamed(context, '/notificationAndSoundsPage');
         },
       ),
       ListTile(
@@ -163,8 +172,7 @@ class SettingPage extends StatelessWidget {
           style: Theme.of(context).textTheme.body2,
         ),
         onTap: () {
-          Navigator.pushNamed(
-              context,'/privacyAndSecurityPage');
+          Navigator.pushNamed(context, '/privacyAndSecurityPage');
         },
       ),
       ListTile(
@@ -173,8 +181,7 @@ class SettingPage extends StatelessWidget {
           style: Theme.of(context).textTheme.body2,
         ),
         onTap: () {
-          Navigator.pushNamed(
-              context,'/dataAndStoragePage');
+          Navigator.pushNamed(context, '/dataAndStoragePage');
         },
       ),
       ListTile(
@@ -183,8 +190,7 @@ class SettingPage extends StatelessWidget {
           style: Theme.of(context).textTheme.body2,
         ),
         onTap: () {
-          Navigator.pushNamed(
-              context,'/chatBackgroundPage');
+          Navigator.pushNamed(context, '/chatBackgroundPage');
         },
       ),
       ListTile(
@@ -193,8 +199,7 @@ class SettingPage extends StatelessWidget {
           style: Theme.of(context).textTheme.body2,
         ),
         onTap: () {
-          Navigator.pushNamed(
-              context,'/themePage');
+          Navigator.pushNamed(context, '/themePage');
         },
       ),
       ListTile(
@@ -203,8 +208,7 @@ class SettingPage extends StatelessWidget {
           style: Theme.of(context).textTheme.body2,
         ),
         onTap: () {
-          Navigator.pushNamed(
-              context,'/languagesPage');
+          Navigator.pushNamed(context, '/languagesPage');
         },
       ),
       StreamBuilder(
@@ -213,7 +217,8 @@ class SettingPage extends StatelessWidget {
           return MySwitchListTile(
             title: "Enable Amimation",
             onChanged: (bool newValue) {
-              PreferenceKeys.setPreference(PreferenceKeys.enableAnimation, newValue);
+              PreferenceKeys.setPreference(
+                  PreferenceKeys.enableAnimation, newValue);
               bloc.setAnimationEnabled(newValue);
             },
             value: snapshot.data == null
@@ -239,7 +244,8 @@ class SettingPage extends StatelessWidget {
             title: "In-App Browser",
             subTitle: "Open External links with in app",
             onChanged: (bool newValue) {
-              PreferenceKeys.setPreference(PreferenceKeys.inAppBrowser, newValue);
+              PreferenceKeys.setPreference(
+                  PreferenceKeys.inAppBrowser, newValue);
               bloc.setInAppBrowser(newValue);
             },
             value: snapshot.data == null
@@ -258,7 +264,8 @@ class SettingPage extends StatelessWidget {
             title: "Direct Share",
             subTitle: "Show recent chats in share menu",
             onChanged: (bool newValue) {
-              PreferenceKeys.setPreference(PreferenceKeys.directShare, newValue);
+              PreferenceKeys.setPreference(
+                  PreferenceKeys.directShare, newValue);
               bloc.setDirectShare(newValue);
             },
             value: snapshot.data == null
@@ -298,12 +305,13 @@ class SettingPage extends StatelessWidget {
                         )).then((num value) {
                   if (value != null) {
                     bloc.setMessageTextSize(value);
-                    PreferenceKeys.setPreference(PreferenceKeys.messageTextSize, value);
+                    PreferenceKeys.setPreference(
+                        PreferenceKeys.messageTextSize, value);
                   }
                 });
               },
-              title:
-                  Text("Message Text Size", style: Theme.of(context).textTheme.body2),
+              title: Text("Message Text Size",
+                  style: Theme.of(context).textTheme.body2),
               trailing: Text(
                 "${snapshot.data}",
                 style: TextStyle(color: Colors.blue),
@@ -316,7 +324,8 @@ class SettingPage extends StatelessWidget {
           return MySwitchListTile(
             title: "Raise to Speak",
             onChanged: (bool newValue) {
-              PreferenceKeys.setPreference(PreferenceKeys.raiseToSpeak, newValue);
+              PreferenceKeys.setPreference(
+                  PreferenceKeys.raiseToSpeak, newValue);
               bloc.setRaiseToSpeak(newValue);
             },
             value: snapshot.data == null
@@ -334,7 +343,8 @@ class SettingPage extends StatelessWidget {
           return MySwitchListTile(
             title: "Send by Enter",
             onChanged: (bool newValue) {
-              PreferenceKeys.setPreference(PreferenceKeys.sendByEnter, newValue);
+              PreferenceKeys.setPreference(
+                  PreferenceKeys.sendByEnter, newValue);
               bloc.setSendByEnter(newValue);
             },
             value: snapshot.data == null
@@ -352,7 +362,8 @@ class SettingPage extends StatelessWidget {
           return MySwitchListTile(
             title: "Autoplay GIFs",
             onChanged: (bool newValue) {
-              PreferenceKeys.setPreference(PreferenceKeys.autoPlayGIF, newValue);
+              PreferenceKeys.setPreference(
+                  PreferenceKeys.autoPlayGIF, newValue);
               bloc.setAutoPlayGif(newValue);
             },
             value: snapshot.data == null
@@ -370,7 +381,8 @@ class SettingPage extends StatelessWidget {
           return MySwitchListTile(
             title: "Save to Gallery",
             onChanged: (bool newValue) {
-              PreferenceKeys.setPreference(PreferenceKeys.saveToGallery, newValue);
+              PreferenceKeys.setPreference(
+                  PreferenceKeys.saveToGallery, newValue);
               bloc.setSaveToGallery(newValue);
             },
             value: snapshot.data == null
@@ -419,34 +431,37 @@ class SettingPage extends StatelessWidget {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return AlertDialog(
-              backgroundColor: Theme.of(context).dialogBackgroundColor,
-              title: Text("Information"),
-              content: Text(
-                "Are you sure you want to reset to default settings",
-                style: Theme.of(context).textTheme.body1,
-              ),
-              actions: <Widget>[
-                FlatButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text("Cancel")),
-                FlatButton(
-                    onPressed: () {
-                      Assistant.setUpDefaults();
-
-                      /// Return to home page?
-                      Navigator.pop(context);
-                    },
-                    child: Text("Ok")),
-              ],
+            return CheckingAlertDialog(
+              message: " Are you sure you want to reset to defaults?",
+              onCancelClicked: () {
+                Navigator.pop(context);
+              },
+              onOkClicked: () {
+                Assistant.setUpDefaults();
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/homePage', (Route<dynamic> route) => false);
+              },
             );
           });
     } else if (selectedValue == 2) {
     } else if (selectedValue == 3) {
-      Navigator.pushReplacementNamed(
-          context,'/firstPage');
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CheckingAlertDialog(
+              message: "Are you sure you want to logout?",
+              onCancelClicked: () {
+                Navigator.pop(context);
+              },
+              onOkClicked: () {
+                PreferenceKeys.setPreference<bool>(
+                    PreferenceKeys.isLoggedIn, false);
+                Assistant.setUpDefaults();//TODO to be replaced
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/firstPage', (Route<dynamic> route) => false);
+              },
+            );
+          });
     }
   }
 }

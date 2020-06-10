@@ -81,7 +81,7 @@ class HomePage extends StatelessWidget {
                             bloc.chatRepo.setChat(null);
                           },
                           child: Text(
-                            "Couldn't Connect.\nPlease Check you're connection",
+                            "Couldn't Connect.\nPlease Check your connection",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 decoration: TextDecoration.underline,

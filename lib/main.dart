@@ -1,4 +1,5 @@
 import 'package:Telegraph/core/utils/preferenceKeys.dart';
+import 'package:Telegraph/models/theme.dart';
 import 'package:Telegraph/ui/pages/login/userInformationPage.dart';
 import 'package:Telegraph/ui/pages/settings/settings/privacyAndSecurity/passwordLock.dart';
 import './models/chat.dart';
@@ -42,18 +43,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeRepo repo = GetIt.instance.get();
-    final loggedIn = repo.getPreference<bool>(PreferenceKeys.isLoggedIn)==null?false:true;
+    final loggedIn = repo.getPreference<bool>(PreferenceKeys.isLoggedIn) == null
+        ? false
+        : repo.getPreference<bool>(PreferenceKeys.isLoggedIn);
     final isLocked = repo.getPreference<bool>(PreferenceKeys.isLocked);
-
+    repo.updateStream(ThemeModel(
+        name: repo.getPreference<String>(PreferenceKeys.selectedTheme)));
+    //TODO Remove the above code and put it in a bloc.
     final routes = {
       '/': (BuildContext context) =>
           loggedIn ? (isLocked ? PasswordLockPage() : HomePage()) : FirstPage(),
       '/homePage': (BuildContext context) => HomePage(),
-      'firstPage': (BuildContext context) => FirstPage(),
+      '/firstPage': (BuildContext context) => FirstPage(),
       '/phoneNumberInputPage': (BuildContext context) => PhoneNumberInputPage(),
       '/phoneVerificationPage': (BuildContext context) =>
           PhoneVerificationPage(),
-      '/userInformationPage':(BuildContext context)=>UserInformationPage(),
+      '/userInformationPage': (BuildContext context) => UserInformationPage(),
       '/chattingPage': (BuildContext context) =>
           ChattingPage('Kebede', '', ChatType.SINGLE),
       '/searchPage': (BuildContext context) => SearchPage(),

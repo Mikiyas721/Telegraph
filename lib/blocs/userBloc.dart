@@ -29,11 +29,12 @@ class UserBloc extends Disposable {
 
   verifyCode(String enteredCode, BuildContext context) async {
     if (enteredCode == verificationNumber) {
-      if (await isUserNew()) {
+      if (await isUserNew(context)) {
         Navigator.pushReplacementNamed(context, '/userInformationPage');
       } else {
         setIsLoggedIn();
-        Navigator.pushReplacementNamed(context, '/homePage');
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/homePage', (Route<dynamic> route) => false);
       }
     }
   }
@@ -59,20 +60,24 @@ class UserBloc extends Disposable {
     return false;
   }
 
-  Future<bool> isUserNew() async {
+  Future<bool> isUserNew(BuildContext context) async {
     UserModel userModel = userRepo.subjectValue;
-    dynamic user =
-        await Http.getUserByNumber('${userModel.getPhoneNumberString()}');
-    return user == null ? true : false;
+    try {
+      dynamic user =
+          await Http.getUserByNumber('${userModel.getPhoneNumberString()}');
+      return user == null ? true : false;
+    } catch (SocketException) {
+      Toast.show('Unable to connect', context);
+    }
   }
 
   Future<bool> saveUserAPIId() async {
     UserModel userModel = userRepo.subjectValue;
-    Response user =
+    Map<String, dynamic> user =
         await Http.getUserByNumber(userModel.getPhoneNumberString());
-    if (user.data != []) {
+    if (user != null) {
       return await userRepo.setPreference<String>(
-          PreferenceKeys.userAPIId, user.data['id']);
+          PreferenceKeys.userAPIId, user['id']);
     }
     return false;
   }
@@ -90,7 +95,8 @@ class UserBloc extends Disposable {
         if (await saveUserAPIId()) {
           setUpDefaults();
           setIsLoggedIn();
-          Navigator.pushReplacementNamed(context, '/homePage');
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/homePage', (Route<dynamic> route) => false);
         } else {
           Toast.show('User not saved. Please Try Again', context,
               gravity: Toast.CENTER);

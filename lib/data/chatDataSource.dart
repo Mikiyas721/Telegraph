@@ -13,7 +13,8 @@ class ChatRepo extends ListRepo {
 
   FutureOr<List<ChatModel>> getChatModel({String userId}) async {
     List<dynamic> responseList = await Http.getChatsForUser(userId);
-    if (responseList!=null&&responseList.isNotEmpty) {
+    if(responseList!=null&&responseList.isEmpty) return [];
+    else if (responseList!=null&&responseList.isNotEmpty) {
       List<ChatModel> chatModelList = List();
 
       responseList.forEach((chat) async {

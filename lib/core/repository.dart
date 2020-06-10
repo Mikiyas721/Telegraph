@@ -24,8 +24,11 @@ abstract class Repo extends Disposable {
       return _sharedPreferences.getDouble(key);
     else if (T == List)
       return _sharedPreferences.getStringList(key);
-    else
+    else {
+      print(
+          "Get Preference Method. Either you didn't specify type or something went wrong");
       return null;
+    }
   }
 
   Future<bool> setPreference<T>(String key, value) async {
@@ -39,8 +42,11 @@ abstract class Repo extends Disposable {
       return await _sharedPreferences.setDouble(key, value);
     else if (T == List)
       return await _sharedPreferences.setStringList(key, value);
-    else
+    else {
+      print(
+          "Set Preference Method. Either you didn't specify type or something went wrong");
       return null;
+    }
   }
 }
 
@@ -50,6 +56,7 @@ class ItemRepo<T extends JSONModel> extends Repo {
   BehaviorSubject<T> get dataStream {
     return _dataStream;
   }
+
   T get subjectValue => _dataStream.value;
 
   void updateStream(T t) => _dataStream.add(t);

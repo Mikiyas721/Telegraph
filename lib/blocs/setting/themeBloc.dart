@@ -9,7 +9,7 @@ class ThemeBloc extends Disposable {
 
   void changeTheme(String name) async {
     themeRepo.updateStream(ThemeModel(name: name));
-    await themeRepo.setPreference(PreferenceKeys.selectedTheme, name);
+    await themeRepo.setPreference<String>(PreferenceKeys.selectedTheme, name);
   }
 
   void nextTheme() async {
@@ -22,14 +22,14 @@ class ThemeBloc extends Disposable {
           PreferenceKeys.selectedTheme, "DefaultDark");
     } else if (currentTheme == "DefaultDark") {
       themeRepo.updateStream(ThemeModel(name: "DarkBlue"));
-      await themeRepo.setPreference(PreferenceKeys.selectedTheme, "DarkBlue");
+      await themeRepo.setPreference<String>(PreferenceKeys.selectedTheme, "DarkBlue");
     } else if (currentTheme == "DarkBlue") {
       themeRepo.updateStream(ThemeModel(name: "DefaultLerp"));
-      await themeRepo.setPreference(
+      await themeRepo.setPreference<String>(
           PreferenceKeys.selectedTheme, "DefaultLerp");
     } else {
       themeRepo.updateStream(ThemeModel(name: "DefaultLight"));
-      await themeRepo.setPreference(
+      await themeRepo.setPreference<String>(
           PreferenceKeys.selectedTheme, "DefaultLight");
     }
   }
