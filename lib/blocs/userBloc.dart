@@ -5,9 +5,11 @@ import 'package:Telegraph/core/utils/smsHandler.dart';
 import 'package:Telegraph/data/http.dart';
 import 'package:Telegraph/data/userDataSource.dart';
 import 'package:Telegraph/models/user.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart';
 import 'package:validators/validators.dart';
+import 'package:toast/toast.dart';
 
 class UserBloc extends Disposable {
   UserRepo userRepo = GetIt.instance.get();
@@ -15,19 +17,32 @@ class UserBloc extends Disposable {
 
   String validatePhoneNumber(dynamic number) {
     if (number == null) return null;
-    if (number.phoneNumber.length < 9 ||
-        number.phoneNumber.length > 10 ||
-        !isNumeric(number.phoneNumber))
+    if (number.getPhoneNumber.length < 9 ||
+        number.getPhoneNumber.length > 10 ||
+        (number.getPhoneNumber.startsWith('0') &&
+            number.getPhoneNumber != 10) ||
+        !isNumeric(number.getPhoneNumber))
       return 'Invalid Phone Number';
     else
       return null;
   }
 
-  sendSms(String phoneNumber) async {
+  verifyCode(String enteredCode, BuildContext context) async {
+    if (enteredCode == verificationNumber) {
+      if (await isUserNew()) {
+        Navigator.pushReplacementNamed(context, '/userInformationPage');
+      } else {
+        setIsLoggedIn();
+        Navigator.pushReplacementNamed(context, '/homePage');
+      }
+    }
+  }
+
+  sendSms() async {
     verificationNumber = (Random().nextInt(9000) + 1000).toString();
     print(verificationNumber);
     final smsHandler = SMSHandler(
-            to: phoneNumber,
+            to: userRepo.dataStream.value.getPhoneNumberString(),
             messageBody: 'Your verification code is: $verificationNumber')
         .create();
   }
@@ -35,7 +50,8 @@ class UserBloc extends Disposable {
   String validateCode(dynamic code) =>
       verificationNumber == code ? null : "Incorrect Code";
 
-  setIsLoggedIn() => userRepo.setPreference(PreferenceKeys.isLoggedIn, true);
+  setIsLoggedIn() =>
+      userRepo.setPreference<bool>(PreferenceKeys.isLoggedIn, true);
 
   Future<bool> addNewUser(UserModel newUser) async {
     Response response = await userRepo.addUser(newUser);
@@ -44,9 +60,120 @@ class UserBloc extends Disposable {
   }
 
   Future<bool> isUserNew() async {
+    UserModel userModel = userRepo.subjectValue;
     dynamic user =
-        await Http.getUserByNumber(userRepo.dataStream.value.getPhoneNumber);
+        await Http.getUserByNumber('${userModel.getPhoneNumberString()}');
     return user == null ? true : false;
+  }
+
+  Future<bool> saveUserAPIId() async {
+    UserModel userModel = userRepo.subjectValue;
+    Response user =
+        await Http.getUserByNumber(userModel.getPhoneNumberString());
+    if (user.data != []) {
+      return await userRepo.setPreference<String>(
+          PreferenceKeys.userAPIId, user.data['id']);
+    }
+    return false;
+  }
+
+  onSubmitClicked(BuildContext context) async {
+    UserModel userModel = userRepo.subjectValue;
+    if (userModel.getFirstName != null) {
+      bool isAdded = await addNewUser(UserModel(
+          firstName: userModel.getFirstName,
+          lastName: userModel.getLastName,
+          phone: userModel.getPhoneNumber,
+          countryCode: userModel.getCountryCode,
+          lastSeen: DateTime.now()));
+      if (isAdded) {
+        if (await saveUserAPIId()) {
+          setUpDefaults();
+          setIsLoggedIn();
+          Navigator.pushReplacementNamed(context, '/homePage');
+        } else {
+          Toast.show('User not saved. Please Try Again', context,
+              gravity: Toast.CENTER);
+        }
+      } else {
+        Toast.show('Unable to finish process', context, gravity: Toast.CENTER);
+      }
+    } else {
+      Toast.show('Please enter your first name', context);
+    }
+  }
+
+  updateName(String newValue, bool isFirstName) {
+    UserModel previous = userRepo.dataStream.value;
+    if (isFirstName) {
+      userRepo.updateStream(UserModel(
+          firstName: newValue,
+          lastName: previous.getLastName,
+          countryCode: previous.getCountryCode,
+          phone: previous.getPhoneNumber));
+    } else {
+      userRepo.updateStream(UserModel(
+          firstName: previous.getFirstName,
+          lastName: newValue,
+          countryCode: previous.getCountryCode,
+          phone: previous.getPhoneNumber));
+    }
+  }
+
+  onNumberEntered(BuildContext context) {
+    if (validatePhoneNumber(userRepo.dataStream.value) == null) {
+      Navigator.pushReplacementNamed(context, '/phoneVerificationPage');
+    } else {
+      Toast.show("Invalid Phone Number", context);
+    }
+  }
+
+  void setUpDefaults() {
+    userRepo.setPreference<bool>(PreferenceKeys.messageAlert, true);
+    userRepo.setPreference<bool>(PreferenceKeys.messagePreview, false);
+    userRepo.setPreference<String>(PreferenceKeys.messageVibrate, "Default");
+    userRepo.setPreference<String>(PreferenceKeys.messagePopup, "No popup");
+    userRepo.setPreference<String>(PreferenceKeys.messageSound, "No popup");
+    userRepo.setPreference<String>(PreferenceKeys.messagePriority, "Default");
+
+    userRepo.setPreference<bool>(PreferenceKeys.groupAlert, false);
+    userRepo.setPreference<bool>(PreferenceKeys.groupPreview, true);
+    userRepo.setPreference<String>(PreferenceKeys.groupVibrate, "Default");
+    userRepo.setPreference<String>(PreferenceKeys.groupPopup, "No popup");
+    userRepo.setPreference<String>(PreferenceKeys.groupSound, "No popup");
+    userRepo.setPreference<String>(PreferenceKeys.groupPriority, "Default");
+
+    userRepo.setPreference<bool>(PreferenceKeys.inAppSound, false);
+    userRepo.setPreference<bool>(PreferenceKeys.inAppVibrate, true);
+    userRepo.setPreference<bool>(PreferenceKeys.inAppPreview, true);
+    userRepo.setPreference<bool>(PreferenceKeys.inChatSound, false);
+    userRepo.setPreference<bool>(PreferenceKeys.inAppPriority, false);
+
+    userRepo.setPreference<String>(
+        PreferenceKeys.whoViewLastSeen, "My Contacts");
+    userRepo.setPreference<String>(PreferenceKeys.whoCanCallMe, "My Contacts");
+
+    userRepo.setPreference<String>(PreferenceKeys.onMobileData, "No Media");
+    userRepo.setPreference<String>(PreferenceKeys.onWifi, "No Media");
+
+    userRepo.setPreference<String>(
+        PreferenceKeys.chatBackground, "assets/chatBackground_8.jpeg");
+
+    userRepo.setPreference<String>(
+        PreferenceKeys.selectedTheme, "DefaultLight");
+
+    userRepo.setPreference<String>(PreferenceKeys.selectedTheme, "English");
+
+    userRepo.setPreference<bool>(PreferenceKeys.enableAnimation, true);
+    userRepo.setPreference<bool>(PreferenceKeys.inAppBrowser, false);
+    userRepo.setPreference<bool>(PreferenceKeys.directShare, true);
+    userRepo.setPreference<int>(PreferenceKeys.messageTextSize, 12);
+    userRepo.setPreference<bool>(PreferenceKeys.raiseToSpeak, false);
+    userRepo.setPreference<bool>(PreferenceKeys.sendByEnter, true);
+    userRepo.setPreference<bool>(PreferenceKeys.autoPlayGIF, false);
+    userRepo.setPreference<bool>(PreferenceKeys.saveToGallery, false);
+
+    userRepo.setPreference<bool>(PreferenceKeys.isLocked, false);
   }
 
   @override

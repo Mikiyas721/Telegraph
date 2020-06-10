@@ -1,9 +1,9 @@
 import 'package:Telegraph/blocs/userBloc.dart';
 import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/models/user.dart';
-import 'package:Telegraph/others/assistant.dart';
 import 'package:Telegraph/ui/customWidgets/myImageView.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 class UserInformationPage extends StatelessWidget {
   @override
@@ -11,10 +11,12 @@ class UserInformationPage extends StatelessWidget {
     return BlocProvider<UserBloc>(
       blocFactory: () => UserBloc(),
       builder: (BuildContext context, UserBloc bloc) {
+        double width = MediaQuery.of(context).size.width;
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
-              backgroundColor: Theme.of(context).backgroundColor,
+              leading: null,
+              backgroundColor: Theme.of(context).primaryColor,
               title: Text(
                 "Information",
                 style: Theme.of(context).textTheme.title,
@@ -23,55 +25,64 @@ class UserInformationPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(
-                "Please provide your name and profile picture. First Name is Mandatory",
-                style: Theme.of(context).textTheme.caption,
+              Padding(
+                padding: EdgeInsets.only(left: 0.01 * width),
+                child: Text(
+                  "Please provide your name and profile picture. First Name is Mandatory",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.caption,
+                ),
               ),
               MyImageView(
                 imageURL: 'assets/avatar_1.png',
-                onTap: () {},
+                onTap: () {
+                  Toast.show("Tap", context);
+                },
               ),
               StreamBuilder(
                 stream: bloc.userRepo.dataStream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return TextField(
-                    onChanged: (String newValue) {},
-                    decoration: InputDecoration(
-                        hintText: 'First Name(Required)',
-                        hintStyle: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            color: Theme.of(context).textTheme.caption.color)),
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        left: 0.25 * width, right: 0.25 * width),
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      onChanged: (String newValue) {
+                        bloc.updateName(newValue, true);
+                      },
+                      decoration: InputDecoration(
+                          hintText: 'First Name(Required)',
+                          hintStyle: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color:
+                                  Theme.of(context).textTheme.caption.color)),
+                    ),
                   );
                 },
               ),
               StreamBuilder(
                 stream: bloc.userRepo.dataStream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return TextField(
-                    onChanged: (String newValue) {},
-                    decoration: InputDecoration(
-                        hintText: 'Last Name(Optional)',
-                        hintStyle: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            color: Theme.of(context).textTheme.caption.color)),
-                  );
+                  return Padding(
+                      padding: EdgeInsets.only(
+                          left: 0.25 * width, right: 0.25 * width),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        onChanged: (String newValue) {
+                          bloc.updateName(newValue, false);
+                        },
+                        decoration: InputDecoration(
+                            hintText: 'Last Name(Optional)',
+                            hintStyle: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color:
+                                    Theme.of(context).textTheme.caption.color)),
+                      ));
                 },
               ),
               RaisedButton(
                 onPressed: () async {
-                  bool isAdded = await bloc.addNewUser(UserModel(
-                      firstName: bloc.userRepo.dataStream.value.getFirstName,
-                      lastName: bloc.userRepo.dataStream.value.getLastName,
-                      phone: bloc.userRepo.dataStream.value.getPhoneNumber,
-                      id: bloc.userRepo.dataStream.value.getId,
-                      countryCode:
-                          bloc.userRepo.dataStream.value.getCountryCode,
-                      lastSeen: bloc.userRepo.dataStream.value.getLastSeen));
-                  if (isAdded) {
-                    Navigator.pushReplacementNamed(context, '/homePage');
-                    Assistant.setUpDefaults();
-                    bloc.setIsLoggedIn();
-                  }
+                  bloc.onSubmitClicked(context);
                 },
                 child: Text(
                   "Submit",

@@ -8,7 +8,7 @@ class PhoneVerificationPage extends StatelessWidget {
     return BlocProvider<UserBloc>(
       blocFactory: () => UserBloc(),
       builder: (BuildContext context, UserBloc bloc) {
-        bloc.sendSms(bloc.userRepo.dataStream.value.toString());
+        bloc.sendSms();
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
@@ -32,7 +32,7 @@ class PhoneVerificationPage extends StatelessWidget {
                     color: Theme.of(context).iconTheme.color,
                   ),
                   onPressed: () async {
-                    Navigator.pushReplacementNamed(context, '/homePage');
+
                   })
             ],
           ),
@@ -54,15 +54,7 @@ class PhoneVerificationPage extends StatelessWidget {
                     return TextField(
                       keyboardType: TextInputType.phone,
                       onChanged: (String code) async {
-                        if (code == bloc.verificationNumber) {
-                          if (await bloc.isUserNew()) {
-                            Navigator.pushReplacementNamed(
-                                context, '/userInformationPage');
-                          } else {
-                            Navigator.pushReplacementNamed(
-                                context, '/homePage');
-                          }
-                        }
+                        bloc.verifyCode(code, context);
                       },
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
@@ -72,7 +64,6 @@ class PhoneVerificationPage extends StatelessWidget {
                     );
                   },
                 ),
-                Text(""),
                 FlatButton(
                     onPressed: () {},
                     child: Text(

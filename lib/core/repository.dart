@@ -50,6 +50,7 @@ class ItemRepo<T extends JSONModel> extends Repo {
   BehaviorSubject<T> get dataStream {
     return _dataStream;
   }
+  T get subjectValue => _dataStream.value;
 
   void updateStream(T t) => _dataStream.add(t);
 

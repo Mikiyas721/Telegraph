@@ -37,7 +37,7 @@ class FirstPage extends StatelessWidget {
                   color: Theme.of(context).buttonColor,
                   textColor: Theme.of(context).textTheme.button.color,
                   onPressed: () {
-                    Navigator.pushNamed(
+                    Navigator.pushReplacementNamed(
                         context,'/phoneNumberInputPage');
                   },
                   child: Text(

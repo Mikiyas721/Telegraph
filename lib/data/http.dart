@@ -1,65 +1,65 @@
 import 'dart:convert';
-import 'Package:http/http.dart' as http;
 import 'package:Telegraph/models/chat.dart';
 import 'package:Telegraph/models/contact.dart';
 import 'package:Telegraph/models/message.dart';
 import 'package:Telegraph/models/user.dart';
-import 'package:http/http.dart';
+import 'package:dio/dio.dart';
 
 import '../others/assistant.dart';
 
 class Http {
-  /// POST requests
+  static Dio dio = Dio();
   static final String apiBasePath = 'http://192.168.1.103:3000/api';
+  /// POST requests
 
-  static Future<Response> addUser(UserModel user) async {
-    return await http.post('$apiBasePath/users', body: user.toMap());
+  static Future<dynamic> addUser(UserModel user) async {
+    return await dio.post('$apiBasePath/users', data: user.toJSON());
   }
 
   static void addMessage(MessageModel message) async {
-    await http.post('$apiBasePath/users', body: message.toString());
+    await dio.post('$apiBasePath/users', data: message.toString());
   }
 
   static void addChat(ChatModel chat) async {
-    await http.post('$apiBasePath/users', body: chat.toString());
+    await dio.post('$apiBasePath/users', data: chat.toString());
   }
 
   static Future<dynamic> addContact(ContactModel contactModel) async {
-    await http.post('$apiBasePath/contact', body: contactModel.toMap());
+    await dio.post('$apiBasePath/contact', data: contactModel.toMap());
   }
 
   /// GET requests
 
-  static Future<dynamic> getChatsForUser(String userId) async {
+  static Future<List<dynamic>> getChatsForUser(String userId) async {
     try {
-      String chats = await http.read(
+      Response chats = await dio.get(
           '$apiBasePath/chats?filter={"where":{"usersid":{"inq":["$userId"]}}}');
-      return json.decode(chats);
+      return chats.data;
     } catch (SocketException) {}
   }
 
   static Future<Map<String, dynamic>> getMessagesOfChat(String chatId) async {
-    String messages =
-        await http.read('$apiBasePath/api/chats/$chatId/messages');
-    return json.decode(messages);
+    Response messages =
+        await dio.get('$apiBasePath/api/chats/$chatId/messages');
+    return json.decode(messages.data);
   }
 
   static Future<List<dynamic>> getCallsForUser(String userId) async {
-    String chat = await http.read(
+    Response chat = await dio.get(
         '$apiBasePath/calls?filter={"where":{"or":[{"callerId":{"inq":["$userId"]}},{"receiverId":{"inq":["$userId"]}}]}}');
-    return json.decode(chat);
+    return json.decode(chat.data);
   }
 
   static Future<List<dynamic>> getContactsForUser(String userId) async {
-    String chat =
-        await http.read('$apiBasePath/contacts?filter[where][userId]=$userId');
-    return json.decode(chat);
+    Response chat =
+        await dio.get('$apiBasePath/contacts?filter[where][userId]=$userId');
+    return json.decode(chat.data);
   }
 
   static Future<dynamic> getUserById(String userId) async {
-    String user =
-        await http.read('$apiBasePath/users?filter[where][id]=$userId');
-    final responseList = json.decode(user);
+    Response user =
+        await dio.get('$apiBasePath/users?filter[where][id]=$userId');
+    final responseList = json.decode(user.data);
     if (responseList.isNotEmpty)
       return responseList[0];
     else
@@ -67,25 +67,23 @@ class Http {
   }
 
   static Future<dynamic> getUserByNumber(String phoneNumber) async {
-    String user = await http
-        .read('$apiBasePath/users?filter[where][phoneNumber]=$phoneNumber');
-    final responseList = json.decode(user);
-    if (responseList.isNotEmpty)
-      return responseList[0];
+    Response user1 = await dio.get('$apiBasePath/users?filter[where][phoneNumber]=$phoneNumber');
+    if (user1.data.isNotEmpty)
+      return user1.data[0];
     else
-      return {};
+      return null;
   }
 
   static Future<MessageModel> getMessage(String messageId) async {
-    String user =
-        await http.read('$apiBasePath/messages?filter[where][id]=$messageId');
-    return MessageModel.fromJson(json.decode(user));
+    Response user =
+        await dio.get('$apiBasePath/messages?filter[where][id]=$messageId');
+    return MessageModel.fromJson(json.decode(user.data));
   }
 
   static Future<List<dynamic>> getChat(String chatId) async {
-    String chat =
-        await http.read('$apiBasePath/chats?filter[where][id]=$chatId');
-    return json.decode(chat);
+    Response chat =
+        await dio.get('$apiBasePath/chats?filter[where][id]=$chatId');
+    return json.decode(chat.data);
   }
 
   /// UPDATE requests
@@ -102,7 +100,7 @@ class Http {
       firstName: firstName,
     );
 
-    await http.put('http://localhost:3000/api/users', body: newUser.toString());
+    await dio.put('$apiBasePath/users', data: newUser.toString());
   }
 
   static void editPhoneNumber(
@@ -119,7 +117,7 @@ class Http {
       firstName: user[0]['firstName'],
     );
 
-    await http.put('http://localhost:3000/api/users', body: newUser.toString());
+    await dio.put('$apiBasePath/users', data: newUser.toString());
   }
 
   static void editMessageText(
@@ -136,24 +134,24 @@ class Http {
           futureMessage.getDateTime,
           messageId);
     });
-    await http.put('http://localhost:3000/api/messages',
-        body: newMessage.toString());
+    await dio.put('$apiBasePath/messages',
+        data: newMessage.toString());
   }
 
   /// DELETE requests
 
   static Future<String> deleteChat(String chatId) async {
-    var x = await http.delete('$apiBasePath/chats/$chatId');
+    var x = await dio.delete('$apiBasePath/chats/$chatId');
     return jsonDecode(json.encode(x));
   }
 
   static Future<String> deleteMessage(String messageId) async {
-    var x = await http.delete('$apiBasePath/messages/$messageId');
+    var x = await dio.delete('$apiBasePath/messages/$messageId');
     return jsonDecode(json.encode(x));
   }
 
   static Future<Map<String, dynamic>> deleteUser(String userId) async {
-    var x = await http.delete('$apiBasePath/users/$userId');
+    var x = await dio.delete('$apiBasePath/users/$userId');
     return jsonDecode(json.encode(x));
   }
 }

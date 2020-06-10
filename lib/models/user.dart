@@ -11,7 +11,13 @@ class UserModel extends JSONModel {
   final String _id;
   final String _countryCode;
 
-  UserModel({firstName, phone, lastSeen, id, lastName, countryCode})
+  UserModel(
+      {String firstName,
+      String phone,
+      DateTime lastSeen,
+      String id,
+      String lastName,
+      String countryCode})
       : _firstName = firstName,
         _phoneNumber = phone,
         _lastName = lastName,
@@ -19,16 +25,6 @@ class UserModel extends JSONModel {
         _countryCode = countryCode,
         _id = id,
         super(phone);
-
-  @override
-  String toString() {
-    return '''{
-      "firstName": "$_firstName",
-      "lastName": "$_lastName",
-      "phoneNumber": "$_phoneNumber",
-      "lastSeen": "${Assistant.getDateString(_lastSeen)}"/// NOTE didn't add id because it causes error in post request      
-    }''';
-  }
 
   String get getUserName => '$_firstName $_lastName';
 
@@ -65,16 +61,27 @@ class UserModel extends JSONModel {
       'lastName': _lastName,
       'lastSeen': _lastSeen,
       'countryCode': _countryCode,
-      'countryCode': _id,
-      'countryCode': _phoneNumber, //TODO add Profile Picture URL
+      'id': _id,
+      'phoneNumber': _phoneNumber, //TODO add Profile Picture URL
+    };
+  }
+
+  Map<String, dynamic> toJSON() {
+    return {
+      'firstName': _firstName,
+      'lastName': _lastName,
+      'imageURLs': "[" "]",
+      'phoneNumber': '${getPhoneNumberString()}',
+      'lastSeen': _lastSeen.toString(),
     };
   }
 
   String getPhoneNumberString() {
+    String countryCodeInt = _countryCode.substring(1);
     if (_phoneNumber.startsWith('0')) {
       String number = _phoneNumber.substring(1);
-      return '$_countryCode$number';
+      return '$countryCodeInt$number';
     } else
-      return '$_countryCode$_phoneNumber';
+      return '$countryCodeInt$_phoneNumber';
   }
 }

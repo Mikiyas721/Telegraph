@@ -212,13 +212,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.14.0+3"
-  http:
-    dependency: "direct main"
-    description:
-      name: http
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.12.1"
   http_parser:
     dependency: transitive
     description:
@@ -511,6 +504,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.26"
+  toast:
+    dependency: "direct main"
+    description:
+      name: toast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.5"
   transparent_image:
     dependency: transitive
     description:
@@ -574,13 +574,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.8"
-  virtual_keyboard:
-    dependency: "direct main"
-    description:
-      name: virtual_keyboard
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.4"
   watcher:
     dependency: transitive
     description:

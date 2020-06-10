@@ -37,6 +37,7 @@ class PreferenceKeys {
   static final String saveToGallery = 'SaveToGallery';
   static final String autoPlayGIF = 'AutoPlayGIF';
   static final String isLoggedIn = "LoggedIn";
+  static final String userAPIId = "UserAPIId";
 
   static getPreference(String key) {
     SharedPreferences instance  = GetIt.instance.get();

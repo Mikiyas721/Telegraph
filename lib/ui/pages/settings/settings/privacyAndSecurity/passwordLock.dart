@@ -1,10 +1,7 @@
 import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/blocs/setting/passwordBloc.dart';
-import 'package:Telegraph/core/utils/preferenceKeys.dart';
-import 'package:Telegraph/models/value.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:virtual_keyboard/virtual_keyboard.dart';
 
 class PasswordLockPage extends StatelessWidget {
   @override
@@ -12,9 +9,6 @@ class PasswordLockPage extends StatelessWidget {
     return BlocProvider<PasswordBloc>(
       blocFactory: () => PasswordBloc(),
       builder: (BuildContext context, PasswordBloc bloc) {
-        int correctPassword =
-            bloc.passwordRepo.getPreference<int>(PreferenceKeys.userPassword);
-        print("Correct Password $correctPassword");
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: Column(
@@ -29,24 +23,27 @@ class PasswordLockPage extends StatelessWidget {
               ),
               Text(
                 "Enter your password",
-                style: TextStyle(color: Colors.white),
+                style: Theme.of(context).textTheme.body2,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 10, right: 10),
+                padding: EdgeInsets.only(left: 20, right: 20),
                 child: StreamBuilder(
-                    stream:
-                        bloc.valueRepo.getStream<ValueModel>((value) => value),
+                    stream: bloc.passwordCheck,
                     builder: (BuildContext context, AsyncSnapshot snapShot) {
                       return TextField(
+                        textAlign: TextAlign.center,
+                        obscureText: true,
                         showCursor: false,
                         autocorrect: false,
-                        readOnly: true,
+                        keyboardType: TextInputType.number,
                         onChanged: (String enteredValue) {
-                          if (int.parse(enteredValue) == correctPassword)
-                            Navigator.pushReplacementNamed(
-                                context, '/homePage');
+                         bloc.onPasswordEntered(enteredValue, context);
+                        },
+                        onSubmitted: (String value) {
+                          bloc.onPasswordEntered(value, context);
                         },
                         decoration: InputDecoration(
+                            errorText: snapShot.data,
                             hintText: snapShot.data == null
                                 ? ''
                                 : snapShot.data == null,
@@ -55,20 +52,6 @@ class PasswordLockPage extends StatelessWidget {
                       );
                     }),
               ),
-              VirtualKeyboard(
-                textColor: Colors.white,
-                fontSize: 28,
-                type: VirtualKeyboardType.Numeric,
-                onKeyPress: (int pressed) {
-                  if (bloc.valueRepo.dataStream.value.id ==
-                      bloc.passwordRepo.dataStream.value.password) {
-                    Navigator.pushReplacementNamed(context, '/homePage');
-                  } else {
-                    bloc.valueRepo.updateStream(ValueModel(
-                        '${bloc.valueRepo.dataStream.value.id}${pressed.toString()}'));
-                  }
-                },
-              )
             ],
           ),
         );

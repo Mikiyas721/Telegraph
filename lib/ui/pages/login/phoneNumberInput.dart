@@ -12,8 +12,7 @@ class PhoneNumberInputPage extends StatelessWidget {
     return BlocProvider<UserBloc>(
       blocFactory: () => UserBloc(),
       builder: (BuildContext context, UserBloc bloc) {
-        bloc.userRepo
-            .updateStream(UserModel(countryCode: '+251', phone: null));
+        bloc.userRepo.updateStream(UserModel(countryCode: '+251', phone: null));
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
@@ -37,11 +36,7 @@ class PhoneNumberInputPage extends StatelessWidget {
                     color: Theme.of(context).iconTheme.color,
                   ),
                   onPressed: () {
-                    if (bloc.validatePhoneNumber(
-                            bloc.userRepo.dataStream.value) ==
-                        null) {
-                      Navigator.pushNamed(context, '/phoneVerificationPage');
-                    } else {}
+                    bloc.onNumberEntered(context);
                   })
             ],
           ),
@@ -57,8 +52,7 @@ class PhoneNumberInputPage extends StatelessWidget {
                   onChanged: (CountryCode countryCode) {
                     bloc.userRepo.updateStream(UserModel(
                         countryCode: countryCode.dialCode,
-                        phone:
-                            bloc.userRepo.dataStream.value.getPhoneNumber));
+                        phone: bloc.userRepo.dataStream.value.getPhoneNumber));
                   },
                   initialSelection: '+251',
                   showCountryOnly: false,
@@ -77,8 +71,8 @@ class PhoneNumberInputPage extends StatelessWidget {
                         return TextField(
                           onChanged: (String enteredValue) {
                             bloc.userRepo.updateStream(UserModel(
-                                countryCode:
-                                    bloc.userRepo.dataStream.value.getCountryCode,
+                                countryCode: bloc
+                                    .userRepo.dataStream.value.getCountryCode,
                                 phone: enteredValue));
                           },
                           cursorColor: Theme.of(context).cursorColor,

@@ -18,9 +18,8 @@ class HomePage extends StatelessWidget {
     return BlocProvider<ChatBloc>(
       blocFactory: () => ChatBloc(),
       builder: (BuildContext context, ChatBloc bloc) {
-        bloc.fetchChats("12345");
-
-        /// Add Id Here
+        bloc.fetchChats(
+            bloc.chatRepo.getPreference<String>(PreferenceKeys.userAPIId));
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           drawer: MyDrawer(),
@@ -42,20 +41,15 @@ class HomePage extends StatelessWidget {
                           return IconButton(
                             icon: Icon(isLocked ? Icons.lock : Icons.lock_open),
                             onPressed: () {
-                              bloc.passwordRepo.updateStream(PasswordModel(
-                                  password:
-                                      bloc.passwordRepo.dataStream.value == null
-                                          ? null
-                                          : bloc.passwordRepo.dataStream.value
-                                              .password,
-                                  isLocked: !isLocked));
-                              bloc.passwordRepo.setPreference(
-                                  PreferenceKeys.isLocked, !isLocked);
+                              bloc.onLockUnlock(isLocked);
                             },
                             color: Theme.of(context).iconTheme.color,
                           );
                         }
-                        return null;
+                        return IconButton(
+                          onPressed: null,
+                          icon: Icon(null),
+                        );
                       });
                 },
               ),
