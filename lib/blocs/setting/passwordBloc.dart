@@ -25,8 +25,7 @@ class PasswordBloc extends Disposable {
     return false;
   }
   checkPassword(password){
-    return password.length == 4 &&
-        passwordRepo.getPreference<int>(PreferenceKeys.userPassword).toString()!=password
+    return passwordRepo.getPreference<int>(PreferenceKeys.userPassword).toString()!=password
         ? 'Invalid Password'
         : null;
   }

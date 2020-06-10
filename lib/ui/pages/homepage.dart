@@ -3,7 +3,6 @@ import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/blocs/setting/passwordBloc.dart';
 import 'package:Telegraph/core/utils/preferenceKeys.dart';
 import 'package:Telegraph/models/chat.dart';
-import 'package:Telegraph/models/password.dart';
 import 'package:Telegraph/others/assistant.dart';
 import 'package:Telegraph/ui/customWidgets/chatListItem.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +17,7 @@ class HomePage extends StatelessWidget {
     return BlocProvider<ChatBloc>(
       blocFactory: () => ChatBloc(),
       builder: (BuildContext context, ChatBloc bloc) {
-        bloc.fetchChats(
-            bloc.chatRepo.getPreference<String>(PreferenceKeys.userAPIId));
+        bloc.fetchChats();
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           drawer: MyDrawer(),
@@ -75,6 +73,20 @@ class HomePage extends StatelessWidget {
                   return Center(
                     child: Text("You have no chats"),
                   );
+                else if (snapShot.data.isNotEmpty && snapShot.data[0] == null)
+                  return Center(
+                      child: GestureDetector(
+                          onTap: () {
+                            bloc.fetchChats();
+                            bloc.chatRepo.setChat(null);
+                          },
+                          child: Text(
+                            "Couldn't Connect.\nPlease Check you're connection",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.blue),
+                          )));
                 return ListView.separated(
                   itemCount: snapShot.data.length,
                   separatorBuilder: (BuildContext context, int index) {

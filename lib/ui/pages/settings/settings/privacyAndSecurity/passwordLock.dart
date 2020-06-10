@@ -33,11 +33,10 @@ class PasswordLockPage extends StatelessWidget {
                       return TextField(
                         textAlign: TextAlign.center,
                         obscureText: true,
-                        showCursor: false,
                         autocorrect: false,
                         keyboardType: TextInputType.number,
                         onChanged: (String enteredValue) {
-                         bloc.onPasswordEntered(enteredValue, context);
+                          bloc.onPasswordEntered(enteredValue, context);
                         },
                         onSubmitted: (String value) {
                           bloc.onPasswordEntered(value, context);

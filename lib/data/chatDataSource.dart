@@ -13,7 +13,7 @@ class ChatRepo extends ListRepo {
 
   FutureOr<List<ChatModel>> getChatModel({String userId}) async {
     List<dynamic> responseList = await Http.getChatsForUser(userId);
-    if (responseList.isNotEmpty) {
+    if (responseList!=null&&responseList.isNotEmpty) {
       List<ChatModel> chatModelList = List();
 
       responseList.forEach((chat) async {
@@ -42,7 +42,7 @@ class ChatRepo extends ListRepo {
       });
       return chatModelList;
     }
-    return [];
+    return [null];
   }
 
   Function(List<ChatModel> chatModel) get setChat => dataStream.add;
