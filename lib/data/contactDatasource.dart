@@ -1,13 +1,13 @@
 import 'package:Telegraph/core/jsonModel.dart';
 import 'package:Telegraph/core/repository.dart';
 import 'package:Telegraph/core/utils/preferenceKeys.dart';
-import 'package:Telegraph/data/http.dart';
+import 'package:Telegraph/data/mixin/http.dart';
 import 'package:Telegraph/models/contact.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:hive/hive.dart';
 
-class ContactRepo extends ListRepo {
+class ContactRepo extends ListRepo<ContactModel> with Http{
   ContactRepo(BehaviorSubject<List<JSONModel>> subject) : super(subject);
 
   Stream<List<ContactModel>> get phoneContactStream =>
@@ -25,9 +25,15 @@ class ContactRepo extends ListRepo {
     return fetched.toList();
   }
 
-  Future<List<ContactModel>> getApiContacts() async {
-    List<dynamic> apiRecordedContacts = await Http.getContactsForUser(
-        getPreference<String>(PreferenceKeys.userAPIId));
+  Future<List<Map<String, dynamic>>> getApiContacts() async {
+    String userId = getPreference<String>(PreferenceKeys.userAPIId);
+    Response chat =
+    await dio.get('$apiBasePath/contacts?filter[where][userId]=$userId');
+      return chat.data;
+  }
+
+   Future<List<ContactModel>> getContacts() async {
+    List<dynamic> apiRecordedContacts = await getAllContacts();
     List<ContactModel> contactsList = List();
     if (apiRecordedContacts != null) {
       apiRecordedContacts.forEach((contactMap) {
@@ -41,22 +47,9 @@ class ContactRepo extends ListRepo {
     return contactsList;
   }
 
-  Future<List<ContactModel>> getAllContacts() async {
-    List<dynamic> apiRecordedContacts = await Http.getAllContacts();
-    List<ContactModel> contactsList = List();
-    if (apiRecordedContacts != null) {
-      apiRecordedContacts.forEach((contactMap) {
-        contactsList.add(ContactModel(
-          phoneNumber: contactMap['phoneNumber'],
-          firstName: contactMap['firstName'],
-          lastName: contactMap['lastName'],
-        ));
-      });
-    }
-    return contactsList;
-  }
-
-  Future<dynamic> postContact(ContactModel contactModel) async {
-    await Http.addContact(contactModel);
+  Future<bool> postContact(ContactModel contactModel) async {
+    Response response  = await addContact(contactModel);
+    if(response.statusCode==200) return true;
+    return false;
   }
 }

@@ -7,10 +7,17 @@ class ContactModel extends JSONModel {
   final String lastName;
   final String lastSeen;
   final String phoneNumber;
+  final String countryCode;
   final String userId;
 
   ContactModel(
-      {String phoneNumber, this.initials,this.firstName, this.lastSeen, this.lastName, this.userId})
+      {String phoneNumber,
+      this.initials,
+      this.firstName,
+      this.countryCode,
+      this.lastSeen,
+      this.lastName,
+      this.userId})
       : phoneNumber = phoneNumber,
         super(phoneNumber);
 
@@ -31,8 +38,11 @@ class ContactModel extends JSONModel {
         lastName: map['lastName'],
         userId: map['userId']);
   }
+
+  String get name => lastName == null ? firstName : firstName + " " + lastName;
 }
-class ContactAdapter extends TypeAdapter<ContactModel>{
+
+class ContactAdapter extends TypeAdapter<ContactModel> {
   @override
   read(BinaryReader reader) {
     return null;
@@ -42,7 +52,5 @@ class ContactAdapter extends TypeAdapter<ContactModel>{
   int get typeId => 33;
 
   @override
-  void write(BinaryWriter writer, obj) {
-  }
-
+  void write(BinaryWriter writer, obj) {}
 }

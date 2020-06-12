@@ -48,7 +48,7 @@ class UserInformationPage extends StatelessWidget {
                     child: TextField(
                       textAlign: TextAlign.center,
                       onChanged: (String newValue) {
-                        bloc.updateName(newValue, true);
+                        bloc.updateName(newValue, true, true);
                       },
                       decoration: InputDecoration(
                           hintText: 'First Name(Required)',
@@ -69,7 +69,7 @@ class UserInformationPage extends StatelessWidget {
                       child: TextField(
                         textAlign: TextAlign.center,
                         onChanged: (String newValue) {
-                          bloc.updateName(newValue, false);
+                          bloc.updateName(newValue, false, true);
                         },
                         decoration: InputDecoration(
                             hintText: 'Last Name(Optional)',

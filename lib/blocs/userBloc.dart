@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:Telegraph/core/utils/disposable.dart';
 import 'package:Telegraph/core/utils/preferenceKeys.dart';
 import 'package:Telegraph/core/utils/smsHandler.dart';
-import 'package:Telegraph/data/http.dart';
 import 'package:Telegraph/data/userDataSource.dart';
 import 'package:Telegraph/models/user.dart';
 import 'package:dio/dio.dart';
@@ -59,12 +58,17 @@ class UserBloc extends Disposable {
     if (response.statusCode == 200) return true;
     return false;
   }
+  Future<bool> addNewAccount(UserModel newUser) async {
+    Response response = await userRepo.addUser(newUser);
+    if (response.statusCode == 200) return true;
+    return false;
+  }
 
   Future<bool> isUserNew(BuildContext context) async {
     UserModel userModel = userRepo.subjectValue;
     try {
       dynamic user =
-          await Http.getUserByNumber('${userModel.getPhoneNumberString()}');
+          await userRepo.getUserByNumber('${userModel.getPhoneNumberString()}');
       return user == null ? true : false;
     } catch (SocketException) {
       Toast.show('Unable to connect', context);
@@ -74,7 +78,7 @@ class UserBloc extends Disposable {
   Future<bool> saveUserAPIId() async {
     UserModel userModel = userRepo.subjectValue;
     Map<String, dynamic> user =
-        await Http.getUserByNumber(userModel.getPhoneNumberString());
+        await userRepo.getUserByNumber(userModel.getPhoneNumberString());
     if (user != null) {
       return await userRepo.setPreference<String>(
           PreferenceKeys.userAPIId, user['id']);
@@ -109,7 +113,7 @@ class UserBloc extends Disposable {
     }
   }
 
-  updateName(String newValue, bool isFirstName) {
+  updateName(String newValue, bool isFirstName, bool isUserInfo) {
     UserModel previous = userRepo.dataStream.value;
     if (isFirstName) {
       userRepo.updateStream(UserModel(

@@ -5,7 +5,6 @@ class UserModel extends JSONModel {
   final String _firstName;
   final String _lastName;
   final String _phoneNumber;
-
   /* final List<String> _profilePictureURL;*/
   final DateTime _lastSeen;
   final String _id;

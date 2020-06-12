@@ -2,6 +2,7 @@ import 'package:Telegraph/blocs/contactBloc.dart';
 import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/models/contact.dart';
 import 'package:Telegraph/ui/customWidgets/contactItem.dart';
+import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/material.dart';
 
 class ContactsPage extends StatelessWidget {
@@ -10,6 +11,7 @@ class ContactsPage extends StatelessWidget {
     return BlocProvider<ContactBloc>(
       blocFactory: () => ContactBloc(),
       builder: (BuildContext context, ContactBloc bloc) {
+        bloc.fetchApiContacts();
         return Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             appBar: AppBar(
@@ -60,18 +62,29 @@ class ContactsPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.body2,
                       ));
                     }
-                    return ListView.separated(
-                      itemCount: 10,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ContactItem(
-                            imageUrl: 'assets/avatar_1.png',
-                            userName: snapShot.data[index].firstName,
-                            lastSeen: snapShot.data[index].lastSeen);
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return Divider(color: Theme.of(context).dividerColor);
-                      },
-                    );
+                    final controller = ScrollController();
+                    return DraggableScrollbar.arrows(
+                        controller: controller,
+                        child: ListView.builder(
+                          controller: controller,
+                          itemCount: snapShot.data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return ContactItem(
+                              imageUrl: 'assets/avatar_1.png',
+                              userName: snapShot.data[index].firstName,
+                              lastSeen: snapShot.data[index].lastSeen,
+                              onTap: () {
+                                bloc.contactRepo.updateStream([
+                                  ContactModel(
+                                      firstName: snapShot.data[index].firstName,
+                                      lastName: snapShot.data[index].lastName,
+                                      lastSeen: snapShot.data[index].lastSeen)
+                                ]);
+                                Navigator.pushNamed(context, '/chattingPage');
+                              },
+                            );
+                          },
+                        ));
                   }
                 }));
       },

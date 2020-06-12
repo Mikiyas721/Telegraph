@@ -1,8 +1,10 @@
 import 'package:Telegraph/data/callDataSource.dart';
 import 'package:Telegraph/data/contactDatasource.dart';
+import 'package:Telegraph/data/messageDataSource.dart';
 import 'package:Telegraph/models/call.dart';
 import 'package:Telegraph/models/chat.dart';
 import 'package:Telegraph/models/contact.dart';
+import 'package:Telegraph/models/message.dart';
 import 'package:Telegraph/models/password.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
@@ -29,4 +31,5 @@ inject() async {
 
   GetIt.instance.registerLazySingleton<CallRepo>(() => CallRepo(BehaviorSubject<List<CallModel>>()));
   GetIt.instance.registerLazySingleton<ChatRepo>(() => ChatRepo(BehaviorSubject<List<ChatModel>>()));
+  GetIt.instance.registerLazySingleton<MessageRepo>(() => MessageRepo(BehaviorSubject<List<MessageModel>>()));
 }

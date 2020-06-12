@@ -1,106 +1,83 @@
+import 'package:Telegraph/blocs/chatBloc.dart';
+import 'package:Telegraph/blocs/contactBloc.dart';
+import 'package:Telegraph/blocs/provider/provider.dart';
+import 'package:Telegraph/models/message.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
-import 'package:Telegraph/ui/customWidgets/myImageView.dart';
 import 'package:Telegraph/ui/pages/profilePage.dart';
-import '../../models/chat.dart';
 
 class ChattingPage extends StatelessWidget {
-  final String chatTitle;
-  final String imageURL;
-  final List<String> menuListString;
-  final ChatType chatType;
-
-  ChattingPage(this.chatTitle, this.imageURL, this.chatType,
-      {this.menuListString});
-
-  List<PopupMenuEntry> getMenu() {
-    if (menuListString != null) {
-      List<PopupMenuEntry> menuList = [];
-      for (String menu in menuListString) {
-        menuList.add(new PopupMenuItem(child: Text(menu)));
-      }
-      return menuList;
-    } else if (chatType == ChatType.GROUP) {
-      List<String> menuListString = [
-        'Search',
-        'Clear history',
-        'Delete and leave Group',
-        'Mute Notification'
-      ];
-      List<PopupMenuEntry> menuList = [];
-      for (String menu in menuListString) {
-        menuList.add(new PopupMenuItem(child: Text(menu)));
-      }
-      return menuList;
-    } else if (chatType == ChatType.SINGLE) {
-      List<String> menuListString = [
-        'Call',
-        'Search',
-        'Clear history',
-        'Delete chat',
-        'Mute Notification'
-      ];
-      List<PopupMenuEntry> menuList = [];
-      for (String menu in menuListString) {
-        menuList.add(new PopupMenuItem(child: Text(menu)));
-      }
-      return menuList;
-    }
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
-            leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
+    return BlocProvider<ContactBloc>(
+      blocFactory: () => ContactBloc(),
+      builder: (BuildContext context, ContactBloc bloc) {
+        String name = bloc.contactRepo.dataStream.value[0].name;
+        return Scaffold(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            appBar: AppBar(
+              backgroundColor: Theme.of(context).primaryColor,
+              title: GestureDetector(
+                child: Row(
+                  children: <Widget>[
+                    CircleAvatar(
+                      backgroundImage: AssetImage('assets/avatar_1.png'),
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          '$name',
+                          style: Theme.of(context).textTheme.title,
+                        ),
+                        Text(
+                          '${bloc.contactRepo.dataStream.value[0].lastSeen}',
+                          style: Theme.of(context).textTheme.caption,
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => ProfilePage()));
                 },
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                )),
-            title: GestureDetector(
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(right: 10, top: 7, bottom: 7),
-                    child: MyImageView(imageURL:imageURL),
-                  ),
-                  Text(chatTitle)
-                ],
               ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => ProfilePage()));
-              },
-            ),
-            actions: <Widget>[
-              PopupMenuButton(
-                onSelected: (selectedValue) {},
-                itemBuilder: (context) {
-                  return getMenu();
-                },
-              )
-            ],
-          ),
-          body: DashChat(
-              onLongPressMessage: (ChatMessage chatMessage) {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) =>
-                        getMessageDialog(context));
-              },
-              messages: [
-                ChatMessage(text: "Testing", user: ChatUser(name: "Mikiyas"))
+              actions: <Widget>[
+                PopupMenuButton(
+                  onSelected: (selectedValue) {},
+                  itemBuilder: (context) {
+                    return null;
+                  },
+                )
               ],
-              user: ChatUser(name: "Mikiyas"),
-              onSend: (ChatMessage chatMessage) {}));
+            ),
+            body: BlocProvider<ChatBloc>(
+                blocFactory: () => ChatBloc(),
+                builder: (BuildContext context, ChatBloc bloc) {
+                  bloc.getChatMessage(bloc.chatRepo.dataStream.value[0].id);
+                  return StreamBuilder(
+                    stream: bloc.messagesStream,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<ChatMessage>> snapshot) {
+                      return DashChat(
+                          showAvatarForEveryMessage: false,
+                          onLongPressMessage: (ChatMessage chatMessage) {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    getMessageDialog(context));
+                          },
+                          messages: snapshot.data,
+                          user: ChatUser(name: '$name'),
+                          onSend: (ChatMessage chatMessage) {});
+                    },
+                  );
+                }));
+      },
+    );
   }
 
   Widget getMessageDialog(BuildContext context) {

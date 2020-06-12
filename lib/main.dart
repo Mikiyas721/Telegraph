@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
           PhoneVerificationPage(),
       '/userInformationPage': (BuildContext context) => UserInformationPage(),
       '/chattingPage': (BuildContext context) =>
-          ChattingPage('Kebede', '', ChatType.SINGLE),
+          ChattingPage(),
       '/searchPage': (BuildContext context) => SearchPage(),
       '/contactsPage': (BuildContext context) => ContactsPage(),
       '/allContactsPage': (BuildContext context) => AllContactsPage(),

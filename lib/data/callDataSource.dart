@@ -1,20 +1,20 @@
 import 'dart:async';
 import 'package:Telegraph/core/jsonModel.dart';
-import 'package:Telegraph/data/http.dart';
+import 'package:Telegraph/data/mixin/http.dart';
 import 'package:Telegraph/core/repository.dart';
 import 'package:Telegraph/models/call.dart';
 import 'package:Telegraph/others/assistant.dart';
 import 'package:Telegraph/ui/customWidgets/callItem.dart';
-import 'package:rxdart/src/subjects/behavior_subject.dart';
+import 'package:rxdart/rxdart.dart';
 
-class CallRepo extends ListRepo {
+class CallRepo extends ListRepo with Http{
   CallRepo(BehaviorSubject<List<JSONModel>> subject) : super(subject);
 
 
   Stream<List<CallModel>> get callStream => dataStream.map((call) => call);
 
   FutureOr<List<CallModel>> getCallModels({String userId}) async {
-    List<dynamic> responseBody = await Http.getCallsForUser(userId);
+    List<dynamic> responseBody = await getCallsForUser(userId);
     if (responseBody.isNotEmpty) {
       List<CallModel> callsList = List<CallModel>();
       responseBody.forEach((call) {
@@ -31,7 +31,7 @@ class CallRepo extends ListRepo {
             ? secondPersonId = call['receiverId']
             : secondPersonId = call['callerId'];
         print('Second Person Id $secondPersonId');
-        final secondPersonList = await Http.getUserById(secondPersonId);
+        final secondPersonList = await getUserById(secondPersonId);
         if (!(secondPersonList['lastName'] == null)) {
           currentCall.key = secondPersonList['firstName'] +
               " " +
