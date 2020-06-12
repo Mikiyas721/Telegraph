@@ -13,7 +13,7 @@ class AllContactsPage extends StatelessWidget {
     return BlocProvider<ContactBloc>(
         blocFactory: () => ContactBloc(),
         builder: (BuildContext context, ContactBloc bloc) {
-          bloc.getContact();
+          bloc.fetchApiContacts();
           return Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             appBar: AppBar(
@@ -87,52 +87,33 @@ class AllContactsPage extends StatelessWidget {
                   },
                 ),
                 StreamBuilder(
-                    stream: bloc.contactRepo.contactStream,
+                    stream: bloc.contactRepo.apiContactStream,
                     builder: (BuildContext context,
                         AsyncSnapshot<List<ContactModel>> snapShot) {
                       if (snapShot.data == null) {
-                        return Center(
-                            child: CircularProgressIndicator(
-                          backgroundColor: Theme.of(context).iconTheme.color,
-                        ));
+                        return Center(child: CircularProgressIndicator());
                       } else {
                         if (snapShot.data.isEmpty) {
                           return Center(
                               child: Text(
-                            "None of you're contacts have Telegraph",
+                            "None of your contacts have Telegraph",
                             style: Theme.of(context).textTheme.body2,
                           ));
                         }
-                        return Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: <Widget>[
-                            Card(
-                              margin: EdgeInsets.all(0),
-                              child: Padding(
-                                child: Text(
-                                  "Contacts",
-                                ),
-                                padding: EdgeInsets.only(
-                                    left: 10, top: 7, bottom: 7),
-                              ),
-                              color: Theme.of(context).primaryColorLight,
-                            ),
-                            ListView.separated(
-                                itemCount: snapShot.data.length,
-                                separatorBuilder:
-                                    (BuildContext context, int index) {
-                                  return Divider(
-                                      color: Theme.of(context).dividerColor);
-                                },
-                                itemBuilder: (BuildContext context, int index) {
-                                  return ContactItem(
-                                    imageUrl: 'assets/avatar_1.png',
-                                    userName: snapShot.data[index].firstName,
-                                    lastSeen: snapShot.data[index].lastSeen,
-                                  );
-                                })
-                          ],
-                        );
+                        return ListView.separated(
+                            itemCount: snapShot.data.length,
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return Divider(
+                                  color: Theme.of(context).dividerColor);
+                            },
+                            itemBuilder: (BuildContext context, int index) {
+                              return ContactItem(
+                                imageUrl: 'assets/avatar_1.png',
+                                userName: snapShot.data[index].firstName,
+                                lastSeen: snapShot.data[index].lastSeen,
+                              );
+                            });
                       }
                     })
               ],
@@ -147,3 +128,14 @@ class AllContactsPage extends StatelessWidget {
         });
   }
 }
+/*Card(
+margin: EdgeInsets.all(0),
+child: Padding(
+child: Text(
+"Contacts",
+),
+padding: EdgeInsets.only(
+left: 10, top: 7, bottom: 7),
+),
+color: Theme.of(context).primaryColorLight,
+)*/

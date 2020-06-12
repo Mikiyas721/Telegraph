@@ -1,6 +1,8 @@
 import 'package:Telegraph/core/jsonModel.dart';
+import 'package:hive/hive.dart';
 
 class ContactModel extends JSONModel {
+  final String initials;
   final String firstName;
   final String lastName;
   final String lastSeen;
@@ -8,9 +10,9 @@ class ContactModel extends JSONModel {
   final String userId;
 
   ContactModel(
-      {String key, this.firstName, this.lastSeen, this.lastName, this.userId})
-      : phoneNumber = key,
-        super(key);
+      {String phoneNumber, this.initials,this.firstName, this.lastSeen, this.lastName, this.userId})
+      : phoneNumber = phoneNumber,
+        super(phoneNumber);
 
   @override
   Map<String, dynamic> toMap() {
@@ -24,9 +26,23 @@ class ContactModel extends JSONModel {
 
   factory ContactModel.fromMap(Map<String, dynamic> map) {
     return ContactModel(
-        key: map['phoneNumber'],
+        phoneNumber: map['phoneNumber'],
         firstName: map['firstName'],
         lastName: map['lastName'],
         userId: map['userId']);
   }
+}
+class ContactAdapter extends TypeAdapter<ContactModel>{
+  @override
+  read(BinaryReader reader) {
+    return null;
+  }
+
+  @override
+  int get typeId => 33;
+
+  @override
+  void write(BinaryWriter writer, obj) {
+  }
+
 }

@@ -1,60 +1,53 @@
-import 'package:Telegraph/core/dataSource.dart';
 import 'package:Telegraph/core/jsonModel.dart';
 import 'package:Telegraph/core/repository.dart';
+import 'package:Telegraph/core/utils/preferenceKeys.dart';
 import 'package:Telegraph/data/http.dart';
 import 'package:Telegraph/models/contact.dart';
 import 'package:contacts_service/contacts_service.dart';
-import 'package:rxdart/src/subjects/behavior_subject.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:hive/hive.dart';
 
 class ContactRepo extends ListRepo {
   ContactRepo(BehaviorSubject<List<JSONModel>> subject) : super(subject);
 
+  Stream<List<ContactModel>> get phoneContactStream =>
+      getStream((contact) => contact);
 
-  Stream<List<ContactModel>> get contactStream =>
-      dataStream.map((contact) => contact);
+  Function(List<ContactModel>) get setPhoneContact => dataStream.add;
 
-  Function(List<ContactModel>) get setContacts => dataStream.add;
+  Stream<List<ContactModel>> get apiContactStream =>
+      getStream((contact) => contact);
 
-  Future<List<ContactModel>> getPhoneContacts() async {
-    List<ContactModel> contactsList = List<ContactModel>();
-    Iterable<Contact> contacts;
-    try {
-      contacts = await ContactsService.getContacts();
-      contacts = contacts.toList();
-      if (contacts != null) {
-        contacts.forEach((contact) async {
-          Iterable<Item> numbers = contact.phones;
-          numbers = numbers.toList();
-          for (Item number in numbers) {
-            dynamic user = await Http.getUserByNumber(number.value);
-            if (user!={}) {
-              contactsList.add(ContactModel(
-                key: number.value,
-                firstName: contact.givenName,
-                lastName: contact.displayName,
-                lastSeen: user['lastSeen']
-              ));
-              break;
-            }
-          }
-        });
-        //write these contacts to phone
-        //ContactsService.addContact();
-      }
-    } catch (error) {
-      throw Exception("Permission Denied");
-    }
-    return contactsList;
+  Function(List<ContactModel>) get setApiContact => dataStream.add;
+
+  Future<List<Contact>> getPhoneContacts() async {
+    Iterable<Contact> fetched = await ContactsService.getContacts();
+    return fetched.toList();
   }
 
-  Future<List<ContactModel>> getApiContacts(String userId) async {
-    List<dynamic> apiRecordedContacts = await Http.getContactsForUser(userId);
+  Future<List<ContactModel>> getApiContacts() async {
+    List<dynamic> apiRecordedContacts = await Http.getContactsForUser(
+        getPreference<String>(PreferenceKeys.userAPIId));
     List<ContactModel> contactsList = List();
     if (apiRecordedContacts != null) {
       apiRecordedContacts.forEach((contactMap) {
         contactsList.add(ContactModel(
-          key: contactMap['phoneNumber'],
+          phoneNumber: contactMap['phoneNumber'],
+          firstName: contactMap['firstName'],
+          lastName: contactMap['lastName'],
+        ));
+      });
+    }
+    return contactsList;
+  }
+
+  Future<List<ContactModel>> getAllContacts() async {
+    List<dynamic> apiRecordedContacts = await Http.getAllContacts();
+    List<ContactModel> contactsList = List();
+    if (apiRecordedContacts != null) {
+      apiRecordedContacts.forEach((contactMap) {
+        contactsList.add(ContactModel(
+          phoneNumber: contactMap['phoneNumber'],
           firstName: contactMap['firstName'],
           lastName: contactMap['lastName'],
         ));

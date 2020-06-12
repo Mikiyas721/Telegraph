@@ -116,7 +116,7 @@ class MyDrawer extends StatelessWidget {
                     style: Theme.of(context).textTheme.body2,
                   ),
                   onTap: () async {
-                    await Assistant.getPermissions();
+                    await Assistant.getPermission();
                     Navigator.pushNamed(context, '/contactsPage');
                   },
                 ),
@@ -138,7 +138,9 @@ class MyDrawer extends StatelessWidget {
                     'Invite Friends',
                     style: Theme.of(context).textTheme.body2,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/inviteFriendsPage');
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.settings,

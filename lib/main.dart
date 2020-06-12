@@ -1,5 +1,6 @@
 import 'package:Telegraph/core/utils/preferenceKeys.dart';
 import 'package:Telegraph/models/theme.dart';
+import 'package:Telegraph/ui/pages/inviteFriendsPage.dart';
 import 'package:Telegraph/ui/pages/login/userInformationPage.dart';
 import 'package:Telegraph/ui/pages/settings/settings/privacyAndSecurity/passwordLock.dart';
 import './models/chat.dart';
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
       '/searchPage': (BuildContext context) => SearchPage(),
       '/contactsPage': (BuildContext context) => ContactsPage(),
       '/allContactsPage': (BuildContext context) => AllContactsPage(),
+      '/inviteFriendsPage': (BuildContext context) => InviteFriendsPage(),
       '/newGroupPage': (BuildContext context) => NewGroupPage(''),
       '/newChannelPage': (BuildContext context) => NewChannelPage(),
       '/newContactPage': (BuildContext context) => NewContactPage(),

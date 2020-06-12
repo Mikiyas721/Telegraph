@@ -69,14 +69,14 @@ class ItemRepo<T extends JSONModel> extends Repo {
   }
 }
 
-class ListRepo<T extends JSONModel> extends Repo {
+class ListRepo<T> extends Repo {
   ListRepo(BehaviorSubject<List<T>> subject) : super(subject);
 
   BehaviorSubject<List<T>> get dataStream => _dataStream;
 
   void updateStream(List<T> t) => _dataStream.add(t);
 
-  Stream<List<T>> getStream(Function map) => _dataStream.map(map);
+  Stream<S> getStream<S>(S Function(dynamic) map) => _dataStream.map(map);
 
   @override
   void dispose() {

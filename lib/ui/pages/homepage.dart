@@ -111,7 +111,7 @@ class HomePage extends StatelessWidget {
             backgroundColor:
                 Theme.of(context).floatingActionButtonTheme.backgroundColor,
             onPressed: () async {
-              await Assistant.getPermissions();
+              await Assistant.getPermission();
               Navigator.pushNamed(context, '/allContactsPage');
             },
             child: Icon(

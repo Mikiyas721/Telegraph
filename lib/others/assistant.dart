@@ -75,9 +75,10 @@ class Assistant {
     PreferenceKeys.setPreference<bool>(PreferenceKeys.isLocked, false);
   }
 
-  static Future<Map<Permission, PermissionStatus>> getPermissions() async {
+  static Future<Map<Permission, PermissionStatus>> getPermission() async {
     return await [
       Permission.contacts,
+      Permission.storage,
     ].request();
   }
 

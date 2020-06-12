@@ -53,7 +53,11 @@ class Http {
   static Future<List<dynamic>> getContactsForUser(String userId) async {
     Response chat =
         await dio.get('$apiBasePath/contacts?filter[where][userId]=$userId');
-    return json.decode(chat.data);
+    return chat.data;
+  }
+  static Future<List<dynamic>> getAllContacts() async {
+    Response chat = await dio.get('$apiBasePath/contacts');
+    return chat.data;
   }
 
   static Future<dynamic> getUserById(String userId) async {
