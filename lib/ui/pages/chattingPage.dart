@@ -1,18 +1,19 @@
 import 'package:Telegraph/blocs/chatBloc.dart';
 import 'package:Telegraph/blocs/contactBloc.dart';
 import 'package:Telegraph/blocs/provider/provider.dart';
+import 'package:Telegraph/core/mixins/date_formatter.dart';
 import 'package:Telegraph/models/message.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:Telegraph/ui/pages/profilePage.dart';
 
-class ChattingPage extends StatelessWidget {
+class ChattingPage extends StatelessWidget with FormatterMixin {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ContactBloc>(
       blocFactory: () => ContactBloc(),
       builder: (BuildContext context, ContactBloc bloc) {
-        String name = bloc.contactRepo.dataStream.value[0].name;
+        String name = bloc.contactRepo.dataStream.value.name;
         return Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             appBar: AppBar(
@@ -23,18 +24,22 @@ class ChattingPage extends StatelessWidget {
                     CircleAvatar(
                       backgroundImage: AssetImage('assets/avatar_1.png'),
                     ),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Text(
-                          '$name',
-                          style: Theme.of(context).textTheme.title,
-                        ),
-                        Text(
-                          '${bloc.contactRepo.dataStream.value[0].lastSeen}',
-                          style: Theme.of(context).textTheme.caption,
-                        )
-                      ],
+                    Padding(
+                      padding: EdgeInsets.only(left: 7),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            '$name',
+                            style: Theme.of(context).textTheme.title,
+                          ),
+                          Text(
+                            '${formatLog(getDateTime(bloc.contactRepo.dataStream.value.lastSeen))}',
+                            style: Theme.of(context).textTheme.caption,
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -57,7 +62,7 @@ class ChattingPage extends StatelessWidget {
             body: BlocProvider<ChatBloc>(
                 blocFactory: () => ChatBloc(),
                 builder: (BuildContext context, ChatBloc bloc) {
-                  bloc.getChatMessage(bloc.chatRepo.dataStream.value[0].id);
+                  bloc.fetchChatMessages(bloc.chatRepo.dataStream.value.id);
                   return StreamBuilder(
                     stream: bloc.messagesStream,
                     builder: (BuildContext context,
@@ -70,7 +75,7 @@ class ChattingPage extends StatelessWidget {
                                 builder: (BuildContext context) =>
                                     getMessageDialog(context));
                           },
-                          messages: snapshot.data,
+                          messages: snapshot.data == null ? [] : snapshot.data,
                           user: ChatUser(name: '$name'),
                           onSend: (ChatMessage chatMessage) {});
                     },

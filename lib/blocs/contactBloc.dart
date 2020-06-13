@@ -1,24 +1,31 @@
 import 'package:Telegraph/core/mixins/validator_mixin.dart';
 import 'package:Telegraph/core/utils/disposable.dart';
+import 'package:Telegraph/core/utils/preferenceKeys.dart';
+import 'package:Telegraph/data/chatDataSource.dart';
 import 'package:Telegraph/data/contactDatasource.dart';
+import 'package:Telegraph/models/chat.dart';
 import 'package:Telegraph/models/contact.dart';
 import 'package:Telegraph/others/assistant.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:get_it/get_it.dart';
 
 class ContactBloc extends Disposable with ValidatorMixin {
+  ContactListRepo get contactListRepo => GetIt.instance.get();
+
   ContactRepo get contactRepo => GetIt.instance.get();
 
+  ChatRepo get chatRepo => GetIt.instance.get();
+
   void fetchFriendsWithAccount() async {
-    List<Contact> contacts = await contactRepo.getPhoneContacts();
-    List<ContactModel> allApiContacts = await contactRepo.getContacts();
+    List<Contact> contacts = await contactListRepo.getPhoneContacts();
+    List<ContactModel> allApiContacts = await contactListRepo.getContacts();
     List<ContactModel> friendsWithAccount = List();
     for (Contact contact in contacts) {
       for (ContactModel api in allApiContacts) {
         if (contact.phones.toList().isNotEmpty &&
             contact.phones.toList()[0].toString() == api.phoneNumber) {
           friendsWithAccount.add(api);
-          contactRepo.setApiContact(friendsWithAccount);
+          contactListRepo.setApiContact(friendsWithAccount);
           break;
         }
       }
@@ -36,7 +43,7 @@ class ContactBloc extends Disposable with ValidatorMixin {
       return contacts;
     else {*/
     await Assistant.getPermission();
-    List<Contact> contacts = await contactRepo.getPhoneContacts();
+    List<Contact> contacts = await contactListRepo.getPhoneContacts();
     List<ContactModel> contactModel = List();
     for (Contact contact in contacts) {
       contactModel.add(ContactModel(
@@ -45,73 +52,83 @@ class ContactBloc extends Disposable with ValidatorMixin {
           phoneNumber: contact.phones.toList().isEmpty
               ? contact.displayName
               : contact.phones.toList()[0].toString()));
-      contactRepo.setPhoneContact(contactModel);
+      contactListRepo.setPhoneContact(contactModel);
 
       //contactsBox.put('phone_contacts', contactModel);
     }
   }
 
   void fetchApiContacts() async {
-    List<Map<String, dynamic>> allApiContacts =
-        await contactRepo.getApiContacts();
+    List<dynamic> allApiContacts = await contactListRepo.getApiContacts();
     List<ContactModel> apiAccounts = List();
-    for (Map<String, dynamic> apiContact in allApiContacts) {
-      Map<String, dynamic> user =
-          await contactRepo.getUserById(apiContact['userId']);
-      apiAccounts.add(ContactModel(
-          phoneNumber: apiContact['phoneNumber'],
-          firstName: apiContact['firstName'],
-          lastName: apiContact['lastName'],
-          userId: apiContact['userId'],
-          lastSeen: user['lastSeen']));
-      contactRepo.setApiContact(apiAccounts);
+    for (dynamic apiContact in allApiContacts) {
+      dynamic user = await contactListRepo.getUserById(apiContact['userId']);
+      if (user != null) {
+        apiAccounts.add(ContactModel(
+            phoneNumber: apiContact['phoneNumber'].toString(),
+            firstName: apiContact['firstName'],
+            lastName: apiContact['lastName'],
+            userId: apiContact['userId'],
+            lastSeen: user['lastSeen']));
+      }
+      contactListRepo.setApiContact(apiAccounts);
     }
   }
 
   void updateAccountValue(String value, String whichValue) {
     if (whichValue == "firstName") {
-      contactRepo.updateStream([
+      contactListRepo.updateStream([
         ContactModel(
             firstName: value,
-            lastName: contactRepo.dataStream.value[0].lastName,
-            phoneNumber: contactRepo.dataStream.value[0].phoneNumber,
-            countryCode: contactRepo.dataStream.value[0].countryCode)
+            lastName: contactListRepo.dataStream.value[0].lastName,
+            phoneNumber: contactListRepo.dataStream.value[0].phoneNumber,
+            countryCode: contactListRepo.dataStream.value[0].countryCode)
       ]);
     } else if (whichValue == "lastName") {
-      contactRepo.updateStream([
+      contactListRepo.updateStream([
         ContactModel(
-            firstName: contactRepo.dataStream.value[0].firstName,
+            firstName: contactListRepo.dataStream.value[0].firstName,
             lastName: value,
-            phoneNumber: contactRepo.dataStream.value[0].phoneNumber,
-            countryCode: contactRepo.dataStream.value[0].countryCode)
+            phoneNumber: contactListRepo.dataStream.value[0].phoneNumber,
+            countryCode: contactListRepo.dataStream.value[0].countryCode)
       ]);
     } else if (whichValue == "phoneNumber") {
-      contactRepo.updateStream([
+      contactListRepo.updateStream([
         ContactModel(
-            firstName: contactRepo.dataStream.value[0].firstName,
-            lastName: contactRepo.dataStream.value[0].lastName,
+            firstName: contactListRepo.dataStream.value[0].firstName,
+            lastName: contactListRepo.dataStream.value[0].lastName,
             phoneNumber: value,
-            countryCode: contactRepo.dataStream.value[0].countryCode)
+            countryCode: contactListRepo.dataStream.value[0].countryCode)
       ]);
     } else if (whichValue == "countryCode") {
-      contactRepo.updateStream([
+      contactListRepo.updateStream([
         ContactModel(
-            firstName: contactRepo.dataStream.value[0].firstName,
-            lastName: contactRepo.dataStream.value[0].lastName,
-            phoneNumber: contactRepo.dataStream.value[0].phoneNumber,
+            firstName: contactListRepo.dataStream.value[0].firstName,
+            lastName: contactListRepo.dataStream.value[0].lastName,
+            phoneNumber: contactListRepo.dataStream.value[0].phoneNumber,
             countryCode: value)
       ]);
     }
   }
 
   Future<bool> addAccount() async {
-    ContactModel contact = contactRepo.dataStream.value[0];
+    ContactModel contact = contactListRepo.dataStream.value[0];
     if (validatePhone(contact.phoneNumber) == null &&
         contact.firstName.length > 1) {
-      return await contactRepo.postContact(contact);
-    }else{
+      return await contactListRepo.postContact(contact);
+    } else {
       return false;
     }
+  }
+
+  onContactItemClicked(String firstName, String lastName, String lastSeen,
+      String secondPersonId) {
+    contactRepo.updateStream(ContactModel(
+        firstName: firstName, lastName: lastName, lastSeen: lastSeen));
+    dynamic chat = contactListRepo.getChatOfUsers(
+        contactListRepo.getPreference(PreferenceKeys.userAPIId),
+        secondPersonId);
+    chatRepo.updateStream(ChatModel(chatId: chat == null ? null : chat['id']));
   }
 
   @override

@@ -27,9 +27,12 @@ inject() async {
   GetIt.instance.registerLazySingleton<ThemeRepo>(() => ThemeRepo(BehaviorSubject<ThemeModel>()));
   GetIt.instance.registerLazySingleton<PasswordRepo>(() => PasswordRepo(BehaviorSubject<PasswordModel>()));
 
-  GetIt.instance.registerLazySingleton<ContactRepo>(() => ContactRepo(BehaviorSubject<List<ContactModel>>()));
+  GetIt.instance.registerLazySingleton<ContactListRepo>(() => ContactListRepo(BehaviorSubject<List<ContactModel>>()));
+  GetIt.instance.registerLazySingleton<ContactRepo>(() => ContactRepo(BehaviorSubject<ContactModel>()));
+
+  GetIt.instance.registerLazySingleton<ChatListRepo>(() => ChatListRepo(BehaviorSubject<List<ChatModel>>()));
+  GetIt.instance.registerLazySingleton<ChatRepo>(() => ChatRepo(BehaviorSubject<ChatModel>()));
 
   GetIt.instance.registerLazySingleton<CallRepo>(() => CallRepo(BehaviorSubject<List<CallModel>>()));
-  GetIt.instance.registerLazySingleton<ChatRepo>(() => ChatRepo(BehaviorSubject<List<ChatModel>>()));
   GetIt.instance.registerLazySingleton<MessageRepo>(() => MessageRepo(BehaviorSubject<List<MessageModel>>()));
 }

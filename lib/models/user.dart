@@ -79,8 +79,9 @@ class UserModel extends JSONModel {
     String countryCodeInt = _countryCode.substring(1);
     if (_phoneNumber.startsWith('0')) {
       String number = _phoneNumber.substring(1);
-      return '$countryCodeInt$number';
+      return '$countryCodeInt $number';
     } else
-      return '$countryCodeInt$_phoneNumber';
+      return '$countryCodeInt $_phoneNumber';
   }
+
 }

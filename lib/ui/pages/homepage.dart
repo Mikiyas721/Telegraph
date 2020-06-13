@@ -3,6 +3,7 @@ import 'package:Telegraph/blocs/provider/provider.dart';
 import 'package:Telegraph/blocs/setting/passwordBloc.dart';
 import 'package:Telegraph/core/utils/preferenceKeys.dart';
 import 'package:Telegraph/models/chat.dart';
+import 'package:Telegraph/models/contact.dart';
 import 'package:Telegraph/others/assistant.dart';
 import 'package:Telegraph/ui/customWidgets/chatListItem.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ class HomePage extends StatelessWidget {
             ],
           ),
           body: StreamBuilder(
-            stream: bloc.chatRepo.chatStream,
+            stream: bloc.chatListRepo.chatStream,
             builder: (BuildContext context,
                 AsyncSnapshot<List<ChatModel>> snapShot) {
               if (!snapShot.hasData) {
@@ -78,7 +79,7 @@ class HomePage extends StatelessWidget {
                       child: GestureDetector(
                           onTap: () {
                             bloc.fetchChats();
-                            bloc.chatRepo.setChat(null);
+                            bloc.chatListRepo.setChat(null);
                           },
                           child: Text(
                             "Couldn't Connect.\nPlease Check your connection",
@@ -101,6 +102,11 @@ class HomePage extends StatelessWidget {
                       lastChatDateTime: snapShot.data[index].lastMessageTime,
                       lastChatString: snapShot.data[index].lastChatString,
                       chatType: snapShot.data[index].chatType,
+                      onTap: ()async{
+                        bloc.updateContactFromChat(snapShot.data[index].chatId) ;
+                        bloc.chatRepo.updateStream(ChatModel(chatId: snapShot.data[index].chatId));
+                        //fetchMessagesOfChat
+                      },
                     );
                   },
                 );

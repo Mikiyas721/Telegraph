@@ -31,6 +31,7 @@ class PasswordLockPage extends StatelessWidget {
                     stream: bloc.passwordCheck,
                     builder: (BuildContext context, AsyncSnapshot snapShot) {
                       return TextField(
+                        cursorColor: Theme.of(context).cursorColor,
                         textAlign: TextAlign.center,
                         obscureText: true,
                         autocorrect: false,

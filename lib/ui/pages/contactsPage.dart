@@ -1,11 +1,12 @@
 import 'package:Telegraph/blocs/contactBloc.dart';
 import 'package:Telegraph/blocs/provider/provider.dart';
+import 'package:Telegraph/core/mixins/date_formatter.dart';
 import 'package:Telegraph/models/contact.dart';
 import 'package:Telegraph/ui/customWidgets/contactItem.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/material.dart';
 
-class ContactsPage extends StatelessWidget {
+class ContactsPage extends StatelessWidget with FormatterMixin {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ContactBloc>(
@@ -47,7 +48,7 @@ class ContactsPage extends StatelessWidget {
               ],
             ),
             body: StreamBuilder(
-                stream: bloc.contactRepo.phoneContactStream,
+                stream: bloc.contactListRepo.phoneContactStream,
                 builder: (BuildContext context,
                     AsyncSnapshot<List<ContactModel>> snapShot) {
                   if (!snapShot.hasData) {
@@ -72,14 +73,12 @@ class ContactsPage extends StatelessWidget {
                             return ContactItem(
                               imageUrl: 'assets/avatar_1.png',
                               userName: snapShot.data[index].firstName,
-                              lastSeen: snapShot.data[index].lastSeen,
+                              lastSeen: formatLog(
+                                  getDateTime(snapShot.data[index].lastSeen)),
                               onTap: () {
-                                bloc.contactRepo.updateStream([
-                                  ContactModel(
-                                      firstName: snapShot.data[index].firstName,
-                                      lastName: snapShot.data[index].lastName,
-                                      lastSeen: snapShot.data[index].lastSeen)
-                                ]);
+                                ContactModel contact = snapShot.data[index];
+                                bloc.onContactItemClicked(contact.firstName,
+                                    contact.lastName, contact.lastSeen, contact.id);
                                 Navigator.pushNamed(context, '/chattingPage');
                               },
                             );

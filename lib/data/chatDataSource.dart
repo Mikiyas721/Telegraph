@@ -5,8 +5,8 @@ import 'package:Telegraph/data/mixin/http.dart';
 import 'package:Telegraph/models/chat.dart';
 import 'package:rxdart/src/subjects/behavior_subject.dart';
 
-class ChatRepo extends ListRepo<ChatModel> with Http{
-  ChatRepo(BehaviorSubject<List<JSONModel>> subject) : super(subject);
+class ChatListRepo extends ListRepo<ChatModel> with Http{
+  ChatListRepo(BehaviorSubject<List<JSONModel>> subject) : super(subject);
 
 
   Stream<List<ChatModel>> get chatStream => dataStream.map((chat) => chat);
@@ -48,3 +48,8 @@ class ChatRepo extends ListRepo<ChatModel> with Http{
 
   Function(List<ChatModel> chatModel) get setChat => dataStream.add;
 }
+class ChatRepo extends ItemRepo<ChatModel>{
+  ChatRepo(BehaviorSubject<ChatModel> subject) : super(subject);
+
+}
+

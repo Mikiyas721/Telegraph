@@ -87,7 +87,7 @@ class AllContactsPage extends StatelessWidget {
                   },
                 ),
                 StreamBuilder(
-                    stream: bloc.contactRepo.apiContactStream,
+                    stream: bloc.contactListRepo.apiContactStream,
                     builder: (BuildContext context,
                         AsyncSnapshot<List<ContactModel>> snapShot) {
                       if (snapShot.data == null) {

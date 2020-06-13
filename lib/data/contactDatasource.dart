@@ -7,8 +7,8 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
 
-class ContactRepo extends ListRepo<ContactModel> with Http{
-  ContactRepo(BehaviorSubject<List<JSONModel>> subject) : super(subject);
+class ContactListRepo extends ListRepo<ContactModel> with Http{
+  ContactListRepo(BehaviorSubject<List<JSONModel>> subject) : super(subject);
 
   Stream<List<ContactModel>> get phoneContactStream =>
       getStream((contact) => contact);
@@ -25,11 +25,11 @@ class ContactRepo extends ListRepo<ContactModel> with Http{
     return fetched.toList();
   }
 
-  Future<List<Map<String, dynamic>>> getApiContacts() async {
+  Future<List<dynamic>> getApiContacts() async {
     String userId = getPreference<String>(PreferenceKeys.userAPIId);
     Response chat =
     await dio.get('$apiBasePath/contacts?filter[where][userId]=$userId');
-      return chat.data;
+    return chat.data;
   }
 
    Future<List<ContactModel>> getContacts() async {
@@ -52,4 +52,7 @@ class ContactRepo extends ListRepo<ContactModel> with Http{
     if(response.statusCode==200) return true;
     return false;
   }
+}
+class ContactRepo extends ItemRepo<ContactModel>{
+  ContactRepo(BehaviorSubject<ContactModel> subject) : super(subject);
 }

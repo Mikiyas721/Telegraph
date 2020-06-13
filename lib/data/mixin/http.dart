@@ -4,7 +4,6 @@ import 'package:Telegraph/models/contact.dart';
 import 'package:Telegraph/models/message.dart';
 import 'package:Telegraph/models/user.dart';
 import 'package:dio/dio.dart';
-
 import '../../others/assistant.dart';
 
 mixin Http {
@@ -39,6 +38,18 @@ mixin Http {
     } catch (SocketException) {}
   }
 
+  Future<List<dynamic>> getChatOfUsers(
+      String userId, String secondUserId) async {
+    Response chats = await dio.get(
+        '$apiBasePath/calls?filter={"where":{"and":[{"usersid":{"inq":["$userId"]}},{"usersid":{"inq":["$secondUserId"]}}]}}');
+    if (chats != null) {
+      for (dynamic chat in chats.data) {
+        if (chat['personal']) return chat;
+      }
+    }
+    return null;
+  }
+
   Future<List<dynamic>> getCallsForUser(String userId) async {
     Response chat = await dio.get(
         '$apiBasePath/calls?filter={"where":{"or":[{"callerId":{"inq":["$userId"]}},{"receiverId":{"inq":["$userId"]}}]}}');
@@ -56,10 +67,11 @@ mixin Http {
     return chat.data;
   }
 
-  Future<Map<String, dynamic>> getUserById(String userId) async {
+  Future<dynamic> getUserById(String userId) async {
     Response user =
         await dio.get('$apiBasePath/users?filter[where][id]=$userId');
-    return user.data;
+    if (user.data.isNotEmpty) return user.data[0];
+    return null;
   }
 
   Future<dynamic> getUserByNumber(String phoneNumber) async {
@@ -83,10 +95,11 @@ mixin Http {
     return messages.data;
   }
 
-  Future<List<dynamic>> getChat(String chatId) async {
-    Response chat =
+  Future<dynamic> getChat(String chatId) async {
+    Response response =
         await dio.get('$apiBasePath/chats?filter[where][id]=$chatId');
-    return json.decode(chat.data);
+    if (response != null) return response.data[0];
+    return null;
   }
 
   /// UPDATE requests

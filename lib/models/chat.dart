@@ -6,13 +6,15 @@ class ChatModel extends JSONModel {
   final String lastChatString;
   final ChatType chatType;
   final DateTime lastMessageTime;
+  final String chatId;
 
   ChatModel(
       {this.chatImageUrl,
       this.chatTitle,
       this.lastChatString,
       this.chatType,
-      this.lastMessageTime})
+      this.lastMessageTime,
+      this.chatId})
       : super(chatTitle);
 
   @override

@@ -20,7 +20,7 @@ class InviteFriendsPage extends StatelessWidget {
               backgroundColor: Theme.of(context).primaryColor,
               title: Text('Invite Friends')),
           body: StreamBuilder<List<ContactModel>>(
-            stream: bloc.contactRepo.phoneContactStream,
+            stream: bloc.contactListRepo.phoneContactStream,
             builder: (BuildContext context,
                 AsyncSnapshot<List<ContactModel>> snapshot) {
               if (!snapshot.hasData) {
