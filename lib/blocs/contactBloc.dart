@@ -1,11 +1,11 @@
-import 'package:Telegraph/core/mixins/validator_mixin.dart';
-import 'package:Telegraph/core/utils/disposable.dart';
-import 'package:Telegraph/core/utils/preferenceKeys.dart';
-import 'package:Telegraph/data/chatDataSource.dart';
-import 'package:Telegraph/data/contactDatasource.dart';
-import 'package:Telegraph/models/chat.dart';
-import 'package:Telegraph/models/contact.dart';
-import 'package:Telegraph/others/assistant.dart';
+import '../core/mixins/validator_mixin.dart';
+import '../core/utils/disposable.dart';
+import '../core/utils/preferenceKeys.dart';
+import '../data/chatDataSource.dart';
+import '../data/contactDatasource.dart';
+import '../models/chat.dart';
+import '../models/contact.dart';
+import '../others/assistant.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:get_it/get_it.dart';
 

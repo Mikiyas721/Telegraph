@@ -1,6 +1,6 @@
-import 'package:Telegraph/blocs/userBloc.dart';
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/models/user.dart';
+import '../../../blocs/userBloc.dart';
+import '../../../blocs/provider/provider.dart';
+import '../../../models/user.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 

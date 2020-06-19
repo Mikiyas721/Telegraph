@@ -1,8 +1,8 @@
-import 'package:Telegraph/blocs/contactBloc.dart';
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/models/contact.dart';
-import 'package:Telegraph/ui/customWidgets/contactItem.dart';
-import 'package:Telegraph/ui/pages/news/newAccount.dart';
+import '../../blocs/contactBloc.dart';
+import '../../blocs/provider/provider.dart';
+import '../../models/contact.dart';
+import '../../ui/customWidgets/contactItem.dart';
+import '../../ui/pages/news/newAccount.dart';
 import 'package:flutter/material.dart';
 
 class AllContactsPage extends StatelessWidget {

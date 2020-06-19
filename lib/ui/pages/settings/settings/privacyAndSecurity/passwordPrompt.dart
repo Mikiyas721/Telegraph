@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/blocs/setting/passwordBloc.dart';
-import 'package:Telegraph/models/password.dart';
+import '../../../../../blocs/provider/provider.dart';
+import '../../../../../blocs/setting/passwordBloc.dart';
+import '../../../../../models/password.dart';
 import 'package:flutter/material.dart';
 
 class PasswordEnteringPage extends StatelessWidget {

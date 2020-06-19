@@ -1,8 +1,8 @@
-import 'package:Telegraph/blocs/contactBloc.dart';
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/core/mixins/date_formatter.dart';
-import 'package:Telegraph/models/contact.dart';
-import 'package:Telegraph/ui/customWidgets/contactItem.dart';
+import '../../blocs/contactBloc.dart';
+import '../../blocs/provider/provider.dart';
+import '../../core/mixins/date_formatter.dart';
+import '../../models/contact.dart';
+import '../../ui/customWidgets/contactItem.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/material.dart';
 

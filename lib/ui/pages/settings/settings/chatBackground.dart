@@ -1,6 +1,6 @@
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/blocs/setting/chatBackgroundBloc.dart';
-import 'package:Telegraph/core/utils/preferenceKeys.dart';
+import '../../../../blocs/provider/provider.dart';
+import '../../../../blocs/setting/chatBackgroundBloc.dart';
+import '../../../../core/utils/preferenceKeys.dart';
 import 'package:flutter/material.dart';
 
 class ChatBackgroundPage extends StatelessWidget {

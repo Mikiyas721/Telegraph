@@ -39,10 +39,9 @@ dependencies:
   rxdart: ^0.24.1
   flutter_sms: ^2.0.1+2
   toast: ^0.1.5
-  contacts_service: ^0.3.10
+  contacts_service: ^0.4.6
   draggable_scrollbar: ^0.0.4
-  hive: ^1.4.1+1
-  path_provider: ^1.6.10
+  firebase_messaging: ^6.0.16
 
 
 dev_dependencies:

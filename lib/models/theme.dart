@@ -1,5 +1,5 @@
-import 'package:Telegraph/core/jsonModel.dart';
-import 'package:Telegraph/others/myThemeData.dart';
+import '../core/jsonModel.dart';
+import '../others/myThemeData.dart';
 import 'package:flutter/material.dart';
 
 class ThemeModel extends JSONModel{

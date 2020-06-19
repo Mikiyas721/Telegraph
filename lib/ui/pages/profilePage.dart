@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:Telegraph/ui/customWidgets/myImageView.dart';
-import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
-import 'package:Telegraph/ui/pages/sharedContent.dart';
+import '../../ui/customWidgets/myImageView.dart';
+import '../../ui/customWidgets/settingGroupTitle.dart';
+import '../../ui/pages/sharedContent.dart';
 
 class ProfilePage extends StatelessWidget {
   @override

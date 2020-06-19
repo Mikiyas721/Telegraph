@@ -1,8 +1,8 @@
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/blocs/setting/securityBloc.dart';
-import 'package:Telegraph/core/utils/preferenceKeys.dart';
-import 'package:Telegraph/ui/customWidgets/dialogMenu.dart';
-import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
+import '../../../../../blocs/provider/provider.dart';
+import '../../../../../blocs/setting/securityBloc.dart';
+import '../../../../../core/utils/preferenceKeys.dart';
+import '../../../../../ui/customWidgets/dialogMenu.dart';
+import '../../../../../ui/customWidgets/settingGroupTitle.dart';
 import 'package:flutter/material.dart';
 
 class PrivacyAndSecurityPage extends StatelessWidget {

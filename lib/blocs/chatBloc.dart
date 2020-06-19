@@ -1,10 +1,10 @@
-import 'package:Telegraph/core/utils/disposable.dart';
-import 'package:Telegraph/core/utils/preferenceKeys.dart';
-import 'package:Telegraph/data/chatDataSource.dart';
-import 'package:Telegraph/data/contactDatasource.dart';
-import 'package:Telegraph/data/messageDataSource.dart';
-import 'package:Telegraph/models/chat.dart';
-import 'package:Telegraph/models/contact.dart';
+import '../core/utils/disposable.dart';
+import '../core/utils/preferenceKeys.dart';
+import '../data/chatDataSource.dart';
+import '../data/contactDatasource.dart';
+import '../data/messageDataSource.dart';
+import '../models/chat.dart';
+import '../models/contact.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:dash_chat/dash_chat.dart';

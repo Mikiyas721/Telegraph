@@ -1,9 +1,9 @@
-import 'package:Telegraph/core/utils/disposable.dart';
-import 'package:Telegraph/data/passwordDataSource.dart';
+import '../../core/utils/disposable.dart';
+import '../../data/passwordDataSource.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:Telegraph/models/password.dart';
-import 'package:Telegraph/core/utils/preferenceKeys.dart';
+import '../../models/password.dart';
+import '../../core/utils/preferenceKeys.dart';
 import 'package:toast/toast.dart';
 
 class PasswordBloc extends Disposable {

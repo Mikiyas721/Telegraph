@@ -1,12 +1,12 @@
-import 'package:Telegraph/blocs/photoViewBloc.dart';
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/blocs/setting/themeBloc.dart';
-import 'package:Telegraph/others/assistant.dart';
+import '../../blocs/photoViewBloc.dart';
+import '../../blocs/provider/provider.dart';
+import '../../blocs/setting/themeBloc.dart';
+import '../../others/assistant.dart';
 import 'package:flutter/material.dart';
-import 'package:Telegraph/ui/pages/news/channelDescription.dart';
-import 'package:Telegraph/ui/pages/news/newGroup.dart';
-import 'package:Telegraph/ui/pages/settings/settings.dart';
-import 'package:Telegraph/ui/customWidgets/myImageView.dart';
+import '../../ui/pages/news/channelDescription.dart';
+import '../../ui/pages/news/newGroup.dart';
+import '../../ui/pages/settings/settings.dart';
+import '../../ui/customWidgets/myImageView.dart';
 
 class MyDrawer extends StatelessWidget {
   final String userName = 'Mikiyas';

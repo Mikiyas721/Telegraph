@@ -1,10 +1,10 @@
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/blocs/setting/notificationBloc.dart';
-import 'package:Telegraph/core/utils/preferenceKeys.dart';
-import 'package:Telegraph/ui/customWidgets/mySwitchListTile.dart';
+import '../../../../blocs/provider/provider.dart';
+import '../../../../blocs/setting/notificationBloc.dart';
+import '../../../../core/utils/preferenceKeys.dart';
+import '../../../../ui/customWidgets/mySwitchListTile.dart';
 import 'package:flutter/material.dart';
-import 'package:Telegraph/ui/customWidgets/notificationList.dart';
-import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
+import '../../../../ui/customWidgets/notificationList.dart';
+import '../../../../ui/customWidgets/settingGroupTitle.dart';
 
 class NotificationAndSoundsPage extends StatelessWidget {
 

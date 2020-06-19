@@ -1,4 +1,4 @@
-import 'package:Telegraph/ui/customWidgets/myImageView.dart';
+import '../../ui/customWidgets/myImageView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

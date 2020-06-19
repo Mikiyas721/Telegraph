@@ -1,5 +1,5 @@
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/blocs/setting/passwordBloc.dart';
+import '../../../../../blocs/provider/provider.dart';
+import '../../../../../blocs/setting/passwordBloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,7 @@
-import 'package:Telegraph/blocs/callBloc.dart';
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/models/call.dart';
-import 'package:Telegraph/ui/customWidgets/callItem.dart';
+import '../../blocs/callBloc.dart';
+import '../../blocs/provider/provider.dart';
+import '../../models/call.dart';
+import '../../ui/customWidgets/callItem.dart';
 import 'package:flutter/material.dart';
 
 class CallsPage extends StatelessWidget {

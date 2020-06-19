@@ -1,5 +1,5 @@
-import 'package:Telegraph/core/repository.dart';
-import 'package:Telegraph/models/theme.dart';
+import '../core/repository.dart';
+import '../models/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 

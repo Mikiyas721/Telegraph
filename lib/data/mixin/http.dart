@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:Telegraph/models/chat.dart';
-import 'package:Telegraph/models/contact.dart';
-import 'package:Telegraph/models/message.dart';
-import 'package:Telegraph/models/user.dart';
+import '../../models/chat.dart';
+import '../../models/contact.dart';
+import '../../models/message.dart';
+import '../../models/user.dart';
 import 'package:dio/dio.dart';
 import '../../others/assistant.dart';
 

@@ -1,5 +1,4 @@
-import 'package:Telegraph/core/jsonModel.dart';
-import 'package:hive/hive.dart';
+import '../core/jsonModel.dart';
 
 class ContactModel extends JSONModel {
   final String initials;
@@ -42,15 +41,3 @@ class ContactModel extends JSONModel {
   String get name => lastName == null ? firstName : firstName + " " + lastName;
 }
 
-class ContactAdapter extends TypeAdapter<ContactModel> {
-  @override
-  read(BinaryReader reader) {
-    return null;
-  }
-
-  @override
-  int get typeId => 33;
-
-  @override
-  void write(BinaryWriter writer, obj) {}
-}

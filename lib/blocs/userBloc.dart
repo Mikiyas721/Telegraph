@@ -1,9 +1,9 @@
 import 'dart:math';
-import 'package:Telegraph/core/utils/disposable.dart';
-import 'package:Telegraph/core/utils/preferenceKeys.dart';
-import 'package:Telegraph/core/utils/smsHandler.dart';
-import 'package:Telegraph/data/userDataSource.dart';
-import 'package:Telegraph/models/user.dart';
+import '../core/utils/disposable.dart';
+import '../core/utils/preferenceKeys.dart';
+import '../core/utils/smsHandler.dart';
+import '../data/userDataSource.dart';
+import '../models/user.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -54,12 +54,12 @@ class UserBloc extends Disposable {
       userRepo.setPreference<bool>(PreferenceKeys.isLoggedIn, true);
 
   Future<bool> addNewUser(UserModel newUser) async {
-    Response response = await userRepo.addUser(newUser);
+    Response response = await userRepo.addNewUser(newUser);
     if (response.statusCode == 200) return true;
     return false;
   }
   Future<bool> addNewAccount(UserModel newUser) async {
-    Response response = await userRepo.addUser(newUser);
+    Response response = await userRepo.addNewUser(newUser);
     if (response.statusCode == 200) return true;
     return false;
   }

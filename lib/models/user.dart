@@ -1,5 +1,5 @@
-import 'package:Telegraph/core/jsonModel.dart';
-import 'package:Telegraph/others/assistant.dart';
+import '../core/jsonModel.dart';
+import '../others/assistant.dart';
 
 class UserModel extends JSONModel {
   final String _firstName;

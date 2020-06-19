@@ -1,22 +1,22 @@
-import 'package:Telegraph/data/callDataSource.dart';
-import 'package:Telegraph/data/contactDatasource.dart';
-import 'package:Telegraph/data/messageDataSource.dart';
-import 'package:Telegraph/models/call.dart';
-import 'package:Telegraph/models/chat.dart';
-import 'package:Telegraph/models/contact.dart';
-import 'package:Telegraph/models/message.dart';
-import 'package:Telegraph/models/password.dart';
+import './data/callDataSource.dart';
+import './data/contactDatasource.dart';
+import './data/messageDataSource.dart';
+import './models/call.dart';
+import './models/chat.dart';
+import './models/contact.dart';
+import './models/message.dart';
+import './models/password.dart';
+import './data/chatDataSource.dart';
+import './data/passwordDataSource.dart';
+import './data/userDataSource.dart';
+import './data/themeDatasouce.dart';
+import './data/valueDataSource.dart';
+import './models/theme.dart';
+import './models/user.dart';
+import './models/value.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'data/chatDataSource.dart';
-import 'data/passwordDataSource.dart';
-import 'data/userDataSource.dart';
-import 'data/themeDatasouce.dart';
-import 'data/valueDataSource.dart';
-import 'models/theme.dart';
-import 'models/user.dart';
-import 'models/value.dart';
 
 inject() async {
   final pref = await SharedPreferences.getInstance();

@@ -1,4 +1,4 @@
-import 'package:Telegraph/others/assistant.dart';
+import '../../../others/assistant.dart';
 import 'package:flutter/material.dart';
 
 class NewGroupPage extends StatelessWidget {

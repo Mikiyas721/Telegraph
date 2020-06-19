@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:Telegraph/core/jsonModel.dart';
-import 'package:Telegraph/data/mixin/http.dart';
-import 'package:Telegraph/core/repository.dart';
-import 'package:Telegraph/models/call.dart';
-import 'package:Telegraph/others/assistant.dart';
-import 'package:Telegraph/ui/customWidgets/callItem.dart';
+import '../core/jsonModel.dart';
+import '../data/mixin/http.dart';
+import '../core/repository.dart';
+import '../models/call.dart';
+import '../others/assistant.dart';
+import '../ui/customWidgets/callItem.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CallRepo extends ListRepo with Http{

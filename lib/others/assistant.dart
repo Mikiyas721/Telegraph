@@ -1,6 +1,6 @@
-import 'package:Telegraph/models/chat.dart';
-import 'package:Telegraph/core/utils/preferenceKeys.dart';
-import 'package:Telegraph/ui/customWidgets/chatListItem.dart';
+import '../models/chat.dart';
+import '../core/utils/preferenceKeys.dart';
+import '../ui/customWidgets/chatListItem.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:permission_handler/permission_handler.dart';
 

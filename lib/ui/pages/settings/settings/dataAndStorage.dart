@@ -1,9 +1,9 @@
-import 'package:Telegraph/blocs/customWidgetBloc.dart';
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/blocs/setting/storageBloc.dart';
-import 'package:Telegraph/core/utils/preferenceKeys.dart';
+import '../../../../blocs/customWidgetBloc.dart';
+import '../../../../blocs/provider/provider.dart';
+import '../../../../blocs/setting/storageBloc.dart';
+import '../../../../core/utils/preferenceKeys.dart';
 import 'package:flutter/material.dart';
-import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
+import '../../../../ui/customWidgets/settingGroupTitle.dart';
 
 class DataAndStoragePage extends StatelessWidget {
 

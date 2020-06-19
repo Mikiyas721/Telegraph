@@ -1,7 +1,7 @@
-import 'package:Telegraph/blocs/userBloc.dart';
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/models/user.dart';
-import 'package:Telegraph/ui/customWidgets/myImageView.dart';
+import '../../../blocs/userBloc.dart';
+import '../../../blocs/provider/provider.dart';
+import '../../../models/user.dart';
+import '../../../ui/customWidgets/myImageView.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 

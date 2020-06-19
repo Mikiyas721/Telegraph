@@ -1,7 +1,7 @@
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/blocs/setting/themeBloc.dart';
-import 'package:Telegraph/others/myThemeData.dart';
-import 'package:Telegraph/ui/customWidgets/circularContainer.dart';
+import '../../../../blocs/provider/provider.dart';
+import '../../../../blocs/setting/themeBloc.dart';
+import '../../../../others/myThemeData.dart';
+import '../../../../ui/customWidgets/circularContainer.dart';
 import 'package:flutter/material.dart';
 
 class ThemePage extends StatelessWidget {

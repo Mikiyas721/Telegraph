@@ -1,5 +1,5 @@
-import 'package:Telegraph/blocs/photoViewBloc.dart';
-import 'package:Telegraph/blocs/provider/provider.dart';
+import '../../blocs/photoViewBloc.dart';
+import '../../blocs/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 

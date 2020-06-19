@@ -1,5 +1,5 @@
-import 'package:Telegraph/core/jsonModel.dart';
-import 'package:Telegraph/ui/customWidgets/callItem.dart';
+import '../core/jsonModel.dart';
+import '../ui/customWidgets/callItem.dart';
 
 class CallModel extends JSONModel {
   //final String imageUrl;

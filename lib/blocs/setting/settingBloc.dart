@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:Telegraph/core/utils/disposable.dart';
+import '../../core/utils/disposable.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SettingBloc implements Disposable {

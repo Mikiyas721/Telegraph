@@ -1,6 +1,6 @@
-import 'package:Telegraph/core/utils/disposable.dart';
-import 'package:Telegraph/data/callDataSource.dart';
-import 'package:Telegraph/models/call.dart';
+import '../core/utils/disposable.dart';
+import '../data/callDataSource.dart';
+import '../models/call.dart';
 import 'package:get_it/get_it.dart';
 
 class CallBloc extends Disposable {

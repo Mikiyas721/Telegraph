@@ -1,6 +1,6 @@
-import 'package:Telegraph/core/jsonModel.dart';
-import 'package:Telegraph/core/repository.dart';
-import 'package:Telegraph/models/password.dart';
+import '../core/jsonModel.dart';
+import '../core/repository.dart';
+import '../models/password.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PasswordRepo extends ItemRepo<PasswordModel>{

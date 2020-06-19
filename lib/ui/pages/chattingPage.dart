@@ -1,11 +1,11 @@
-import 'package:Telegraph/blocs/chatBloc.dart';
-import 'package:Telegraph/blocs/contactBloc.dart';
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/core/mixins/date_formatter.dart';
-import 'package:Telegraph/models/message.dart';
+import '../../blocs/chatBloc.dart';
+import '../../blocs/contactBloc.dart';
+import '../../blocs/provider/provider.dart';
+import '../../core/mixins/date_formatter.dart';
+import '../../models/message.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
-import 'package:Telegraph/ui/pages/profilePage.dart';
+import '../../ui/pages/profilePage.dart';
 
 class ChattingPage extends StatelessWidget with FormatterMixin {
   @override

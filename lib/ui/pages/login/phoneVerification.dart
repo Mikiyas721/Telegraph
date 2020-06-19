@@ -1,5 +1,5 @@
-import 'package:Telegraph/blocs/userBloc.dart';
-import 'package:Telegraph/blocs/provider/provider.dart';
+import '../../../blocs/userBloc.dart';
+import '../../../blocs/provider/provider.dart';
 import 'package:flutter/material.dart';
 
 class PhoneVerificationPage extends StatelessWidget {

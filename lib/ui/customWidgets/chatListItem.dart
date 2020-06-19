@@ -1,6 +1,6 @@
-import 'package:Telegraph/models/chat.dart';
+import '../../models/chat.dart';
 import 'package:flutter/material.dart';
-import 'package:Telegraph/ui/customWidgets/myImageView.dart';
+import '../../ui/customWidgets/myImageView.dart';
 
 class ChatListItem extends StatelessWidget {
   final String imageURL;

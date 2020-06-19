@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:Telegraph/ui/customWidgets/dialogMenu.dart';
+import '../../ui/customWidgets/dialogMenu.dart';
 import 'package:rxdart/rxdart.dart';
 import 'mySwitchListTile.dart';
 

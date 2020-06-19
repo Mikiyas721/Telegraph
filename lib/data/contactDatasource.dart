@@ -1,8 +1,8 @@
-import 'package:Telegraph/core/jsonModel.dart';
-import 'package:Telegraph/core/repository.dart';
-import 'package:Telegraph/core/utils/preferenceKeys.dart';
-import 'package:Telegraph/data/mixin/http.dart';
-import 'package:Telegraph/models/contact.dart';
+import '../core/jsonModel.dart';
+import '../core/repository.dart';
+import '../core/utils/preferenceKeys.dart';
+import '../data/mixin/http.dart';
+import '../models/contact.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';

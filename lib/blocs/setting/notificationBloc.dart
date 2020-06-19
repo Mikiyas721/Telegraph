@@ -1,4 +1,4 @@
-import 'package:Telegraph/core/utils/disposable.dart';
+import '../../core/utils/disposable.dart';
 import 'package:rxdart/rxdart.dart';
 
 class NotificationBloc extends Disposable {

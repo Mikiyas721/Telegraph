@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:Telegraph/core/jsonModel.dart';
-import 'package:Telegraph/core/repository.dart';
-import 'package:Telegraph/data/mixin/http.dart';
-import 'package:Telegraph/models/chat.dart';
+import '../core/jsonModel.dart';
+import '../core/repository.dart';
+import '../data/mixin/http.dart';
+import '../models/chat.dart';
 import 'package:rxdart/src/subjects/behavior_subject.dart';
 
 class ChatListRepo extends ListRepo<ChatModel> with Http{

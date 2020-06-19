@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:Telegraph/blocs/customWidgetBloc.dart';
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/core/utils/preferenceKeys.dart';
+import '../../blocs/customWidgetBloc.dart';
+import '../../blocs/provider/provider.dart';
+import '../../core/utils/preferenceKeys.dart';
 import 'package:flutter/material.dart';
 
 class DialogMenu extends StatelessWidget {

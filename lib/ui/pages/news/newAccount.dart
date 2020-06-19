@@ -1,5 +1,5 @@
-import 'package:Telegraph/blocs/contactBloc.dart';
-import 'package:Telegraph/blocs/provider/provider.dart';
+import '../../../blocs/contactBloc.dart';
+import '../../../blocs/provider/provider.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';

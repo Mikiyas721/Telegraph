@@ -1,14 +1,14 @@
-import 'package:Telegraph/blocs/provider/provider.dart';
-import 'package:Telegraph/blocs/setting/settingBloc.dart';
-import 'package:Telegraph/others/assistant.dart';
-import 'package:Telegraph/core/utils/preferenceKeys.dart';
-import 'package:Telegraph/ui/customWidgets/checkingAlertDialog.dart';
+import '../../../blocs/provider/provider.dart';
+import '../../../blocs/setting/settingBloc.dart';
+import '../../../others/assistant.dart';
+import '../../../core/utils/preferenceKeys.dart';
+import '../../../ui/customWidgets/checkingAlertDialog.dart';
 import 'package:flutter/material.dart';
-import 'package:Telegraph/ui/customWidgets/mySwitchListTile.dart';
-import 'package:Telegraph/ui/customWidgets/infoDisplay.dart';
-import 'package:Telegraph/ui/customWidgets/settingGroupTitle.dart';
+import '../../../ui/customWidgets/mySwitchListTile.dart';
+import '../../../ui/customWidgets/infoDisplay.dart';
+import '../../../ui/customWidgets/settingGroupTitle.dart';
 import 'package:numberpicker/numberpicker.dart' as picker;
-import 'package:Telegraph/ui/customWidgets/myImageView.dart';
+import '../../../ui/customWidgets/myImageView.dart';
 
 class SettingPage extends StatelessWidget {
   final String imageURL = "assets/avatar_1.png";

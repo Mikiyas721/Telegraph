@@ -1,4 +1,4 @@
-import 'package:Telegraph/core/jsonModel.dart';
+import '../core/jsonModel.dart';
 
 class PasswordModel extends JSONModel {
   final String _password;
